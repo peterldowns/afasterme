@@ -1,0 +1,24 @@
+{
+  "name" : "running",
+  "version" : "0.0.1",
+  "private" : true,
+  "dependencies" : {
+    "express" : "2.5.8",
+    "jade" : ">= 0.0.1"
+  },
+  "scripts" : {
+    "start" : "node app.js"
+  },
+  "devDependencies" : {},
+  "optionalDependencies" : {},
+  "engines" : {
+    "node" : "*"
+  },
+  "author" : "Peter Downs <peterldowns@gmail.com (http://peterdowns.com)",
+  "description" : "A website to get you in shape to run a 5-15k race",
+  "homepage" : "https://github.com/peterldowns/running",
+  "repository" : {
+    "type" : "git",
+    "url" : "git://github.com/peterldowns/running.git"
+  }
+}
