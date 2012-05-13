@@ -1,0 +1,10 @@
+http://www.runningintheusa.com/Race/MapShot.aspx?Rank=Date&StartDate=9-3-2012&EndDate=9-26-2012&Special=5K&Page=1
+
+http://www.runningintheusa.com/Race/MapShot.aspx
+{
+  Rank: Date
+  StartDate:  Month-Day-Year
+  EndDate: Month-Day-Year
+  Special: 5k
+  Page: 1
+}
