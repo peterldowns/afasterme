@@ -4,4 +4,13 @@ This is a simple website that will train *anyone* to run a 5k. You'll get in gre
 
 Our program adjusts to your feedback, doing its best to keep you healty, fit, and inspired.
 
-
+# Development Notes
+http://www.runningintheusa.com/Race/MapShot.aspx?Rank=Date&StartDate=9-3-2012&EndDate=9-26-2012&Special=5K&Page=1
+http://www.runningintheusa.com/Race/MapShot.aspx
+{
+  Rank: Date
+  StartDate:  Month-Day-Year
+  EndDate: Month-Day-Year
+  Special: 5k
+  Page: 1
+}
