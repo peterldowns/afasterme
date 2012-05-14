@@ -3,10 +3,28 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes');
 
-var app = module.exports = express.createServer();
+try {
+  var fs = require('fs'),
+      env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
+  console.log('ENV:', env);
+}
+catch(e) {
+  console.log('ENV ERROR:', e);
+}
+
+var uuid = require('node-uuid'),
+    _test_id = uuid.v4();
+console.log('New UUID (v4):', _test_id);
+
+var mongo = require('mongodb');
+    Server = mongo.Server,
+    Db = mongo.Db;
+
+
+var express = require('express'),
+    routes = require('./routes'),
+    app = module.exports = express.createServer();
 
 // Configuration
 
