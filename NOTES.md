@@ -15,7 +15,7 @@ http://www.runningintheusa.com/Race/MapShot.aspx?Rank:Date&StartDate:9-3-2012&En
 
 ### User model
 
-  db.users.id : {
+db.users.id : {
     # Mandatory Info
     Name,
     Age,
@@ -34,8 +34,8 @@ http://www.runningintheusa.com/Race/MapShot.aspx?Rank:Date&StartDate:9-3-2012&En
     Twitter / FB auth, # for bragging?
 
 
-    calendar : [
-      {
+    calendar : {
+      Date1 : {
         date,
         plan : {
           VDOT,
@@ -61,19 +61,17 @@ http://www.runningintheusa.com/Race/MapShot.aspx?Rank:Date&StartDate:9-3-2012&En
           weather,
           user notes,
         },
-      }
-      ... more of these. each day looks like this ?
+      },
+
+      Date2: {
+        ...
+      },
+      ... more of these. each Date/day looks like this ?
     ]
   }
 
-Idea: separate db's for:
-
-* `user_info` : name, age, sex, etc.
-* `plans` : what the user should be running
-* `feedback` : what the user actually ran and felt
-* `auth` : spits back a UUID if the user is logged in correctly
-
-use a UUID from `auth` to find info, plans, feedback. `user_info.id` is the user's ID.
+Decision: this is fine. There is no need for separate databases, other than possibly
+one to match auth credentials with a user ID. 
 
 ### Summary of Best Practices
 
