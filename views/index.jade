@@ -17,51 +17,47 @@ div(class='navbar navbar-fixed-top')
           li(class='divider')
           li
             a(href='#') Sign out
-      div(class='nav-collapse')
-        ul(class='nav')
-          li(class='active')
-            a(href='#') Home
-          li
-            a(href='#about') About
-          li
-            a(href='#Contact') Contact
+        
+        // ul(class='nav')
+        // li(class='active')
+        //   a(href='#') Home
 
 div(class='container-fluid')
   div(class='row-fluid')
     div(class='span3')
       div(class='well sidebar-nav')
         ul(class='nav nav-list')
-          li(class='nav-header') Sidebar
+          li(class='nav-header', style='text-align: center;') Sidebar 1
           li(class='active')
-            a(href='#') Link
+            a(href='#') Home
           li
-            a(href='#') Link
+            a(href='#') Log
           li
-            a(href='#') Link
+            a(href='#') Stats
+          li
+            a(href='#') Preferences
           
-          li(class='nav-header') Sidebar 2
+          // li(class='nav-header') Sidebar 2
+          // li
+          //   a(href='#') Link
+      div(class='well sidebar-nav')
+        ul(class='nav nav-list')
+          li(class='nav-header', style='text-align: center;') Sidebar 2
+          li(class='active')
+            a(href='#') Testing
           li
-            a(href='#') Link
-          li
-            a(href='#') Link
-          li
-            a(href='#') Link
-          
-          li(class='nav-header') Sidebar 3
-          li
-            a(href='#') Link
-          li
-            a(href='#') Link
-          li
-            a(href='#') Link
+            a(href='#') Testing AGAIN
+    
     div(class='span9')
-      div(class='hero-unit')
-        h1= title
-        p Welcome to #{title}
-        p
-          | This is a template for a simple marketing or informational website.
-          | It includes a large callout called the hero unit and three supporting
-          | pieces of content. Use it as a starting point to create something more unique.
-        p
-          a(class='btn btn-primary btn-large') Learn more &raquo;
-    hr
+      h1= title
+      p Welcome to #{title}
+      p
+        | This is a template for a simple marketing or informational website.
+        | It includes a large callout called the hero unit and three supporting
+        | pieces of content. Use it as a starting point to create something more unique.
+      p
+        a(class='btn btn-primary btn-large') Learn more &raquo;
+      hr
+  div(class='row-fulid')
+    div(class='span12')
+      p Hello
