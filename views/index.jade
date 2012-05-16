@@ -1,10 +1,6 @@
 div(class='navbar navbar-fixed-top')
   div(class='navbar-inner')
-    div(class='container-fluid')
-      a(class='btn btn-navbar', data-toggle='collapse', data-target='.nav-collapse')
-        span(class='icon-bar')
-        span(class='icon-bar')
-        span(class='icon-bar')
+    div(class='container')
       a(class='brand', href='#') Running
       div(class='btn-group pull-right')
         a(class='btn dropdown-toggle', data-toggle='dropdown', href='#')
@@ -13,42 +9,27 @@ div(class='navbar navbar-fixed-top')
           span(class='caret')
         ul(class='dropdown-menu')
           li
-            a(href='#') Profile
+            a(href='#') Preferences
           li(class='divider')
           li
             a(href='#') Sign out
-        
-        // ul(class='nav')
-        // li(class='active')
-        //   a(href='#') Home
 
 div(class='container-fluid')
   div(class='row-fluid')
     div(class='span3')
       div(class='well sidebar-nav')
         ul(class='nav nav-list')
-          li(class='nav-header', style='text-align: center;') Sidebar 1
+          li(class='nav-header', style='text-align: center;') Navigation
           li(class='active')
             a(href='#') Home
           li
             a(href='#') Log
           li
-            a(href='#') Stats
+            a(href='#') Calendar
           li
-            a(href='#') Preferences
+            a(href='#') Statistics
           
-          // li(class='nav-header') Sidebar 2
-          // li
-          //   a(href='#') Link
-      div(class='well sidebar-nav')
-        ul(class='nav nav-list')
-          li(class='nav-header', style='text-align: center;') Sidebar 2
-          li(class='active')
-            a(href='#') Testing
-          li
-            a(href='#') Testing AGAIN
-    
-    div(class='span9')
+    div(class='span9 hero-unit')
       h1= title
       p Welcome to #{title}
       p
@@ -57,7 +38,3 @@ div(class='container-fluid')
         | pieces of content. Use it as a starting point to create something more unique.
       p
         a(class='btn btn-primary btn-large') Learn more &raquo;
-      hr
-  div(class='row-fulid')
-    div(class='span12')
-      p Hello
