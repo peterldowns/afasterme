@@ -36,8 +36,8 @@ app.get('/preferences', routes.GET_preferences);
 // API Routes
 app.get('/login', routes.api.GET_login); // login
 
-app.get('/user', routes.api.GET_user); // get user information
 app.post('/user', routes.api.POST_user); // create a new user
+app.get('/user', routes.api.GET_user); // get user information
 app.put('/user', routes.api.PUT_user); // update user information
 
 app.get('/user/calendar', routes.api.GET_calendar); // get calendar information

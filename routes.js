@@ -69,13 +69,8 @@ exports.GET_preferences = function(req, res){
  * API endpoints — these are different routes that don't render any HTML,
  * but will be interacted with via REST requests.
  */
-exports.api = {};
 
-// Create a user
-// TODO: document
-exports.api.POST_user = function(req, res){
-  res.json('Not yet implemented', 501);
-};
+var api = {};
 
 // Log a user in
 // input:
@@ -88,6 +83,54 @@ exports.api.POST_user = function(req, res){
 //    `updatedAt` : timezome stamp ^
 //    `_id` : user id (integer?)
 //    `sessionToken` : string
-exports.api.GET_login = function(req, res){
-  res.json('Not yet implemented', 501);
+api.GET_login = function(req, res){
+  res.json('"Login" not yet implemented', 501);
 }
+
+// Create a user
+// TODO: document
+api.POST_user = function(req, res){
+  res.json('"User" not yet implemented', 501);
+};
+
+// Get user information
+api.GET_user = function(req, res){
+  res.json('"User" not yet implemented', 501);
+};
+
+// Update user information
+api.PUT_user = function(req, res){
+  res.json('"User" not yet implemented', 501);
+};
+
+// Get calendar information
+api.GET_calendar = function(req, res){
+  res.json('"Calendar" not yet implemented', 501);
+};
+
+// Get calendar information for a specific day
+api.GET_day = function(req, res){
+  res.json('"Day" not yet implemented', 501);
+};
+
+// Get a day's training plan
+api.GET_plan = function(req, res){
+  res.json('"Plans" not yet implemented', 501);
+};
+
+// Get user feedback / response for a day (if it exists)
+api.GET_feedback = function(req, res){
+  res.json('"Feedback" not yet implemented', 501);
+};
+
+// Update/Create user feedback for a day
+api.PUT_feedback = function(req, res){
+  res.json('"Feedback" not yet implemented', 501);
+};
+
+
+
+
+
+
+exports.api = api;
