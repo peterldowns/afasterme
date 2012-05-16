@@ -1,26 +1,4 @@
-
-/**
- * Module dependencies.
- */
-
-
-try {
-  var fs = require('fs'),
-      env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
-  console.log('ENV:', env);
-}
-catch(e) {
-  console.log('ENV ERROR:', e);
-}
-
-var uuid = require('node-uuid'),
-    _test_id = uuid.v4();
-console.log('New UUID (v4):', _test_id);
-
-var mongo = require('mongodb');
-    Server = mongo.Server,
-    Db = mongo.Db;
-
+// Dependencies
 
 var express = require('express'),
     routes = require('./routes'),
@@ -45,9 +23,28 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
-// Routes
-
+// Public Routes
 app.get('/', routes.GET_index);
+
+// User Routes
+app.get('/dashboard', routes.GET_dashboard);
+app.get('/log', routes.GET_log);
+app.get('/calendar', routes.GET_calendar);
+app.get('/statistics', routes.GET_statistics);
+app.get('/preferences', routes.GET_preferences);
+
+// API Routes
+app.get('/login', routes.api.GET_login); // login
+
+app.get('/user', routes.api.GET_user); // get user information
+app.post('/user', routes.api.POST_user); // create a new user
+app.put('/user', routes.api.PUT_user); // update user information
+
+app.get('/user/calendar', routes.api.GET_calendar); // get calendar information
+app.get('/user/calendar/day', routes.api.GET_day); // get calendar information for a specific day
+app.get('/user/calendar/day/plan', routes.api.GET_plan); // get a day's training plan
+app.get('/user/calendar/day/feedback', routes.api.GET_feedback); // get user feedback for a day, if given
+app.put('/user/calendar/day/feedback', routes.api.PUT_feedback); // update/create user feedback for a day
 
 app.listen(8080, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

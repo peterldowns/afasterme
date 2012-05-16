@@ -1,4 +1,24 @@
 /*
+ * Module Dependencies
+ */
+try {
+  var fs = require('fs'),
+      env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
+  console.log('ENV:', env);
+}
+catch(e) {
+  console.log('ENV ERROR:', e);
+}
+
+var uuid = require('node-uuid'),
+    _test_id = uuid.v4();
+console.log('New UUID (v4):', _test_id);
+
+var mongo = require('mongodb');
+    Server = mongo.Server,
+    Db = mongo.Db;
+
+/*
  * Public Views — things that non-logged in users can see.
  */
 
@@ -41,7 +61,7 @@ exports.GET_statistics = function(req, res){
 
 // GET the user's preferences
 exports.GET_preferences = function(req, res){
-  res.render('statistics', {
+  res.render('preferences', {
   });
 };
 
@@ -49,10 +69,11 @@ exports.GET_preferences = function(req, res){
  * API endpoints — these are different routes that don't render any HTML,
  * but will be interacted with via REST requests.
  */
+exports.api = {};
 
 // Create a user
 // TODO: document
-exports.POST_user = function(req, res){
+exports.api.POST_user = function(req, res){
   res.json('Not yet implemented', 501);
 };
 
@@ -67,16 +88,6 @@ exports.POST_user = function(req, res){
 //    `updatedAt` : timezome stamp ^
 //    `_id` : user id (integer?)
 //    `sessionToken` : string
-exports.GET_login = function(req, res){
+exports.api.GET_login = function(req, res){
   res.json('Not yet implemented', 501);
-};
-
-
-
-
-
-
-
-
-
-
+}
