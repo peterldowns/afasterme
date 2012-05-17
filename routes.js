@@ -1,14 +1,6 @@
 /*
  * Module Dependencies
  */
-try {
-  var fs = require('fs'),
-      env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
-  console.log('ENV:', env);
-}
-catch(e) {
-  console.log('ENV ERROR:', e);
-}
 
 var uuid = require('node-uuid'),
     _test_id = uuid.v4();
