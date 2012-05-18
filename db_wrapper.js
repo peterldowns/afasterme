@@ -25,7 +25,7 @@ exports.GetDBData = function() {
       DB_USER = env.DOTCLOUD_DATA_MONGODB_LOGIN;
       DB_PWD = env.DOTCLOUD_DATA_MONGODB_PASSWORD;
       DB_HOST = env.DOTCLOUD_DATA_MONGODB_HOST;
-      DB_PORT = env.DOTCLOUD_DATA_MONGODB_PORT;
+      DB_PORT = parseInt(env.DOTCLOUD_DATA_MONGODB_PORT);
     }
     catch (e) {
       console.log('Error reading ENV');
