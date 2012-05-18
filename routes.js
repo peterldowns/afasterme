@@ -22,6 +22,14 @@ exports.GET_landing = function(req, res){
   });
 };
 
+// GET the sign up page
+exports.GET_signup = function(req, res){
+  res.render('signup', {
+    title: 'Running — Sign Up / Log In',
+    session: null
+  });
+};
+
 /*
  * User Views — different pages that a logged-in user can access
  * and interact with. This is the heart of the application. All
