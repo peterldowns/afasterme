@@ -98,6 +98,11 @@ api.POST_login = function(req, res){
   res.json('"Login" not yet implemented', 501);
 }
 
+// Log a user out
+api.POST_logout = function(req, res){
+  res.json('"Logout" not yet implemented', 501);
+}
+
 // Create a user
 // TODO: document
 api.POST_user = function(req, res){
