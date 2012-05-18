@@ -75,7 +75,7 @@ var api = {};
 //    `updatedAt` : timezome stamp ^
 //    `_id` : user id (integer?)
 //    `sessionToken` : string
-api.GET_login = function(req, res){
+api.POST_login = function(req, res){
   res.json('"Login" not yet implemented', 501);
 }
 

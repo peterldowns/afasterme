@@ -35,7 +35,7 @@ app.get('/statistics', routes.GET_statistics);
 app.get('/preferences', routes.GET_preferences);
 
 // API Routes
-app.get('/login', routes.api.GET_login); // login
+app.post('/login', routes.api.GET_login); // login
 
 app.post('/user', routes.api.POST_user); // create a new user
 app.get('/user', routes.api.GET_user); // get user information
