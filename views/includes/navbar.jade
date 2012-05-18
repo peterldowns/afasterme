@@ -16,7 +16,7 @@ div(class='navbar navbar-fixed-top')
               a(href='/logout') Sign out
       - else
         form(class='navbar-form pull-right', method='POST', action='/login')
-          input(class='span3', type='text', placeholder='email')
+          input(class='span3', type='text', name='email', id='email', placeholder='email')
           | 
-          input(class='span2', type='text', placeholder='password')
+          input(class='span2', type='password', name='password', id='password, placeholder='password')
           input(class='btn search', type='submit', value='Log In →')
