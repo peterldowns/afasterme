@@ -26,6 +26,7 @@ app.configure('production', function(){
 
 // Public Routes
 app.get('/', routes.GET_landing);
+app.get('/signup', routes.GET_signup);
 
 // User Routes
 app.get('/dashboard', routes.GET_dashboard);
