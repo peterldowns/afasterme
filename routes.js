@@ -2,20 +2,18 @@
  * Module Dependencies
  */
 
-var uuid = require('node-uuid'),
-    _test_id = uuid.v4();
-console.log('New UUID (v4):', _test_id);
-
-var mongo = require('mongodb');
-    Server = mongo.Server,
-    Db = mongo.Db;
+// Initialize MongoDB Connection
+var db_wrapper = require('./db_wrapper'),
+    UserDB = db_wrapper.UserDB,
+    DB_DATA = db_wrapper.GetDBData(),
+    DB = new UserDB(DB_DATA.host, DB_DATA.port, DB_DATA.user, DB_DATA.pwd);
 
 /*
  * Public Views — things that non-logged in users can see.
  */
 
 // GET the home page (login, sign up, about)
-exports.GET_landing = function(req, res){
+exports.GET_landing = function(req, res) {
   res.render('landing', {
     title: 'Welcome to Running',
     session: null
@@ -23,7 +21,7 @@ exports.GET_landing = function(req, res){
 };
 
 // GET the sign up page
-exports.GET_signup = function(req, res){
+exports.GET_signup = function(req, res) {
   res.render('signup', {
     title: 'Running — Sign Up / Log In',
     session: null
@@ -37,7 +35,7 @@ exports.GET_signup = function(req, res){
  */
 
 // GET the user's main dashboard
-exports.GET_dashboard = function(req, res){
+exports.GET_dashboard = function(req, res) {
   res.render('dashboard', {
     title: 'Running — Dashboard',
     session: null
@@ -45,7 +43,7 @@ exports.GET_dashboard = function(req, res){
 };
 
 // GET the user's log view
-exports.GET_log = function(req, res){
+exports.GET_log = function(req, res) {
   res.render('log', {
     title: 'Running — Log',
     session: null
@@ -53,7 +51,7 @@ exports.GET_log = function(req, res){
 };
 
 // GET the user's calendar view
-exports.GET_calendar = function(req, res){
+exports.GET_calendar = function(req, res) {
   res.render('calendar', {
     title: 'Running — Calendar',
     session: null
@@ -61,7 +59,7 @@ exports.GET_calendar = function(req, res){
 };
 
 // GET the user's statistics view
-exports.GET_statistics = function(req, res){
+exports.GET_statistics = function(req, res) {
   res.render('statistics', {
     title: 'Running — Statistics',
     session: null
@@ -69,7 +67,7 @@ exports.GET_statistics = function(req, res){
 };
 
 // GET the user's preferences
-exports.GET_preferences = function(req, res){
+exports.GET_preferences = function(req, res) {
   res.render('preferences', {
     title: 'Running — Preferences',
     session: null
@@ -94,63 +92,72 @@ var api = {};
 //    `updatedAt` : timezome stamp ^
 //    `_id` : user id (integer?)
 //    `sessionToken` : string
-api.POST_login = function(req, res){
+api.POST_login = function(req, res) {
   //console.log("Request:\n", req);
   console.log("Body:\n", req.body);
   var email = req.param('email', null);
   var pwd = req.param('password', null);
   console.log(email, pwd);
-  if (email && pwd){
-    res.json('"Login" not yet implemented', 501);
+  if (email && pwd) {
+    DB.findOne({email: email, password: pwd}, function(result) {
+      if(result) {
+        res.json(result, 200);
+        console.log("Logged in %s", result.email);
+      }
+      else{
+        res.json('User not found', 401);
+        console.log("No user with email %s and password %s", email, pwd);
+      }
+    });
   }
   else {
-    res.json('User not found', 401);
+    res.json('Must supply username and password', 400);
   }
 }
 
 // Log a user out
-api.POST_logout = function(req, res){
+api.POST_logout = function(req, res) {
   res.json('"Logout" not yet implemented', 501);
 }
 
 // Create a user
 // TODO: document
-api.POST_user = function(req, res){
+api.POST_user = function(req, res) {
   res.json('"User" not yet implemented', 501);
 };
 
 // Get user information
-api.GET_user = function(req, res){
+api.GET_user = function(req, res) {
   res.json('"User" not yet implemented', 501);
 };
 
 // Update user information
-api.PUT_user = function(req, res){
+api.PUT_user = function(req, res) {
   res.json('"User" not yet implemented', 501);
 };
 
 // Get calendar information
-api.GET_calendar = function(req, res){
+api.GET_calendar = function(req, res) {
   res.json('"Calendar" not yet implemented', 501);
 };
 
 // Get calendar information for a specific day
-api.GET_day = function(req, res){
+api.GET_day = function(req, res) {
   res.json('"Day" not yet implemented', 501);
 };
 
 // Get a day's training plan
-api.GET_plan = function(req, res){
+api.GET_plan = function(req, res) {
   res.json('"Plans" not yet implemented', 501);
 };
 
 // Get user feedback / response for a day (if it exists)
-api.GET_feedback = function(req, res){
+api.GET_feedback = function(req, res) {
   res.json('"Feedback" not yet implemented', 501);
 };
 
 // Update/Create user feedback for a day
-api.PUT_feedback = function(req, res){
+api.PUT_feedback = function(req, res) {
   res.json('"Feedback" not yet implemented', 501);
 };
 
