@@ -1,34 +1,9 @@
-div(class='navbar navbar-fixed-top')
-  div(class='navbar-inner')
-    div(class='container-fluid')
-      a(class='brand', href='#') Running
-      div(class='btn-group pull-right')
-        a(class='btn dropdown-toggle', data-toggle='dropdown', href='#')
-          i(class='icon-user')
-          | Username
-          span(class='caret')
-        ul(class='dropdown-menu')
-          li
-            a(href='#') Preferences
-          li(class='divider')
-          li
-            a(href='#') Sign out
+include includes/navbar
 
 div(class='container-fluid')
   div(class='row-fluid')
     div(class='span3')
-      div(class='well sidebar-nav')
-        ul(class='nav nav-list')
-          li(class='nav-header', style='text-align: center;') Navigation
-          li(class='active')
-            a(href='#') Home
-          li
-            a(href='#') Log
-          li
-            a(href='#') Calendar
-          li
-            a(href='#') Statistics
-          
+      include includes/sidebar 
     div(class='span9 hero-unit')
       h1= title
       p Welcome to #{title}
