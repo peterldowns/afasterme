@@ -2,8 +2,8 @@ div(class='navbar navbar-fixed-top')
   div(class='navbar-inner')
     div(class='container-fluid')
       a(class='brand', href='#') Running
-      div(class='btn-group pull-right')
-        - if (session)
+      - if (session)
+        div(class='btn-group pull-right')
           a(class='btn dropdown-toggle', data-toggle='dropdown', href='#')
             i(class='icon-user')
             | Username
@@ -14,5 +14,9 @@ div(class='navbar navbar-fixed-top')
             li(class='divider')
             li
               a(href='/logout') Sign out
-        - else
-          a(class='btn', href='/signup') Sign Up / Log In
+      - else
+        form(class='navbar-form pull-right', method='POST', action='/login')
+          input(class='span3', type='text', placeholder='email')
+          | 
+          input(class='span2', type='text', placeholder='password')
+          input(class='btn search', type='submit', value='Log In →')
