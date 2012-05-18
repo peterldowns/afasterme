@@ -3,13 +3,16 @@ div(class='navbar navbar-fixed-top')
     div(class='container-fluid')
       a(class='brand', href='#') Running
       div(class='btn-group pull-right')
-        a(class='btn dropdown-toggle', data-toggle='dropdown', href='#')
-          i(class='icon-user')
-          | Username
-          span(class='caret')
-        ul(class='dropdown-menu')
-          li
-            a(href='#') Preferences
-          li(class='divider')
-          li
-            a(href='#') Sign out
+        - if (session)
+          a(class='btn dropdown-toggle', data-toggle='dropdown', href='#')
+            i(class='icon-user')
+            | Username
+            span(class='caret')
+          ul(class='dropdown-menu')
+            li
+              a(href='#') Preferences
+            li(class='divider')
+            li
+              a(href='#') Sign out
+        - else
+          a(class='btn') Sign Up!
