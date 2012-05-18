@@ -1,6 +1,6 @@
 try {
   var fs = require('fs'),
-      env = Json.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
+      env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
   console.log('ENV:', env);
 }
 catch (e) {
@@ -16,7 +16,7 @@ var mongo = require('mongodb'),
 
 
 var UserDB = function(host, port, err_callback){
-  this.db = new Db('UserDB', new Server(host, port,{
+  this.db = new Db('UserDB', new Server(host, port, {
     auto_reconnect: true}, {}));
   this.db.open(function(){});
   this.errcb = typeof err_callback !== 'undefined' ? err_callback : function(error){
@@ -107,4 +107,4 @@ UserDB.prototype.update = function(query, objNew, options, callback){
   });
 }
 
-exports = UserDB;
+exports.UserDB = UserDB;
