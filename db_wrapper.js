@@ -1,12 +1,3 @@
-try {
-  var fs = require('fs'),
-      env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
-  console.log('ENV:', env);
-}
-catch (e) {
-  console.log('Error reading ENV');
-}
-
 var mongo = require('mongodb'),
     Db = mongo.Db,
     Connection = mongo.Connection,
@@ -15,38 +6,64 @@ var mongo = require('mongodb'),
     ObjectID = mongo.ObjectID;
 
 
-var UserDB = function(host, port, err_callback){
-  this.db = new Db('UserDB', new Server(host, port, {
-    auto_reconnect: true}, {}));
-  this.db.open(function(){});
-  this.errcb = typeof err_callback !== 'undefined' ? err_callback : function(error){
-    console.log("UserDB CB Error:\n", error);
-  };
-};
+var UserDB = function(host, port, user, pwd, func){
+  _UserDB = this;
+  console.log(user, pwd);
+  this.host = host;
+  this.port = port;
+  this.user = user;
+  this.pwd = pwd;
 
-UserDB.prototype.getCollection = function(){
-  this.db.collection('users', function(error, collection){
-    if (error){
-      this.errcb(error);
+  this.errcb = function(error){
+    console.log("UserDB CB Error:\n", error);
+  }
+
+  // Auth code. TODO: make separate function; decouple this.
+  this.db = new Db('Running', new Server(host, port, {auto_reconnect: true}));
+  this.client = null;
+  this.users = null;
+  this.db.open(function(err, client){
+    if (err) {
+      _UserDB.errcb(err);
     }
     else {
-      callback(null, collection);
+      _UserDB.client = client;
+      console.log(_UserDB.user, _UserDB.pwd);
+      client.authenticate(_UserDB.user, _UserDB.pwd, function(err, data){
+        if (data) {
+          console.log("Opened and authenticated database Running");
+          client.collection('users', function(err, collection){
+            if (err) {
+              console.log("Couldn't grab collection Users");
+              _UserDB.errcb(err);
+            }
+            else {
+              _UserDB.users = collection;
+              func();
+            }
+          });
+        }
+        else {
+          console.log("Unable to authenticate database Running");
+          _UserDB.errcb(err);
+        }
+      });
     }
   });
 }
 
 UserDB.prototype.find = function(query, callback){
-  this.getCollection(function(error, collection){
-    if (error){
-      this.errcb(error);
+  this.users.find(function(err, cursor){
+    if (err) {
+      _UserDB.errcb(err);
     }
     else {
-      collection.find(query).toArray(function(error, results){
-        if (error){
-          this.errcb(error);
+      cursor.toArray(function(err, items){
+        if (err) {
+          _UserDB.errcb(err);
         }
         else {
-          callback(null, results);
+          callback(items);
         }
       });
     }
@@ -54,55 +71,34 @@ UserDB.prototype.find = function(query, callback){
 }
 
 UserDB.prototype.findOne = function(query, callback){
-  this.getCollection(function(error, collection){
+  this.users.findOne(query, function(error, result){
     if (error){
       this.errcb(error);
     }
     else {
-      collection.findOne(query, function(error, result){
-        if (error){
-          this.errcb(error);
-        }
-        else {
-          callback(result);
-        }
-      });
+      callback(result);
     }
   });
 }
 
 UserDB.prototype.insert = function(item, options, callback){
-  this.getCollection(function(error, collection){
+  this.users.insert(item, options, function(err, docs){
     if (error){
       this.errcb(error);
     }
-    else {
-      collection.insert(item, options, function(err, docs){
-        if (error){
-          this.errcb(error);
-        }
-        else if (docs_cb){
-          docs_cb(docs);
-        }
-      });
+    else if (callback){
+      callback(docs);
     }
   });
 }
 
 UserDB.prototype.update = function(query, objNew, options, callback){
-  this.getCollection(function(error, collection){
-    if(error){
-      this.errcb(error);
+  this.users.update(query, objNew, options, function(err){
+    if (callback) {
+      callback(err);
     }
     else {
-      collection.update(query, objNew, options, function(err){
-        if (callback) {
-          callback(err);
-        }
-        else {
-          this.errcb(err);
-        }
-      });
+      this.errcb(err);
     }
   });
 }
