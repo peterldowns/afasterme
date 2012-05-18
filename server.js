@@ -25,7 +25,7 @@ app.configure('production', function(){
 });
 
 // Public Routes
-app.get('/', routes.GET_index);
+app.get('/', routes.GET_landing);
 
 // User Routes
 app.get('/dashboard', routes.GET_dashboard);
