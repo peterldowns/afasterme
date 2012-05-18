@@ -3,8 +3,6 @@ var express = require('express'),
     routes = require('./routes'),
     app = module.exports = express.createServer();
 
-var UserDB = require('./UserDB.js');
-
 // Configuration
 
 app.configure(function(){
