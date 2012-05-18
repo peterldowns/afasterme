@@ -15,9 +15,10 @@ var mongo = require('mongodb');
  */
 
 // GET the home page (login, sign up, about)
-exports.GET_index = function(req, res){
-  res.render('index', {
-    title: 'Express'
+exports.GET_landing = function(req, res){
+  res.render('landing', {
+    title: 'Welcome to Running',
+    session: null
   });
 };
 
@@ -30,30 +31,40 @@ exports.GET_index = function(req, res){
 // GET the user's main dashboard
 exports.GET_dashboard = function(req, res){
   res.render('dashboard', {
+    title: 'Running — Dashboard',
+    session: null
   });
 };
 
 // GET the user's log view
 exports.GET_log = function(req, res){
   res.render('log', {
+    title: 'Running — Log',
+    session: null
   });
 };
 
 // GET the user's calendar view
 exports.GET_calendar = function(req, res){
   res.render('calendar', {
+    title: 'Running — Calendar',
+    session: null
   });
 };
 
 // GET the user's statistics view
 exports.GET_statistics = function(req, res){
   res.render('statistics', {
+    title: 'Running — Statistics',
+    session: null
   });
 };
 
 // GET the user's preferences
 exports.GET_preferences = function(req, res){
   res.render('preferences', {
+    title: 'Running — Preferences',
+    session: null
   });
 };
 
