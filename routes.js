@@ -95,7 +95,17 @@ var api = {};
 //    `_id` : user id (integer?)
 //    `sessionToken` : string
 api.POST_login = function(req, res){
-  res.json('"Login" not yet implemented', 501);
+  //console.log("Request:\n", req);
+  console.log("Body:\n", req.body);
+  var email = req.param('email', null);
+  var pwd = req.param('password', null);
+  console.log(email, pwd);
+  if (email && pwd){
+    res.json('"Login" not yet implemented', 501);
+  }
+  else {
+    res.json('User not found', 401);
+  }
 }
 
 // Log a user out
@@ -143,10 +153,5 @@ api.GET_feedback = function(req, res){
 api.PUT_feedback = function(req, res){
   res.json('"Feedback" not yet implemented', 501);
 };
-
-
-
-
-
 
 exports.api = api;
