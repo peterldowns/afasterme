@@ -14,8 +14,8 @@ var UserDB = function(host, port, user, pwd, func){
   this.user = user;
   this.pwd = pwd;
 
-  this.errcb = function(error){
-    console.log("UserDB CB Error:\n", error);
+  this.errcb = function(err){
+    console.log("UserDB CB err:\n", err);
   }
 
   // Auth code. TODO: make separate function; decouple this.
@@ -53,6 +53,7 @@ var UserDB = function(host, port, user, pwd, func){
 }
 
 UserDB.prototype.find = function(query, callback){
+  _UserDB = this;
   this.users.find(function(err, cursor){
     if (err) {
       _UserDB.errcb(err);
@@ -71,27 +72,22 @@ UserDB.prototype.find = function(query, callback){
 }
 
 UserDB.prototype.findOne = function(query, callback){
-  this.users.findOne(query, function(error, cursor){
-    if (error){
-      _UserDB.errcb(error);
+  _UserDB = this;
+  this.users.findOne(query, function(err, result){
+    if (err){
+      UserDB.errcb(err);
     }
     else {
-      cursor.toArray(function(err, items){
-        if (err) {
-          _UserDB.errcb(err);
-        }
-        else {
-          callback(items);
-        }
-      });
+      callback(result);
     }
   });
 }
 
 UserDB.prototype.insert = function(item, options, callback){
+  _UserDB = this;
   this.users.insert(item, options, function(err, docs){
-    if (error){
-      this.errcb(error);
+    if (err){
+      _UserDB.errcb(err);
     }
     else if (callback){
       callback(docs);
@@ -99,13 +95,14 @@ UserDB.prototype.insert = function(item, options, callback){
   });
 }
 
-UserDB.prototype.update = function(query, objNew, options, callback){
+UserDB.prototype.update = function(query, objNew, options, err_callback){
+  _UserDB = this;
   this.users.update(query, objNew, options, function(err){
     if (callback) {
-      callback(err);
+      err_callback(err);
     }
     else {
-      this.errcb(err);
+      _UserDB.errcb(err);
     }
   });
 }
