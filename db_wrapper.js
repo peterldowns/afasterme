@@ -71,12 +71,19 @@ UserDB.prototype.find = function(query, callback){
 }
 
 UserDB.prototype.findOne = function(query, callback){
-  this.users.findOne(query, function(error, result){
+  this.users.findOne(query, function(error, cursor){
     if (error){
-      this.errcb(error);
+      _UserDB.errcb(error);
     }
     else {
-      callback(result);
+      cursor.toArray(function(err, items){
+        if (err) {
+          _UserDB.errcb(err);
+        }
+        else {
+          callback(items);
+        }
+      });
     }
   });
 }
