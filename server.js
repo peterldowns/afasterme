@@ -4,7 +4,7 @@ var express = require('express'),
     app = module.exports = express.createServer();
 
 // Configuration
-
+app.debug = true;
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -12,14 +12,7 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
-});
-
-app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
-
-app.configure('production', function(){
-  app.use(express.errorHandler());
 });
 
 // Public Routes
