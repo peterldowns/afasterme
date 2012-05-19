@@ -14,26 +14,41 @@ var db_wrapper = require('./db_wrapper'),
 
 // GET the landing page
 exports.GET_landing = function(req, res) {
-  res.render('landing', {
-    title: 'Welcome to Running',
-    session: null
-  });
+  if (req.session.loggedIn){
+    res.redirect('/dashboard');
+  }
+  else {
+    res.render('landing', {
+      title: 'Welcome to Running',
+      session: req.session
+    });
+  }
 };
 
 // GET the sign up page
 exports.GET_signup = function(req, res) {
-  res.render('signup', {
-    title: 'Running — Sign Up',
-    session: null
-  });
+  if (req.session.loggedIn){
+    res.redirect('/dashboard');
+  }
+  else {
+    res.render('signup', {
+      title: 'Running — Sign Up',
+      session: req.session
+    });
+  }
 };
 
 // GET the login page
 exports.GET_login = function(req, res) {
-  res.render('login', {
-    title: 'Running — Log In',
-    session: null
-  });
+  if (req.session.loggedIn){
+    res.redirect('/dashboard');
+  }
+  else{
+    res.render('login', {
+      title: 'Running — Log In',
+      session: req.session
+    });
+  }
 };
 
 /*
@@ -46,7 +61,7 @@ exports.GET_login = function(req, res) {
 exports.GET_dashboard = function(req, res) {
   res.render('dashboard', {
     title: 'Running — Dashboard',
-    session: null
+    session: req.session
   });
 };
 
@@ -54,7 +69,7 @@ exports.GET_dashboard = function(req, res) {
 exports.GET_log = function(req, res) {
   res.render('log', {
     title: 'Running — Log',
-    session: null
+    session: req.session
   });
 };
 
@@ -62,7 +77,7 @@ exports.GET_log = function(req, res) {
 exports.GET_calendar = function(req, res) {
   res.render('calendar', {
     title: 'Running — Calendar',
-    session: null
+    session: req.session
   });
 };
 
@@ -70,7 +85,7 @@ exports.GET_calendar = function(req, res) {
 exports.GET_statistics = function(req, res) {
   res.render('statistics', {
     title: 'Running — Statistics',
-    session: null
+    session: req.session
   });
 };
 
@@ -78,7 +93,7 @@ exports.GET_statistics = function(req, res) {
 exports.GET_preferences = function(req, res) {
   res.render('preferences', {
     title: 'Running — Preferences',
-    session: null
+    session: req.session
   });
 };
 
@@ -109,6 +124,8 @@ api.POST_login = function(req, res) {
       DBC.collection('users', function(DBC){
         DBC.findOne({email: email, password: pwd}, function(result){
           if(result){
+            req.session.loggedIn = true;
+            req.session.user = result;
             res.json(result, 200);
             console.log("\t... Logged in");
           }
@@ -126,8 +143,13 @@ api.POST_login = function(req, res) {
 }
 
 // Log a user out
-api.POST_logout = function(req, res) {
-  res.json('"Logout" not yet implemented', 501);
+// TODO: make this work with POST for better REST compliance
+api.GET_logout = function(req, res) {
+  if (req.session.loggedIn){
+    delete req.session.loggedIn;
+    delete req.session.user;
+  }
+  res.json("User has been logged out.", 202);
 }
 
 // Create a user

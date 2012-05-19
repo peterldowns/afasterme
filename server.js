@@ -4,14 +4,19 @@ var express = require('express'),
     app = module.exports = express.createServer();
 
 // Configuration
-app.debug = true;
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
+  app.use(express.cookieParser());
   app.use(express.static(__dirname + '/public'));
+  app.use(express.methodOverride());
+  app.use(express.session({secret: 'super_secret, right?'}));
+  app.use(express.csrf());
+  app.use(app.router);
+
+  app.debug = true;
+  app.use(express.logger({format: ':method :url'}));
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
@@ -21,7 +26,14 @@ app.get('/signup', routes.GET_signup);
 app.get('/login', routes.GET_login);
 
 // User Routes
-app.get('/dashboard', routes.GET_dashboard);
+//app.get('/dashboard', routes.GET_dashboard);
+app.get('/dashboard', function(req, res){
+  res.render('landing', {
+    title: 'Welcome to Running',
+    session: req.session
+  });
+});
+
 app.get('/log', routes.GET_log);
 app.get('/calendar', routes.GET_calendar);
 app.get('/statistics', routes.GET_statistics);
@@ -29,7 +41,7 @@ app.get('/preferences', routes.GET_preferences);
 
 // API Routes
 app.post('/login', routes.api.POST_login); // login
-app.post('/logout', routes.api.POST_logout); // logout
+app.get('/logout', routes.api.GET_logout); // logout
 
 app.post('/user', routes.api.POST_user); // create a new user
 app.get('/user', routes.api.GET_user); // get user information
@@ -41,6 +53,7 @@ app.get('/user/calendar/day/plan', routes.api.GET_plan); // get a day's training
 app.get('/user/calendar/day/feedback', routes.api.GET_feedback); // get user feedback for a day, if given
 app.put('/user/calendar/day/feedback', routes.api.PUT_feedback); // update/create user feedback for a day
 
+// Start the server
 app.listen(8080, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
