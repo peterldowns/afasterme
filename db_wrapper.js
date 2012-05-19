@@ -10,7 +10,6 @@ exports.GetDBData = function() {
       DB_PWD,
       DB_HOST,
       DB_PORT;
-  //console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV === 'dev') {
     DB_USER = 'peterldowns';
     DB_PWD = 'localpass';
@@ -21,20 +20,20 @@ exports.GetDBData = function() {
     try {
       var fs = require('fs'),
           env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
-      //console.log('Fetched ENV successfully');
+      console.log('Fetched ENV successfully');
       DB_USER = env.DOTCLOUD_DATA_MONGODB_LOGIN;
       DB_PWD = env.DOTCLOUD_DATA_MONGODB_PASSWORD;
       DB_HOST = env.DOTCLOUD_DATA_MONGODB_HOST;
       DB_PORT = parseInt(env.DOTCLOUD_DATA_MONGODB_PORT);
     }
     catch (e) {
-      //console.log('Error reading ENV');
+      console.log('Error reading ENV');
     }
   }
-  //console.log("DB_USER =", DB_USER);
-  //console.log("DB_PWD =", DB_PWD);
-  //console.log("DB_HOST =", DB_HOST);
-  //console.log("DB_PORT =", DB_PORT);
+  console.log("DB_USER =", DB_USER);
+  console.log("DB_PWD =", DB_PWD);
+  console.log("DB_HOST =", DB_HOST);
+  console.log("DB_PORT =", DB_PORT);
   return {
     user: DB_USER,
     pwd: DB_PWD,
