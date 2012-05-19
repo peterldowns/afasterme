@@ -5,8 +5,8 @@ div(class='navbar navbar-fixed-top')
       - if (session.loggedIn)
         div(class='btn-group pull-right')
           a(class='btn dropdown-toggle', data-toggle='dropdown', href='#')
-            i(class='icon-user')
-            | Username
+            i(class='icon-user', style='padding-right: 5px;')
+            | #{session.user.email}
             span(class='caret')
           ul(class='dropdown-menu')
             li
@@ -15,9 +15,66 @@ div(class='navbar navbar-fixed-top')
             li
               a(href='/logout') Sign Out
       - else
-        form(class='navbar-form pull-right', method='POST', action='/login')
-          input(type='hidden', name='_csrf', value='#{session._csrf}')
-          input(class='span3', type='text', name='email', id='email', placeholder='email')
+        form(class='navbar-form pull-right', id='loginForm', method='POST', action='/login')
+          input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
+          div(class='control-group', style='display:inline-block')
+            input(class='span3', type='text', name='email', id='email', placeholder='email')
           | 
-          input(class='span2', type='password', name='password', id='password, placeholder='password')
+          div(class='control-group', style='display:inline-block')
+            input(class='span2', type='password', name='password', id='password', placeholder='password')
           input(class='btn search', type='submit', value='Log In →')
+        script(src='/js/jquery.validate.js');
+        script
+          console.log("Running script!");
+          $(document).ready(function(){
+            $('#loginForm').submit(function(){});
+            var validator = $('#loginForm').validate({
+              errorPlacement: function(error, element){
+              },
+              rules: {
+                email: "required",
+                password: "required"
+              },
+              messages: {
+                email: "Please enter your email address (e.g., peter@running.com)",
+                password: "Please enter your password"
+              },
+              errorClass: 'error',
+              validClass: 'success',
+              highlight: function(label, errorClass, validClass){
+                console.log('highlighting', label);
+                $(label).parent().removeClass(validClass).addClass(errorClass);
+              },
+              unhighlight: function(label, errorClass, validClass){
+                console.log('unhighlighting', label);
+                $(label).parent().removeClass(errorClass).addClass(validClass);
+              },
+              submitHandler: function(form){
+                $.ajax({
+                  url: '/login',
+                  type: 'POST',
+                  dataType: 'json',
+                  data: {
+                    email: $('#email').val(),
+                    password: $('#password').val(),
+                    _csrf: $('#_csrf').val()
+                  },
+                  complete: function(jqXHR, textStatus){
+                    console.log(textStatus);
+                  },
+                  success: function(data, textStatus, jqXHR){
+                    console.log("Success:", textStatus);
+                    console.log(data);
+                    window.location = '/dashboard';
+                  },
+                  error: function(jqXHR, textStatus, errorThrown){
+                    window.location = '/login';
+                  }
+                });
+                alert('submitting');
+                return false;
+              }
+            });
+          });
+                    
+                
