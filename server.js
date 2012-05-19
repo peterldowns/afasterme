@@ -18,6 +18,7 @@ app.configure(function(){
 // Public Routes
 app.get('/', routes.GET_landing);
 app.get('/signup', routes.GET_signup);
+app.get('/login', routes.GET_login);
 
 // User Routes
 app.get('/dashboard', routes.GET_dashboard);

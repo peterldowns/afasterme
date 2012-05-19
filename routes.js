@@ -12,7 +12,7 @@ var db_wrapper = require('./db_wrapper'),
  * Public Views — things that non-logged in users can see.
  */
 
-// GET the home page (login, sign up, about)
+// GET the landing page
 exports.GET_landing = function(req, res) {
   res.render('landing', {
     title: 'Welcome to Running',
@@ -23,7 +23,15 @@ exports.GET_landing = function(req, res) {
 // GET the sign up page
 exports.GET_signup = function(req, res) {
   res.render('signup', {
-    title: 'Running — Sign Up / Log In',
+    title: 'Running — Sign Up',
+    session: null
+  });
+};
+
+// GET the login page
+exports.GET_login = function(req, res) {
+  res.render('login', {
+    title: 'Running — Log In',
     session: null
   });
 };
@@ -93,21 +101,20 @@ var api = {};
 //    `_id` : user id (integer?)
 //    `sessionToken` : string
 api.POST_login = function(req, res) {
-  console.log("Body:\n", req.body);
   var email = req.param('email', null);
   var pwd = req.param('password', null);
-  console.log(email, pwd);
+  console.log("POST /login:\n\temail: %s\n\tpwd: %s", email, pwd);
   if (email && pwd) {
     DBC.db('Running', function(DBC){
       DBC.collection('users', function(DBC){
         DBC.findOne({email: email, password: pwd}, function(result){
           if(result){
             res.json(result, 200);
-            console.log("Logged in %s", result.email);
+            console.log("\t... Logged in");
           }
           else{
             res.json('User not found', 401);
-            console.log("No user with email %s and password %s", email, pwd);
+            console.log("\t... No such user");
           }
         });
       });
