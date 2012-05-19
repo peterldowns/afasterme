@@ -69,6 +69,7 @@ DBConn.prototype.collection = function(col_name, callback){
   this.close();
   this.Db.open(function(err, client){
     if(!err){
+      console.log("Authenticating with %s : %s", conn.user, conn.pwd);
       client.authenticate(conn.user, conn.pwd, function(err, data){
         if(data){
           client.collection(col_name, function(err, collection){
