@@ -10,7 +10,7 @@ exports.GetDBData = function() {
       DB_PWD,
       DB_HOST,
       DB_PORT;
-  console.log(process.env.NODE_ENV);
+  //console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV === 'dev') {
     DB_USER = 'peterldowns';
     DB_PWD = 'localpass';
@@ -21,20 +21,20 @@ exports.GetDBData = function() {
     try {
       var fs = require('fs'),
           env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
-      console.log('Fetched ENV successfully');
+      //console.log('Fetched ENV successfully');
       DB_USER = env.DOTCLOUD_DATA_MONGODB_LOGIN;
       DB_PWD = env.DOTCLOUD_DATA_MONGODB_PASSWORD;
       DB_HOST = env.DOTCLOUD_DATA_MONGODB_HOST;
       DB_PORT = parseInt(env.DOTCLOUD_DATA_MONGODB_PORT);
     }
     catch (e) {
-      console.log('Error reading ENV');
+      //console.log('Error reading ENV');
     }
   }
-  console.log("DB_USER =", DB_USER);
-  console.log("DB_PWD =", DB_PWD);
-  console.log("DB_HOST =", DB_HOST);
-  console.log("DB_PORT =", DB_PORT);
+  //console.log("DB_USER =", DB_USER);
+  //console.log("DB_PWD =", DB_PWD);
+  //console.log("DB_HOST =", DB_HOST);
+  //console.log("DB_PORT =", DB_PORT);
   return {
     user: DB_USER,
     pwd: DB_PWD,
@@ -50,7 +50,7 @@ var DBConn = function(host, port, user, pwd, func) {
   this.pwd = pwd;
   //this.Db = new Db('Running', new Server(host, port, {auto_reconnect: true}));
   this.errcb = function(err) {
-    console.log("DBConn CB err:\n", err);
+    //console.log("DBConn CB err:\n", err);
     return this;
   }
 }
@@ -69,30 +69,30 @@ DBConn.prototype.collection = function(col_name, callback){
   this.close();
   this.Db.open(function(err, client){
     if(!err){
-      console.log("Authenticating with %s : %s", conn.user, conn.pwd);
+      //console.log("Authenticating with %s : %s", conn.user, conn.pwd);
       client.authenticate(conn.user, conn.pwd, function(err, data){
         if(data){
           client.collection(col_name, function(err, collection){
             if(!err){
-              console.log("Connected to %s", col_name);
+              //console.log("Connected to %s", col_name);
               conn.coll = collection;
               if (callback) {
-                console.log("calling callback");
+                //console.log("calling callback");
                 callback(conn);
               }
             }
             else {
-              console.log("Failed to connect to %s", col_name);
+              //console.log("Failed to connect to %s", col_name);
             }
           });
         }
         else {
-          console.log("Connection to %s failed (could not authenticate)", col_name);
+          //console.log("Connection to %s failed (could not authenticate)", col_name);
         }
       });
     }
     else {
-      console.log("Connection to %s failed (could not open database)", col_name);
+      //console.log("Connection to %s failed (could not open database)", col_name);
     }
   });
 };
