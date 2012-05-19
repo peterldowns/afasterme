@@ -97,6 +97,17 @@ exports.GET_preferences = function(req, res) {
   });
 };
 
+// Log a user out
+exports.GET_logout = function(req, res) {
+  if (req.session.loggedIn){
+    delete req.session.loggedIn;
+    delete req.session.user;
+  }
+  console.log("User has been logged out.");
+  res.redirect('/');
+}
+
+
 /*
  * API endpoints — these are different routes that don't render any HTML,
  * but will be interacted with via REST requests.
@@ -140,16 +151,6 @@ api.POST_login = function(req, res) {
   else {
     res.json('Must supply username and password', 400);
   }
-}
-
-// Log a user out
-// TODO: make this work with POST for better REST compliance
-api.GET_logout = function(req, res) {
-  if (req.session.loggedIn){
-    delete req.session.loggedIn;
-    delete req.session.user;
-  }
-  res.json("User has been logged out.", 202);
 }
 
 // Create a user

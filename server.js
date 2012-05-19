@@ -38,10 +38,11 @@ app.get('/log', routes.GET_log);
 app.get('/calendar', routes.GET_calendar);
 app.get('/statistics', routes.GET_statistics);
 app.get('/preferences', routes.GET_preferences);
+app.get('/logout', routes.GET_logout); // logout (simply a redirect)
 
 // API Routes
+
 app.post('/login', routes.api.POST_login); // login
-app.get('/logout', routes.api.GET_logout); // logout
 
 app.post('/user', routes.api.POST_user); // create a new user
 app.get('/user', routes.api.GET_user); // get user information
