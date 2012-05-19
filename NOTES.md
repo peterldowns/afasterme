@@ -12,6 +12,20 @@ http://www.runningintheusa.com/Race/MapShot.aspx?Rank:Date&StartDate:9-3-2012&En
   }
 
 # Database Design
+### Adding a root user to the Running database
+
+Currently, I'm storing all of the user data in the database 'Running' in the collection 'users'.
+For the program to be able to authenticate with this 'Running' database, every time the mongoDB
+instance is restarted I need to run the following from the mongo shell:
+
+    use admin
+    db.auth('root', 'root_password')
+    use Running
+    db.getSisterDB('admin').auth('root', 'root_password')
+    db.addUser('root', 'root_password')
+
+From there on, the program will be able to use the default root login
+and root password to access the Running database.
 
 ### User model
 
