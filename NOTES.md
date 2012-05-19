@@ -2,14 +2,14 @@
 
 http://www.runningintheusa.com/Race/MapShot.aspx?Rank:Date&StartDate:9-3-2012&EndDate:9-26-2012&Special:5K&Page:1
 
-  http://www.runningintheusa.com/Race/MapShot.aspx
-  {
-    Rank: Date
-    StartDate:  Month-Day-Year
-    EndDate: Month-Day-Year
-    Special: 5k
-    Page: 1
-  }
+    http://www.runningintheusa.com/Race/MapShot.aspx
+    {
+      Rank: Date
+      StartDate:  Month-Day-Year
+      EndDate: Month-Day-Year
+      Special: 5k
+      Page: 1
+    }
 
 # Database Design
 ### Adding a root user to the Running database
@@ -29,61 +29,61 @@ and root password to access the Running database.
 
 ### User model
 
-db.users.id : {
-    # Mandatory Info
-    Name,
-    Age,
-    Sex,
-    Location : {
-      State,
-      City,     # allow user to put in state/city or zipcode and generate the others
-      Zipcode
-    },
-    Email,
-
-    # Optional Info
-    Height,
-    Weight,
-    Phone number, # for reminders
-    Twitter / FB auth, # for bragging?
-
-
-    calendar : {
-      Date1 : {
-        date,
-        plan : {
-          VDOT,
-          phase,
-          day of phase, # ???
-          type,
-          reason,
-          distance,
-          time,
-          terrain # ???
-        },
-        feedback : {
-          distance,
-          time,
-          pace : {
-            average,
-            max,
-            min
+    db.users.id : {
+      # Mandatory Info
+      Name,
+      Age,
+      Sex,
+      Location : {
+        State,
+        City,     # allow user to put in state/city or zipcode and generate the others
+        Zipcode
+      },
+      Email,
+  
+      # Optional Info
+      Height,
+      Weight,
+      Phone number, # for reminders
+      Twitter / FB auth, # for bragging?
+  
+  
+      calendar : {
+        Date1 : {
+          date,
+          plan : {
+            VDOT,
+            phase,
+            day of phase, # ???
+            type,
+            reason,
+            distance,
+            time,
+            terrain # ???
           },
-          difficulty rating,
-          temperature,
-          heart rate,
-          weather,
-          user notes,
+          feedback : {
+            distance,
+            time,
+            pace : {
+              average,
+              max,
+              min
+            },
+            difficulty rating,
+            temperature,
+            heart rate,
+            weather,
+            user notes,
+          },
         },
-      },
-
-      Date2: {
-        ...
-      },
-      ... more of these. each Date/day looks like this ?
-    ]
-  }
-
+  
+        Date2: {
+          ...
+        },
+        ... more of these. each Date/day looks like this ?
+      ]
+    }
+  
 Decision: this is fine. There is no need for separate databases, other than possibly
 one to match auth credentials with a user ID. 
 
