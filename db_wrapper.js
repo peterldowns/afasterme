@@ -43,64 +43,79 @@ exports.GetDBData = function() {
   };
 }
 
-var UserDB = function(host, port, user, pwd, func) {
-  _UserDB = this;
-  console.log(user, pwd);
+var DBConn = function(host, port, user, pwd, func) {
   this.host = host;
   this.port = port;
   this.user = user;
   this.pwd = pwd;
-
+  //this.Db = new Db('Running', new Server(host, port, {auto_reconnect: true}));
   this.errcb = function(err) {
-    console.log("UserDB CB err:\n", err);
+    console.log("DBConn CB err:\n", err);
+    return this;
   }
+}
 
-  // Auth code. TODO: make separate function; decouple this.
-  this.db = new Db('Running', new Server(host, port, {auto_reconnect: true}));
-  this.client = null;
-  this.users = null;
-  this.db.open(function(err, client) {
-    if (err) {
-      _UserDB.errcb(err);
-    }
-    else {
-      _UserDB.client = client;
-      console.log(_UserDB.user, _UserDB.pwd);
-      client.authenticate(_UserDB.user, _UserDB.pwd, function(err, data) {
-        if (data) {
-          console.log("Opened and authenticated database Running");
-          client.collection('users', function(err, collection) {
-            if (err) {
-              console.log("Couldn't grab collection Users");
-              _UserDB.errcb(err);
+DBConn.prototype.db = function(db_name, callback){
+  // Connect to a specific DB
+  this.close();
+  this.Db = new Db(db_name, new Server(this.host, this.port, {auto_reconnect: true}));
+  if (callback) {
+    callback(this);
+  }
+}
+
+DBConn.prototype.collection = function(col_name, callback){
+  var conn = this;
+  this.close();
+  this.Db.open(function(err, client){
+    if(!err){
+      client.authenticate(conn.user, conn.pwd, function(err, data){
+        if(data){
+          client.collection(col_name, function(err, collection){
+            if(!err){
+              console.log("Connected to %s", col_name);
+              conn.coll = collection;
+              if (callback) {
+                console.log("calling callback");
+                callback(conn);
+              }
             }
             else {
-              _UserDB.users = collection;
-              if (func) {
-                func();
-              }
+              console.log("Failed to connect to %s", col_name);
             }
           });
         }
         else {
-          console.log("Unable to authenticate database Running");
-          _UserDB.errcb(err);
+          console.log("Connection to %s failed (could not authenticate)", col_name);
         }
       });
     }
+    else {
+      console.log("Connection to %s failed (could not open database)", col_name);
+    }
   });
+};
+
+DBConn.prototype.close = function(){
+  if (this.Db) {
+    if (this.Db.openCalled){
+      this.Db.close();
+      delete this.coll;
+    }
+  }
 }
 
-UserDB.prototype.find = function(query, callback) {
-  _UserDB = this;
-  this.users.find(function(err, cursor) {
+
+DBConn.prototype.find = function(query, callback) {
+  var conn = this;
+  this.coll.find(function(err, cursor) {
     if (err) {
-      _UserDB.errcb(err);
+      conn.errcb(err);
     }
     else {
       cursor.toArray(function(err, items) {
         if (err) {
-          _UserDB.errcb(err);
+          conn.errcb(err);
         }
         else {
           callback(items);
@@ -110,11 +125,11 @@ UserDB.prototype.find = function(query, callback) {
   });
 }
 
-UserDB.prototype.findOne = function(query, callback) {
-  _UserDB = this;
-  this.users.findOne(query, function(err, result) {
+DBConn.prototype.findOne = function(query, callback) {
+  conn = this;
+  this.coll.findOne(query, function(err, result) {
     if (err) {
-      UserDB.errcb(err);
+      DBConn.errcb(err);
     }
     else {
       callback(result);
@@ -122,11 +137,11 @@ UserDB.prototype.findOne = function(query, callback) {
   });
 }
 
-UserDB.prototype.insert = function(item, options, callback) {
-  _UserDB = this;
-  this.users.insert(item, options, function(err, docs) {
+DBConn.prototype.insert = function(items, options, callback) {
+  conn = this;
+  this.coll.insert(item, options, function(err, docs) {
     if (err) {
-      _UserDB.errcb(err);
+      conn.errcb(err);
     }
     else if (callback) {
       callback(docs);
@@ -134,16 +149,16 @@ UserDB.prototype.insert = function(item, options, callback) {
   });
 }
 
-UserDB.prototype.update = function(query, objNew, options, err_callback) {
-  _UserDB = this;
-  this.users.update(query, objNew, options, function(err) {
+DBConn.prototype.update = function(query, objNew, options, err_callback) {
+  conn = this;
+  this.coll.update(query, objNew, options, function(err) {
     if (callback) {
       err_callback(err);
     }
     else {
-      _UserDB.errcb(err);
+      conn.errcb(err);
     }
   });
 }
 
-exports.UserDB = UserDB;
+exports.DBConn = DBConn;

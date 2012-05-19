@@ -4,9 +4,9 @@
 
 // Initialize MongoDB Connection
 var db_wrapper = require('./db_wrapper'),
-    UserDB = db_wrapper.UserDB,
+    DBConn = db_wrapper.DBConn,
     DB_DATA = db_wrapper.GetDBData(),
-    DB = new UserDB(DB_DATA.host, DB_DATA.port, DB_DATA.user, DB_DATA.pwd);
+    DBC = new DBConn(DB_DATA.host, DB_DATA.port, DB_DATA.user, DB_DATA.pwd);
 
 /*
  * Public Views — things that non-logged in users can see.
@@ -93,21 +93,24 @@ var api = {};
 //    `_id` : user id (integer?)
 //    `sessionToken` : string
 api.POST_login = function(req, res) {
-  //console.log("Request:\n", req);
   console.log("Body:\n", req.body);
   var email = req.param('email', null);
   var pwd = req.param('password', null);
   console.log(email, pwd);
   if (email && pwd) {
-    DB.findOne({email: email, password: pwd}, function(result) {
-      if(result) {
-        res.json(result, 200);
-        console.log("Logged in %s", result.email);
-      }
-      else{
-        res.json('User not found', 401);
-        console.log("No user with email %s and password %s", email, pwd);
-      }
+    DBC.db('Running', function(DBC){
+      DBC.collection('users', function(DBC){
+        DBC.findOne({email: email, password: pwd}, function(result){
+          if(result){
+            res.json(result, 200);
+            console.log("Logged in %s", result.email);
+          }
+          else{
+            res.json('User not found', 401);
+            console.log("No user with email %s and password %s", email, pwd);
+          }
+        });
+      });
     });
   }
   else {
