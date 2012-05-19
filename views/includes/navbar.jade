@@ -2,7 +2,7 @@ div(class='navbar navbar-fixed-top')
   div(class='navbar-inner')
     div(class='container-fluid')
       a(class='brand', href='#') Running
-      - if (session)
+      - if (session.loggedIn)
         div(class='btn-group pull-right')
           a(class='btn dropdown-toggle', data-toggle='dropdown', href='#')
             i(class='icon-user')
@@ -13,9 +13,10 @@ div(class='navbar navbar-fixed-top')
               a(href='#') Preferences
             li(class='divider')
             li
-              a(href='/logout') Sign out
+              a(href='/logout') Sign Out
       - else
         form(class='navbar-form pull-right', method='POST', action='/login')
+          input(type='hidden', name='_csrf', value='#{session._csrf}')
           input(class='span3', type='text', name='email', id='email', placeholder='email')
           | 
           input(class='span2', type='password', name='password', id='password, placeholder='password')
