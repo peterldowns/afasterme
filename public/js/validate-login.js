@@ -12,14 +12,14 @@ $(document).ready(function(){
     errorClass: 'error',
     validClass: 'success',
     highlight: function(label, errorClass, validClass){
-      $(label).parent().removeClass(validClass).addClass(errorClass);
+      $(label).closest('.control-group').removeClass(validClass).addClass(errorClass);
     },
     unhighlight: function(label, errorClass, validClass){
-      $(label).parent().removeClass(errorClass).addClass(validClass);
+      $(label).closest('.control-group').removeClass(errorClass).addClass(validClass);
     },
     submitHandler: function(form){
-      var email = $('#email').val(),
-          password = $('#password').val();
+      var email = $('#email').val();
+      var password = $('#password').val();
       $.ajax({
         url: '/login',
         type: 'POST',
@@ -37,7 +37,7 @@ $(document).ready(function(){
         }
       });
       return false;
-    }
+    },
     errorPlacement: function(error, element){
       // do nothing with errors. Just highlight.
     },
