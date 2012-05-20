@@ -1,9 +1,35 @@
-include includes/navbar
+include includes/blank-navbar
 div(class='container-fluid')
   div(class='row-fluid')
     div(class='span2')
     div(class='span8')
       div(class='hero-unit')
-        p Login goes here
-        a(class='btn', href='/user', method='PUT') Create My Account →
+        - if (error)
+          div(class='alert alert-error')
+            button(class='close', data-dismiss='alert') x
+            p
+              strong Woops!
+              |  Your email and password didn't match up!
+
+        form(class='form-horizontal', id='loginForm', method='POST', action='/login')
+          input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
+          fieldset
+            legend Log in to Running
+            div(class='control-group')
+              label(class='control-label', for='email') Your email address
+              div(class='controls')
+                - if (email)
+                  input(type='text', class='input-xlarge', name='email', id='email', placeholder='me@gmail.com', value='#{email}')
+                - else
+                  input(type='text', class='input-xlarge', name='email', id='email', placeholder='me@gmail.com')
+            div(class='control-group')
+              label(class='control-label', for='password') Your password
+              div(class='controls')
+                input(type='password', class='input-xlarge', name='password', id='password', placeholder='my-pass-123')
+            input(class='btn btn-primary', type='submit', value='Log In →')
+        h3 
+          a(href='/signup') Don't have an account?
     div(class='span2')
+
+script(src='/js/jquery.validate.js');
+script(src='/js/validate-login.js');

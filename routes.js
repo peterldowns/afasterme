@@ -46,6 +46,8 @@ exports.GET_login = function(req, res) {
   else{
     res.render('login', {
       title: 'Running — Log In',
+      email: req.query.email ? req.query.email : null,
+      error: req.query.error ? true : false,
       session: req.session
     });
   }
