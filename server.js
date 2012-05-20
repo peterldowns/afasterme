@@ -29,7 +29,7 @@ app.get('/login', routes.GET_login);
 //app.get('/dashboard', routes.GET_dashboard);
 app.get('/dashboard', function(req, res){
   res.render('landing', {
-    title: 'Welcome to Running',
+    title: 'Welcome to Racetrainer',
     session: req.session
   });
 });

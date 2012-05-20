@@ -19,7 +19,7 @@ exports.GET_landing = function(req, res) {
   }
   else {
     res.render('landing', {
-      title: 'Welcome to Running',
+      title: 'Welcome to RaceTrainer',
       session: req.session
     });
   }
@@ -32,7 +32,7 @@ exports.GET_signup = function(req, res) {
   }
   else {
     res.render('signup', {
-      title: 'Running — Sign Up',
+      title: 'RaceTrainer — Sign Up',
       session: req.session
     });
   }
@@ -45,7 +45,7 @@ exports.GET_login = function(req, res) {
   }
   else{
     res.render('login', {
-      title: 'Running — Log In',
+      title: 'RaceTrainer — Log In',
       email: req.query.email ? req.query.email : null,
       error: req.query.error ? true : false,
       session: req.session
@@ -65,7 +65,7 @@ exports.GET_dashboard = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('dashboard', {
-    title: 'Running — Dashboard',
+    title: 'RaceTrainer — Dashboard',
     session: req.session
   });
 };
@@ -76,7 +76,7 @@ exports.GET_log = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('log', {
-    title: 'Running — Log',
+    title: 'RaceTrainer — Log',
     session: req.session
   });
 };
@@ -87,7 +87,7 @@ exports.GET_calendar = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('calendar', {
-    title: 'Running — Calendar',
+    title: 'RaceTrainer — Calendar',
     session: req.session
   });
 };
@@ -98,7 +98,7 @@ exports.GET_statistics = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('statistics', {
-    title: 'Running — Statistics',
+    title: 'RaceTrainer — Statistics',
     session: req.session
   });
 };
@@ -109,7 +109,7 @@ exports.GET_preferences = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('preferences', {
-    title: 'Running — Preferences',
+    title: 'RaceTrainer — Preferences',
     session: req.session
   });
 };
