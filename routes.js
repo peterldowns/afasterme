@@ -59,6 +59,9 @@ exports.GET_login = function(req, res) {
 
 // GET the user's main dashboard
 exports.GET_dashboard = function(req, res) {
+  if (!req.session.loggedIn){
+    res.redirect('/dashboard');
+  }
   res.render('dashboard', {
     title: 'Running — Dashboard',
     session: req.session
@@ -67,6 +70,9 @@ exports.GET_dashboard = function(req, res) {
 
 // GET the user's log view
 exports.GET_log = function(req, res) {
+  if (!req.session.loggedIn){
+    res.redirect('/dashboard');
+  }
   res.render('log', {
     title: 'Running — Log',
     session: req.session
@@ -75,6 +81,9 @@ exports.GET_log = function(req, res) {
 
 // GET the user's calendar view
 exports.GET_calendar = function(req, res) {
+  if (!req.session.loggedIn){
+    res.redirect('/dashboard');
+  }
   res.render('calendar', {
     title: 'Running — Calendar',
     session: req.session
@@ -83,6 +92,9 @@ exports.GET_calendar = function(req, res) {
 
 // GET the user's statistics view
 exports.GET_statistics = function(req, res) {
+  if (!req.session.loggedIn){
+    res.redirect('/dashboard');
+  }
   res.render('statistics', {
     title: 'Running — Statistics',
     session: req.session
@@ -91,6 +103,9 @@ exports.GET_statistics = function(req, res) {
 
 // GET the user's preferences
 exports.GET_preferences = function(req, res) {
+  if (!req.session.loggedIn){
+    res.redirect('/dashboard');
+  }
   res.render('preferences', {
     title: 'Running — Preferences',
     session: req.session
