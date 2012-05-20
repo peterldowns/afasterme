@@ -19,7 +19,7 @@ exports.GET_landing = function(req, res) {
   }
   else {
     res.render('landing', {
-      title: 'Welcome to RaceTrainer',
+      title: 'Welcome to \'EterTraining',
       session: req.session
     });
   }
@@ -32,7 +32,7 @@ exports.GET_signup = function(req, res) {
   }
   else {
     res.render('signup', {
-      title: 'RaceTrainer — Sign Up',
+      title: '\'EterTraining — Sign Up',
       session: req.session
     });
   }
@@ -45,7 +45,7 @@ exports.GET_login = function(req, res) {
   }
   else{
     res.render('login', {
-      title: 'RaceTrainer — Log In',
+      title: '\'EterTraining — Log In',
       email: req.query.email ? req.query.email : null,
       error: req.query.error ? true : false,
       session: req.session
@@ -65,7 +65,7 @@ exports.GET_dashboard = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('dashboard', {
-    title: 'RaceTrainer — Dashboard',
+    title: '\'EterTraining — Dashboard',
     session: req.session
   });
 };
@@ -76,7 +76,7 @@ exports.GET_log = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('log', {
-    title: 'RaceTrainer — Log',
+    title: '\'EterTraining — Log',
     session: req.session
   });
 };
@@ -87,7 +87,7 @@ exports.GET_calendar = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('calendar', {
-    title: 'RaceTrainer — Calendar',
+    title: '\'EterTraining — Calendar',
     session: req.session
   });
 };
@@ -98,7 +98,7 @@ exports.GET_statistics = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('statistics', {
-    title: 'RaceTrainer — Statistics',
+    title: '\'EterTraining — Statistics',
     session: req.session
   });
 };
@@ -109,7 +109,7 @@ exports.GET_preferences = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('preferences', {
-    title: 'RaceTrainer — Preferences',
+    title: '\'EterTraining — Preferences',
     session: req.session
   });
 };
