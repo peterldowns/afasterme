@@ -1,8 +1,21 @@
 $(document).ready(function(){
+  $('#emailControl').tooltip({
+    placement: 'bottom',
+    title: 'The email you signed up with',
+    trigger: 'hover'
+  });
+  $('#passwordControl').tooltip({
+    placement: 'bottom',
+    title: 'Your password',
+    trigger: 'hover'
+  });
   $('#loginForm').submit(function(){});
   var validator = $('#loginForm').validate({
     rules: {
-      email: "required",
+      email: {
+        required: true,
+        email: true,
+      },
       password: "required"
     },
     messages: {
@@ -13,6 +26,7 @@ $(document).ready(function(){
     validClass: 'success',
     highlight: function(label, errorClass, validClass){
       $(label).closest('.control-group').removeClass(validClass).addClass(errorClass);
+      $(label).closest('.control-group').tooltip('show');
     },
     unhighlight: function(label, errorClass, validClass){
       $(label).closest('.control-group').removeClass(errorClass).addClass(validClass);
