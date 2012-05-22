@@ -2,12 +2,12 @@ $(document).ready(function(){
   $('#emailControl').tooltip({
     placement: 'bottom',
     title: 'The email you signed up with',
-    trigger: 'hover'
+    trigger: 'manual'
   });
   $('#passwordControl').tooltip({
     placement: 'bottom',
     title: 'Your password',
-    trigger: 'hover'
+    trigger: 'manual'
   });
   $('#loginForm').submit(function(){});
   var validator = $('#loginForm').validate({
