@@ -9,6 +9,7 @@ div(class='container-fluid')
             button(class='close', data-dismiss='alert') ×
             p
               strong Woops!
+              br
               |  Your email and password didn't match up!
         
         - if (newuser)
@@ -16,6 +17,7 @@ div(class='container-fluid')
             button(class='close', data-dismiss='alert') ×
             p
               strong Congratulations!
+              br
               | Your new account has been created. Take a deep breath. Smile. Then log in and get started!
 
         form(class='form-horizontal', id='loginForm', method='POST', action='/login')
