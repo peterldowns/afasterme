@@ -31,8 +31,8 @@ style
   }
 div.container-fluid
   div.row-fluid
-    div.span3
-    div.span6
+    div.span1
+    div.span10
       form(class='form-horizontal', id='signupForm', method='POST', action='/login')
         input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
         fieldset
@@ -46,7 +46,7 @@ div.container-fluid
           mixin FORM('email', 'Your email address', 'icon-envelope', 'text', 'me@gmail.com', 'Your email works like your username, and lets us contact you with important information related to your training or your account. We promise to never give your email to anyone, and to never send you any sort of spam. <br><br> This must be a valid email address.')
             
           div.control-group
-            label.control-label(for='password')
+            label.control-label(for='password2')
               h4 Your password
             div.controls
               div.input-prepend
@@ -61,7 +61,7 @@ div.container-fluid
               input(type='password', class='input-xlarge cancel', name='password', id='password', placeholder='(same as above)')
               div.help-inline
                 i.icon-question-sign
-              p.help-block This is the password you will use to log in to our site. We make you type it twice so that you catch any mistakes!
+              p(class='help-block') This is the password you will use to log in to our site. We make you type it twice so that you catch any mistakes!
             
           div.control-group
             label.control-label
@@ -69,6 +69,6 @@ div.container-fluid
               input(class='btn btn-large btn-success', id='signupSubmit', type='submit', value='Create My Account →')
 
     
-    div.span3
+    div.span1
 script(src='/js/jquery.validate.js');
 script(src='/js/validate-signup.js');
