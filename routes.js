@@ -33,7 +33,9 @@ exports.GET_signup = function(req, res) {
   else {
     res.render('signup', {
       title: '\'EterTraining — Sign Up',
-      session: req.session
+      session: req.session,
+      email: req.query.email ? req.query.email : null,
+      error: req.query.error ? req.query.error : false
     });
   }
 };

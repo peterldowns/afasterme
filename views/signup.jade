@@ -1,12 +1,70 @@
 include includes/navbar
+style
+  .help-block {
+    font-style: italic;
+    background-color: #EEE;
+    padding: 10px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+  }
+  .help-inline > i {
+    font-size: 22px;
+    padding: 10px;
+  }
+  .help-inline > i:hover {
+    color: black;
+  }
 div(class='container-fluid')
   div(class='row-fluid')
     div(class='span2')
     div(class='span8')
-      div(class='hero-unit')
-        h1 Sign up with 'EterTraining
-        p The only running website that's 100% approved by Peter Downs, Max Norris, AND Brian Klick.
-        p Notably, The inimitable Jack Huemmler has expressed his support for this project. Dude's a beast.
-        a(class='btn', href='/user', method='PUT') Create My Account →
-    div(class='span2')
+      div
+        form(class='form-horizontal', id='signupForm', method='POST', action='/login')
+          input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
+          fieldset
+            
+            legend
+              h2 Sign up with 'Eter Training
+              p The only running website that's 100% approved by Peter Downs, Max Norris, Brian Klick, and Jack Huemmler.
+
+            div(class='control-group')
+              label(class='control-label', for='email') Your email address
+              div(class='controls')
+                div(class='input-prepend')
+                  span(class='add-on')
+                    i(class='icon-envelope')
+                - if (email)
+                  input(type='text', class='input-xlarge', name='email', id='email', placeholder='me@gmail.com', value='#{email}')
+                - else
+                  input(type='text', class='input-xlarge', name='email', id='email', placeholder='me@gmail.com')
+                div(class='help-inline')
+                  i(class='icon-question-sign')
+                p(class='help-block') This works like your username. Make it an email that you can access, because we will also use it to contact you on occasion.
+            
+            div(class='control-group')
+              label(class='control-label', for='password') Your password
+              div(class='controls')
+                div(class='input-prepend')
+                  span(class='add-on')
+                    i(class='icon-key')
+                input(type='password', class='input-xlarge', name='password', id='password', placeholder='my-pass-123')
+                br
+                br
+                div(class='input-prepend')
+                  span(class='add-on')
+                    i(class='icon-key')
+                input(type='password', class='input-xlarge cancel', name='password2', id='password2', placeholder='(same as above)')
+                div(class='help-inline')
+                  i(class='icon-question-sign')
+                p(class='help-block') This is the password you will use to log in to our site. You must type the same password in both of these boxes.
+
+            
+            input(class='btn btn-primary', type='submit', value='Log In →')
+
     
+    
+    div(class='span2')
+script(src='/js/jquery.validate.js');
+script(src='/js/validate-signup.js');
