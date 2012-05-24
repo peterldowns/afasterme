@@ -1,7 +1,20 @@
+mixin FORM(__name, __label, __icon, __type, __placeholder, __help)
+  div.control-group
+    label.control-label(for='#{__name}')
+      h4 #{__label}
+    div.controls
+      div.input-prepend
+        span.add-on
+          i(class='#{__icon}')
+        input(type='#{__type}', class='input-xlarge', name='#{__name}', id='#{__name}', placeholder='#{__placeholder}')
+      div.help-inline
+        i.icon-question-sign
+      p.help-block !{__help}
+
+
 include includes/navbar
 style
   .help-block {
-    font-style: italic;
     background-color: #EEE;
     padding: 10px;
     border-radius: 5px;
@@ -14,57 +27,48 @@ style
     padding: 10px;
   }
   .help-inline > i:hover {
-    color: black;
+    color: #cc0000;
   }
-div(class='container-fluid')
-  div(class='row-fluid')
-    div(class='span2')
-    div(class='span8')
-      div
-        form(class='form-horizontal', id='signupForm', method='POST', action='/login')
-          input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
-          fieldset
+div.container-fluid
+  div.row-fluid
+    div.span3
+    div.span6
+      form(class='form-horizontal', id='signupForm', method='POST', action='/login')
+        input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
+        fieldset
+          
+          legend
+            h2 Sign up with 'Eter Training
+            p The only running website that's 100% approved by Peter Downs, Max Norris, Brian Klick, and Jack Huemmler.
             
-            legend
-              h2 Sign up with 'Eter Training
-              p The only running website that's 100% approved by Peter Downs, Max Norris, Brian Klick, and Jack Huemmler.
+          mixin FORM('username', 'Desired username', 'icon-user', 'text', 'me123', 'This is the username that other members will see on our forums. Choose something unique!')
 
-            div(class='control-group')
-              label(class='control-label', for='email') Your email address
-              div(class='controls')
-                div(class='input-prepend')
-                  span(class='add-on')
-                    i(class='icon-envelope')
-                - if (email)
-                  input(type='text', class='input-xlarge', name='email', id='email', placeholder='me@gmail.com', value='#{email}')
-                - else
-                  input(type='text', class='input-xlarge', name='email', id='email', placeholder='me@gmail.com')
-                div(class='help-inline')
-                  i(class='icon-question-sign')
-                p(class='help-block') This works like your username. Make it an email that you can access, because we will also use it to contact you on occasion.
+          mixin FORM('email', 'Your email address', 'icon-envelope', 'text', 'me@gmail.com', 'Your email works like your username, and lets us contact you with important information related to your training or your account. We promise to never give your email to anyone, and to never send you any sort of spam. <br><br> This must be a valid email address.')
             
-            div(class='control-group')
-              label(class='control-label', for='password') Your password
-              div(class='controls')
-                div(class='input-prepend')
-                  span(class='add-on')
-                    i(class='icon-key')
-                input(type='password', class='input-xlarge', name='password', id='password', placeholder='my-pass-123')
-                br
-                br
-                div(class='input-prepend')
-                  span(class='add-on')
-                    i(class='icon-key')
-                input(type='password', class='input-xlarge cancel', name='password2', id='password2', placeholder='(same as above)')
-                div(class='help-inline')
-                  i(class='icon-question-sign')
-                p(class='help-block') This is the password you will use to log in to our site. You must type the same password in both of these boxes.
-
+          div.control-group
+            label.control-label(for='password')
+              h4 Your password
+            div.controls
+              div.input-prepend
+                span.add-on
+                  i.icon-key
+              input(type='password', class='input-xlarge', name='password2', id='password2', placeholder='my-pass-123')
+              br
+              br
+              div.input-prepend
+                span.add-on
+                  i.icon-key
+              input(type='password', class='input-xlarge cancel', name='password', id='password', placeholder='(same as above)')
+              div.help-inline
+                i.icon-question-sign
+              p.help-block This is the password you will use to log in to our site. We make you type it twice so that you catch any mistakes!
             
-            input(class='btn btn-primary', type='submit', value='Log In →')
+          div.control-group
+            label.control-label
+            div.controls
+              input(class='btn btn-large btn-success', id='signupSubmit', type='submit', value='Create My Account →')
 
     
-    
-    div(class='span2')
+    div.span3
 script(src='/js/jquery.validate.js');
 script(src='/js/validate-signup.js');
