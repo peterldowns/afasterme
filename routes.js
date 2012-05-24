@@ -6,7 +6,7 @@
 var db_wrapper = require('./db_wrapper'),
     DBConn = db_wrapper.DBConn,
     DB_DATA = db_wrapper.GetDBData(),
-    DBC = new DBConn(DB_DATA.host, DB_DATA.port, DB_DATA.user, DB_DATA.pwd);
+    DBC = new DBConn(DB_DATA.host, DB_DATA.port, DB_DATA.user, DB_DATA.password);
 
 /*
  * Public Views — things that non-logged in users can see.
@@ -147,12 +147,14 @@ var api = {};
 //    `sessionToken` : string
 api.POST_login = function(req, res) {
   var email = req.param('email', null);
-  var pwd = req.param('password', null);
-  console.log("POST /login:\n\temail: %s\n\tpwd: %s", email, pwd);
-  if (email && pwd) {
+  var password = req.param('password', null);
+  console.log("POST /login:\n\temail: %s\n\tpassword: %s", email, password);
+  if (email && password) {
     DBC.db('Running', function(DBC){
+      console.log("Into Running");
       DBC.collection('users', function(DBC){
-        DBC.findOne({email: email, password: pwd}, function(result){
+        console.log("... into users");
+        DBC.findOne({email: email, password: password}, function(result){
           if(result){
             req.session.loggedIn = true;
             req.session.user = result;
@@ -175,7 +177,51 @@ api.POST_login = function(req, res) {
 // Create a user
 // TODO: document
 api.POST_user = function(req, res) {
-  res.json('"User" not yet implemented', 501);
+  var email = req.param('email', null);
+  var password = req.param('password', null);
+  var username = req.param('username', null);
+  if (email && password && username) {
+    DBC.db('Running', function(DBC){
+      DBC.collection('users', function(DBC){
+        DBC.findOne({username: username}, function(result){
+          if (result){
+            res.json('username already exists', 403);
+          }
+          else {
+            DBC.findOne({email: email}, function(result_){
+              if(result_){
+                res.json('email already exists', 403);
+              }
+              else {
+                DBC.insert({
+                  username: username,
+                  email: email,
+                  password: password,
+                  dateCreated: new Date,
+
+                  name: null,
+                  age: null,
+                  sex: null,
+                  state: null,
+                  city: null,
+                  zipcode: null,
+
+                  height: null,
+                  weight: null,
+                  phone: null,
+
+                  calendar: {}
+                });
+              }
+            });
+          }
+        });
+      });
+    });
+  }
+  else {
+    res.json('incorrect form values', 401);
+  }
 };
 
 // Get user information
