@@ -61,7 +61,7 @@ $(document).ready(function(){
       var email = $('#email').val();
       $.ajax({
         url: '/user',
-        type: 'PUT',
+        type: 'POST',
         dataType: 'json', 
         data: $('#signupForm').serialize(),
         success: function(data, textStatus, jqXHR){
