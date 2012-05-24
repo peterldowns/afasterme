@@ -36,7 +36,7 @@ exports.GetDBData = function() {
   console.log("DB_PORT =", DB_PORT);
   return {
     user: DB_USER,
-    pwd: DB_PWD,
+    password: DB_PWD,
     host: DB_HOST,
     port: DB_PORT
   };
@@ -139,7 +139,7 @@ DBConn.prototype.findOne = function(query, callback) {
 
 DBConn.prototype.insert = function(items, options, callback) {
   conn = this;
-  this.coll.insert(item, options, function(err, docs) {
+  this.coll.insert(items, options, function(err, docs) {
     if (err) {
       conn.errcb(err);
     }
