@@ -36,16 +36,29 @@ $(document).ready(function(){
     errorClass: 'error',
     validClass: 'success',
     highlight: function(label, errorClass, validClass){
-      $(label).closest('.control-group').removeClass(validClass).addClass(errorClass);
+      $(label)
+        .closest('.control-group')
+          .removeClass(validClass)
+          .addClass(errorClass);
+      $(label)
+        .parent().parent()
+          .find('p')
+            .slideDown(200);
     },
     unhighlight: function(label, errorClass, validClass){
-      $(label).closest('.control-group').removeClass(errorClass).addClass(validClass);
+      $(label)
+        .closest('.control-group')
+          .removeClass(errorClass)
+          .addClass(validClass);
+      $(label)
+        .parent().parent()
+          .find('p')
+            .slideUp(200);
     },
     submitHandler: function(form){
     },
     errorPlacement: function(error, element){
-      $(element).parent().parent().find('p').slideDown(200);
-      // do nothing with errors. Just highlight.
+      // Do nothing
     }
   });
 });
