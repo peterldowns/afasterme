@@ -212,6 +212,7 @@ api.POST_user = function(req, res) {
 
                   calendar: {}
                 });
+                res.json('success', 200);
               }
             });
           }
