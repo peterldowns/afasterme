@@ -49,6 +49,7 @@ exports.GET_login = function(req, res) {
     res.render('login', {
       title: '\'EterTraining — Log In',
       email: req.query.email ? req.query.email : null,
+      newuser: req.query.newuser ? true : false,
       error: req.query.error ? true : false,
       session: req.session
     });

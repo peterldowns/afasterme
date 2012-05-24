@@ -10,6 +10,13 @@ div(class='container-fluid')
             p
               strong Woops!
               |  Your email and password didn't match up!
+        
+        - if (newuser)
+          div(class='alert alert-success')
+            button(class='close', data-dismiss='alert') ×
+            p
+              strong Congratulations!
+              | Your new account has been created. Take a deep breath. Smile. Then log in and get started!
 
         form(class='form-horizontal', id='loginForm', method='POST', action='/login')
           input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')

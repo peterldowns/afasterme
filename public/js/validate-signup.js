@@ -58,7 +58,7 @@ $(document).ready(function(){
     },
     submitHandler: function(form){
       var formdata = $('#signupForm').serialize();
-      var email = $('#email').val();
+      var email = $('#signupForm #email').val();
       $.ajax({
         url: '/user',
         type: 'POST',
