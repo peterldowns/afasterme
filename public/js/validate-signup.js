@@ -4,8 +4,9 @@ $(document).ready(function(){
     $(this).parent().parent().find('p').slideToggle(200);
   });
   $('#signupForm').submit(function(){}); // disable default submission behavior
-  var validator = $('#signupForm').validate({
+  var signupValidator = $('#signupForm').validate({
     rules: {
+      username: "required",
       email: {
         required: true,
         email: true
@@ -56,6 +57,21 @@ $(document).ready(function(){
             .slideUp(200);
     },
     submitHandler: function(form){
+      var formdata = $('#signupForm').serialize();
+      var email = $('#email').val();
+      $.ajax({
+        url: '/user',
+        type: 'PUT',
+        dataType: 'json', 
+        data: $('#signupForm').serialize(),
+        success: function(data, textStatus, jqXHR){
+          window.location = '/login?newuser=true&email='+email;
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+          console.log("!!jqXHR", jqXHR, "\n!!Text Status", textStatus, "\n!!errorThrown", errorThrown);
+        }
+      });
+      return false;
     },
     errorPlacement: function(error, element){
       // Do nothing
