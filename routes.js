@@ -64,13 +64,17 @@ exports.GET_login = function(req, res) {
 
 // GET the user's main dashboard
 exports.GET_dashboard = function(req, res) {
-  if (!req.session.loggedIn){
-    res.redirect('/dashboard');
+  if (req.session.loggedIn){
+    console.log('rendering dashboard');
+    res.render('dashboard', {
+      title: '\'EterTraining — Dashboard',
+      session: req.session,
+      email : req.query.email ? req.query.email : null
+    });
   }
-  res.render('dashboard', {
-    title: '\'EterTraining — Dashboard',
-    session: req.session
-  });
+  else {
+    res.redirect('/');
+  }
 };
 
 // GET the user's log view

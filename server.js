@@ -7,6 +7,7 @@ var express = require('express'),
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
+  app.use(express.logger({format: ':method :url'}));
   app.use(express.bodyParser());
   app.use(express.cookieParser());
   app.use(express.static(__dirname + '/public'));
@@ -16,7 +17,6 @@ app.configure(function(){
   app.use(app.router);
 
   app.debug = true;
-  app.use(express.logger({format: ':method :url'}));
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
@@ -26,19 +26,12 @@ app.get('/signup', routes.GET_signup);
 app.get('/login', routes.GET_login);
 
 // User Routes
-//app.get('/dashboard', routes.GET_dashboard);
-app.get('/dashboard', function(req, res){
-  res.render('landing', {
-    title: 'Welcome to \'EterTraining',
-    session: req.session
-  });
-});
-
+app.get('/dashboard', routes.GET_dashboard);
 app.get('/log', routes.GET_log);
 app.get('/calendar', routes.GET_calendar);
 app.get('/statistics', routes.GET_statistics);
 app.get('/preferences', routes.GET_preferences);
-app.get('/logout', routes.GET_logout); // logout (simply a redirect)
+app.get('/logout', routes.GET_logout); // logout (redirects to '/')
 
 // API Routes
 
