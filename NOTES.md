@@ -1,3 +1,21 @@
+# Date stuff
+
+Create a new date:
+
+    > var x = new Date;
+    undefined
+    
+    > console.log(x);
+    Sat, 26 May 2012 21:11:19 GMT
+
+Add 24 weeks to date:
+
+    > x.setDate(x.getDate() + 24*7);
+    1352585479242
+
+    > console.log(x);
+    Sat, 10 Nov 2012 22:11:19 GMT
+
 # How to find races?
 
 http://www.runningintheusa.com/Race/MapShot.aspx?Rank:Date&StartDate:9-3-2012&EndDate:9-26-2012&Special:5K&Page:1
