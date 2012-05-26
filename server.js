@@ -37,15 +37,15 @@ app.get('/logout', routes.GET_logout); // logout (redirects to '/')
 
 app.post('/login', routes.api.POST_login); // login
 
-app.post('/user', routes.api.POST_user); // create a new user
-app.get('/user', routes.api.GET_user); // get user information
-app.put('/user', routes.api.PUT_user); // update user information
+app.post('/api/user', routes.api.POST_user); // create a new user
+app.get('/api/user', routes.api.GET_user); // get user information
+app.put('/api/user', routes.api.PUT_user); // update user information
 
-app.get('/user/calendar', routes.api.GET_calendar); // get calendar information
-app.get('/user/calendar/day', routes.api.GET_day); // get calendar information for a specific day
-app.get('/user/calendar/day/plan', routes.api.GET_plan); // get a day's training plan
-app.get('/user/calendar/day/feedback', routes.api.GET_feedback); // get user feedback for a day, if given
-app.put('/user/calendar/day/feedback', routes.api.PUT_feedback); // update/create user feedback for a day
+app.get('/api/user/calendar', routes.api.GET_calendar); // get calendar information
+app.get('/api/user/calendar/day', routes.api.GET_day); // get calendar information for a specific day
+app.get('/api/user/calendar/day/plan', routes.api.GET_plan); // get a day's training plan
+app.get('/api/user/calendar/day/feedback', routes.api.GET_feedback); // get user feedback for a day, if given
+app.put('/api/user/calendar/day/feedback', routes.api.PUT_feedback); // update/create user feedback for a day
 
 // Start the server
 app.listen(8080, function(){
