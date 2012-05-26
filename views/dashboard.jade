@@ -1,9 +1,10 @@
 include includes/navbar
 div.container-fluid
   div.row-fluid
-    div.span4
+    div.span2
       include includes/sidebar
-    div.span8
+      mixin sidebar('Dashboard')
+    div.span10
       div.hero-unit
         h1
           a(href='/logout') Please Log Out.

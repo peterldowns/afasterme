@@ -1,22 +1,29 @@
-div.sidebar-nav
-  ul(class='nav nav-list')
-    li(class='active')
-      a(href='#')
-        h4
-          i.icon-home
-          | Home
-    li
-      a(href='#')
-        h4
-          i.icon-pencil
-          | Log
-    li
-      a(href='#')
-        h4
-          i.icon-calendar
-          | Calendar
-    li
-      a(href='#')
-        h4
-          i.icon-bar-chart(si
-          | Statistics
+mixin nav-item-inner(title, link, iconClass)
+  a(href='#{link}')
+    h4
+      i(class='#{iconClass}')
+      | #{title}
+
+mixin nav-item(title, link, iconClass)
+  li
+    mixin nav-item-inner(title, link, iconClass)
+
+mixin nav-item-active(title, link, iconClass)
+  li.active
+    mixin nav-item-inner(title, link, iconClass)
+
+mixin sidebar-nav-item(active, title, link, iconClass)
+  -if (active.toUpperCase() === title.toUpperCase())
+    mixin nav-item-active(title, link, iconClass)
+    script
+      console.log("ACTIVE = #{title}")
+  -else
+    mixin nav-item(title, link, iconClass)
+
+mixin sidebar(active)
+  div.sidebar-nav
+    ul.nav.nav-list
+      mixin sidebar-nav-item(active, 'Dashboard', '/dashboard', 'icon-home')
+      mixin sidebar-nav-item(active, 'Calendar', '/calendar', 'icon-calendar')
+      mixin sidebar-nav-item(active, 'Log', '/log', 'icon-pencil')
+      mixin sidebar-nav-item(active, 'Statistics', '/statistics', 'icon-bar-chart')
