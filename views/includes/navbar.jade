@@ -1,28 +1,47 @@
-div(class='navbar navbar-fixed-top')
-  div(class='navbar-inner')
-    div(class='container-fluid')
-      a(class='brand', href='/') 'EterTraining
-      - if (session.loggedIn)
-        div(class='btn-group pull-right')
-          a(class='btn dropdown-toggle', data-toggle='dropdown', href='#')
-            i(class='icon-user', style='padding-right: 5px;')
-            | #{session.user.email}
-            span(class='caret')
-          ul(class='dropdown-menu')
+style
+  div.btn-group.pull-right {
+    padding-bottom: 0;
+  }
+  div.btn-group.pull-right form {
+    padding: 0;
+    margin: 0;
+  }
+  div.btn-group.pull-right form .control-group {
+    display: inline;
+  }
+  form div.control-group input.btn.primary.search {
+    margin-top: -9px;
+  }
+
+div.navbar.navbar-fixed-top
+  div.navbar-inner
+    div.container
+      a.brand(href='/') 'EterTraining
+      div.btn-group.pull-right
+        -if (session.loggedIn)
+          a.btn.dropdown-toggle(data-toggle='dropdown', href='#')
+            i.icon-user
+            | &nbsp;
+            | #{session.user.name ? session.user.name : session.user.email}
+            | &nbsp;
+            span.caret
+          ul.dropdown-menu
             li
               a(href='#') Preferences
-            li(class='divider')
+            li.divider
             li
-              a(href='/logout') Sign Out
-      - else
-        form(class='navbar-form pull-right', id='loginForm', method='POST', action='/login')
-          input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
-          div(class='control-group', id='emailControl', style='display:inline-block')
-            input(class='input-medium', type='text', name='email', id='email', placeholder='email')
-          | 
-          div(class='control-group', id='passwordControl', style='display:inline-block')
-            input(class='input-small', type='password', name='password', id='password', placeholder='password')
-          input(class='btn search', type='submit', style='margin-top:11px;', value='Log In →')
+              a(href='/logout') Logout
+        -else
+          form(id='loginForm')
+            input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
+            div.control-group(id='emailControl')
+              input.input-medium(type='text', name='email', id='email', placeholder='email')
+            div.control-group(id='passwordControl')
+              | &nbsp;
+              input.input-small(type='password', name='password', id='password', placeholder='password')
+            div.control-group
+              | &nbsp;
+              input.btn.primary.search(type='submit', value='Log In →')
 
 script(src='/js/jquery.validate.js');
 script(src='/js/validate-login.js');
