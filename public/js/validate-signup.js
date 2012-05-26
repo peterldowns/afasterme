@@ -6,6 +6,7 @@ $(document).ready(function(){
   $('#signupForm').submit(function(){}); // disable default submission behavior
   var signupValidator = $('#signupForm').validate({
     rules: {
+      name: "required",
       username: "required",
       email: {
         required: true,
@@ -15,22 +16,21 @@ $(document).ready(function(){
         required: true,
         equalTo: "#password2"
       },
-      firstName: "required",
       age: {
+        required: true,
+        number: true,
+        min: 1,
+        max: 100
+      },
+      priorExperience: "required",
+      weight : {
         required: true,
         number: true
       },
-      cellphone: {
-        required: false,
-      },
-      priorExperience: "required",
-      bestPRRace: {
-        required: "#priorExperience:checked",
-      },
-      bestPRTime: {
-        required: "#priorExperience:checked",
-      },
-      serious: "required",
+      zipcode : {
+        digits: true,
+        rangelength: [5, 5]
+      }
     },
     messages: {
     },
@@ -57,6 +57,7 @@ $(document).ready(function(){
             .slideUp(200);
     },
     submitHandler: function(form){
+      console.log('hi');
       var formdata = $('#signupForm').serialize();
       var email = $('#email').val();
       $.ajax({

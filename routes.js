@@ -181,42 +181,59 @@ api.POST_login = function(req, res) {
 
 // Create a user
 // TODO: document
+
+var parseUD = function(ud){
+  delete ud._csrf;
+  // things that should be numbers
+  ud.age = Number(ud.age);
+  ud.priorExperience = Number(ud.priorExperience);
+  ud.weight = Number(ud.weight);
+  // make sure we have a dateCreated and a calendar
+  ud.dateCreated = ud.dateCreated ? ud.dateCreated : new Date;
+  ud.calendar = ud.calendar ? ud.calendar : {};
+  return ud;
+}
+
+var validateUD = function(ud){
+  var necessary = [
+    "name",
+    "username",
+    "email",
+    "password",
+    "age",
+    "priorExperience",
+    "weight",
+    "dateCreated"
+  ];
+  console.log("Testing new user data:");
+  return necessary.every(function(key){
+    console.log("\t%s : %s", key, !(!ud[key]));
+    return !(!ud[key]);
+  });
+}
+
 api.POST_user = function(req, res) {
-  var email = req.param('email', null);
-  var password = req.param('password', null);
-  var username = req.param('username', null);
-  if (email && password && username) {
+  console.log("Route params:\n", req.params);
+  console.log("Query params:\n", req.query);
+  console.log("URL params: \n", req.body);
+
+  var userData = req.body;
+  userData = parseUD(userData);
+
+  if (validateUD(userData)){
     DBC.db('Running', function(DBC){
       DBC.collection('users', function(DBC){
-        DBC.findOne({username: username}, function(result){
+        DBC.findOne({username: userData.username}, function(result){
           if (result){
             res.json('username already exists', 403);
           }
           else {
-            DBC.findOne({email: email}, function(result_){
+            DBC.findOne({email: userData.email}, function(result_){
               if(result_){
                 res.json('email already exists', 403);
               }
               else {
-                DBC.insert({
-                  username: username,
-                  email: email,
-                  password: password,
-                  dateCreated: new Date,
-
-                  name: null,
-                  age: null,
-                  sex: null,
-                  state: null,
-                  city: null,
-                  zipcode: null,
-
-                  height: null,
-                  weight: null,
-                  phone: null,
-
-                  calendar: {}
-                });
+                DBC.insert(userData);
                 res.json('success', 200);
               }
             });

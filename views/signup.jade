@@ -1,11 +1,12 @@
 mixin FORM(__name, __label, __icon, __type, __placeholder, __help)
   div.control-group
     label.control-label(for='#{__name}')
-      h4 #{__label}
+      p #{__label}
     div.controls
       div.input-prepend
-        span.add-on
-          i(class='#{__icon}')
+        -if (__icon)
+          span.add-on
+            i(class='#{__icon}')
         input(type='#{__type}', class='input-xlarge', name='#{__name}', id='#{__name}', placeholder='#{__placeholder}')
       div.help-inline
         i.icon-question-sign
@@ -32,27 +33,33 @@ div.container-fluid
   div.row-fluid
     div.span1
     div.span10
+      h1 Sign up with 'Eter Training
+        p(style='display:inline')
+          a(href='/login', style='padding-left: 10px;') Already have an account?
+      p The only running website that's 100% approved by Peter Downs, Max Norris, Brian Klick, and Jack Huemmler.
+
       form(class='form-horizontal', id='signupForm', method='POST', action='/login')
         input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
-        fieldset
+        fieldset.well
           
-          legend
-            h1 Sign up with 'Eter Training
-            p The only running website that's 100% approved by Peter Downs, Max Norris, Brian Klick, and Jack Huemmler.
+          
+          h3 Your account information
+          br
+          
+          mixin FORM('name', 'Your name', '', 'text', 'Peter', "What should we call you? This is the name by which we'll know you.")
 
-            
           mixin FORM('username', 'Desired username', 'icon-user', 'text', 'me123', 'This is the username that other members will see on our forums. Choose something unique!')
 
           mixin FORM('email', 'Your email address', 'icon-envelope', 'text', 'me@gmail.com', 'Your email works like your username, and lets us contact you with important information related to your training or your account. We promise to never give your email to anyone, and to never send you any sort of spam. <br><br> This must be a valid email address.')
             
           div.control-group
             label.control-label(for='password2')
-              h4 Your password
+              p Your password
             div.controls
               div.input-prepend
                 span.add-on
                   i.icon-key
-                input(type='password', class='input-xlarge', name='password2', id='password2', placeholder='my-pass-123')
+                input.input-xlarge(type='password', name='password2', id='password2', placeholder='my-pass-123')
               br
               br
               div.input-prepend
@@ -61,14 +68,49 @@ div.container-fluid
                 input(type='password', class='input-xlarge cancel', name='password', id='password', placeholder='(same as above)')
               div.help-inline
                 i.icon-question-sign
-              p(class='help-block') This is the password you will use to log in to our site. We make you type it twice so that you catch any mistakes!
+              p.help-block This is the password you will use to log in to our site. We make you type it twice so that you catch any mistakes!
+        
+        fieldset.well
+          
+          h3 Your personal information
+          p Tell us about yourself — we'll use your answers here to come up with your training program.
+          br
+
+          mixin FORM('age', 'How old are you?', '', 'text', '16', 'How old are you? Anyone can use our service, we just want to know.')
+          
+          div.control-group
+            label.control-label(for='priorExperience')
+              p When was the last time you trained?
+
+            div.controls
+              div.input-prepend
+                select(id='priorExperience', name='priorExperience')
+                  option
+                  option(value='1') More than a month ago
+                  option(value='2') More than a week ago
+                  option(value='3') Within the last week
+              div.help-inline
+                i.icon-question-sign
+              p.help-block This will help us figure out how hard to make your training schedule. If you've run recently, you can jump in at a higher level of difficulty.
+          
+          div.control-group
+            label.control-label(for='weight')
+              p How much do you weigh?
+            div.controls
+              div.input-prepend
+                input.input-small(type='text', name='weight', id='weight', placeholder='300')
+                span.add-on
+                  | lbs.
+              div.help-inline
+                i.icon-question-sign
+              p.help-block No judgement here! As you log your training we'll keep track of your weight.
+          
+          mixin FORM('zipcode', "What's your zipcode?", '', 'text', '19604', "We'll help you find races in your area.")
             
           div.control-group
             label.control-label
             div.controls
-              input(class='btn btn-large btn-success', id='signupSubmit', type='submit', value='Create My Account →')
-              a(href='/login', style='padding-left: 10px;') Already have one?
-
+              button.btn.btn-large.btn-success(id='signupSubmit', type='submit') Create My Account →
     
     div.span1
 script(src='/js/jquery.validate.js');
