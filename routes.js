@@ -249,37 +249,108 @@ api.POST_user = function(req, res) {
 
 // Get user information
 api.GET_user = function(req, res) {
-  res.json('"User" not yet implemented', 501);
-};
+  if (req.session.loggedIn){
+    res.json(req.session.user, 200);
+  }
+  else {
+    res.json({
+      status: "Not logged in.",
+      redirect: "/login",
+    }, 401);
+  }
+}
 
 // Update user information
 api.PUT_user = function(req, res) {
-  res.json('"User" not yet implemented', 501);
+  if (req.session.loggedIn){
+    res.json({
+      status: 'Not yet implemented',
+      redirect: '/'
+    }, 501);
+  }
+  else {
+    res.json({
+      status: "Not logged in.",
+      redirect: "/login",
+    }, 401);
+  }
 };
 
 // Get calendar information
 api.GET_calendar = function(req, res) {
-  res.json('"Calendar" not yet implemented', 501);
+  if (req.session.loggedIn){
+    res.json(req.session.user.calendar, 200);
+  }
+  else {
+    res.json({
+      status: "Not logged in.",
+      redirect: "/login",
+    }, 401);
+  }
 };
 
 // Get calendar information for a specific day
 api.GET_day = function(req, res) {
-  res.json('"Day" not yet implemented', 501);
+  if (req.session.loggedIn){
+    res.json({
+      status: 'Not yet implemented',
+      redirect: '/'
+    }, 501);
+  }
+  else {
+    res.json({
+      status: "Not logged in.",
+      redirect: "/login",
+    }, 401);
+  }
 };
 
 // Get a day's training plan
 api.GET_plan = function(req, res) {
-  res.json('"Plans" not yet implemented', 501);
+  if (req.session.loggedIn){
+    res.json({
+      status: 'Not yet implemented',
+      redirect: '/'
+    }, 501);
+  }
+  else {
+    res.json({
+      status: "Not logged in.",
+      redirect: "/login",
+    }, 401);
+  }
 };
 
 // Get user feedback / response for a day (if it exists)
 api.GET_feedback = function(req, res) {
-  res.json('"Feedback" not yet implemented', 501);
+  if (req.session.loggedIn){
+    res.json({
+      status: 'Not yet implemented',
+      redirect: '/'
+    }, 501);
+  }
+  else {
+    res.json({
+      status: "Not logged in.",
+      redirect: "/login",
+    }, 401);
+  }
 };
 
 // Update/Create user feedback for a day
 api.PUT_feedback = function(req, res) {
-  res.json('"Feedback" not yet implemented', 501);
+  if (req.session.loggedIn){
+    res.json({
+      status: 'Not yet implemented',
+      redirect: '/'
+    }, 501);
+  }
+  else {
+    res.json({
+      status: "Not logged in.",
+      redirect: "/login",
+    }, 401);
+  }
 };
 
 exports.api = api;
