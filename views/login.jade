@@ -1,44 +1,45 @@
 include includes/blank-navbar
-div(class='container-fluid')
-  div(class='row-fluid')
-    div(class='span2')
-    div(class='span8')
-      div(class='hero-unit')
+div.container-fluid
+  div.row-fluid
+    div.span2
+    div.span8
+      div.well
         - if (error)
-          div(class='alert alert-error')
-            button(class='close', data-dismiss='alert') ×
+          div.alert.alert-error
+            button.close(data-dismiss='alert') ×
             p
               strong Woops!
               br
               |  Your email and password didn't match up!
         
         - if (newuser)
-          div(class='alert alert-success')
-            button(class='close', data-dismiss='alert') ×
+          div.alert.alert-success
+            button.close(data-dismiss='alert') ×
             p
               strong Congratulations!
               br
               | Your new account has been created. Take a deep breath. Smile. Then log in and get started!
 
-        form(class='form-horizontal', id='loginForm', method='POST', action='/login')
+        form.form-horizontal(id='loginForm')
           input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
           fieldset
             legend Log in to 'Eter Training
-            div(class='control-group')
-              label(class='control-label', for='email') Your email address
-              div(class='controls')
+            div.control-group
+              label.control-label(for='email') Your email address
+              div.controls
                 - if (email)
-                  input(type='text', class='input-xlarge', name='email', id='email', placeholder='me@gmail.com', value='#{email}')
+                  input.input-xlarge(type='text', name='email', id='email', placeholder='me@gmail.com', value='#{email}')
                 - else
-                  input(type='text', class='input-xlarge', name='email', id='email', placeholder='me@gmail.com')
-            div(class='control-group')
-              label(class='control-label', for='password') Your password
-              div(class='controls')
-                input(type='password', class='input-xlarge', name='password', id='password', placeholder='my-pass-123')
-            input(class='btn btn-primary', type='submit', value='Log In →')
-        h3 
-          a(href='/signup') Don't have an account?
-    div(class='span2')
+                  input.input-xlarge(type='text', name='email', id='email', placeholder='me@gmail.com')
+            div.control-group
+              label.control-label(for='password') Your password
+              div.controls
+                input.input-xlarge(type='password', name='password', id='password', placeholder='my-pass-123')
+            div.control-group
+              div.controls
+                input.btn.btn-success(type='submit', value='Log In →')
+                a(href='/signup', style='margin-left: 10px;') Don't have an account?
+    div.span2
 
 script(src='/js/jquery.validate.js');
 script(src='/js/validate-login.js');
