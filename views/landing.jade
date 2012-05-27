@@ -1,9 +1,46 @@
+style
+  .slideshow-container {
+    position: relative;
+  }
+  #slideshow {
+    overflow: hidden;
+    height: 600px;
+    background: #333;
+  }
+  #slideshowText {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 20px;
+  }
+script
+  $(document).ready(function(){
+    $('#slideshow > div:gt(0)').hide();
+    setInterval(function() {
+      $('#slideshow > div:first')
+        .fadeOut(1000)
+        .next()
+        .fadeIn(1000)
+        .end()
+        .appendTo('#slideshow');
+    },  5000);
+  });
+      
 include includes/navbar
-div(class='container-fluid')
-  div(class='well', style='background:url(/img/running_alone.jpg); height:600px')
-    div(class='row-fluid')
+div.container-fluid
+  div.slideshow-container
+    div(id='slideshow')
+      div
+        img(src='/img/slideshow1.jpg', style='min-width:2081px;min-height:600px;')
+      div
+        img(src='/img/slideshow2.jpg', style='min-width:2269px;min-height:600px;')
+      div
+        img(src='/img/slideshow3.jpg', style='min-width:2614px;min-height:600px;')
+      div
+        img(src='/img/slideshow4.jpg', style='min-width:2758px;min-height:600px;')
+    div.row-fluid
       div(class='span6')
-      div(class='span6 well', style='text-align: center')
+      div(class='span6 well', id='slideshowText')
         h1 Stop Running Alone
         br
         p
@@ -15,7 +52,8 @@ div(class='container-fluid')
           | some other corner, how frequent their misunderstandings, how eager they are
           | to kill one another, how fervent their hatreds.
         br
-        a(class='btn btn-primary btn-large', href='/signup') Sign Up Now →
+        div(style='text-align: center')
+          a(class='btn btn-info btn-large', href='/signup') Sign Up Now →
   
   div(class='row-fluid')
     div(class='span4')
