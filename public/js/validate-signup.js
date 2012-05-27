@@ -28,6 +28,7 @@ $(document).ready(function(){
         number: true
       },
       zipcode : {
+        required: true,
         digits: true,
         rangelength: [5, 5]
       }
