@@ -110,7 +110,8 @@ div.container-fluid
           div.control-group
             label.control-label
             div.controls
-              button.btn.btn-large.btn-success(id='signupSubmit', type='submit') Create My Account →
+              button.btn.btn-large.btn-success(id='signupSubmit', type='submit', data-loading-text='Creating your account ...')
+                | Create My Account →
     
     div.span1
 script(src='/js/jquery.validate.js');

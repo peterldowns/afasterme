@@ -57,7 +57,8 @@ $(document).ready(function(){
             .slideUp(200);
     },
     submitHandler: function(form){
-      console.log('hi');
+      console.log('Submitted login form.');
+      $('#signupSubmit').button('loading');
       var formdata = $('#signupForm').serialize();
       var email = $('#email').val();
       $.ajax({
@@ -69,7 +70,11 @@ $(document).ready(function(){
           window.location = '/login?newuser=true&email='+email;
         },
         error: function(jqXHR, textStatus, errorThrown){
+          alert("There's been an error and we could not create your account at this time. Please try again.");
           console.log("!!jqXHR", jqXHR, "\n!!Text Status", textStatus, "\n!!errorThrown", errorThrown);
+        },
+        complete: function(jqXHR, textStatus){
+          $('#signupSubmit').button('reset');
         }
       });
       return false;
