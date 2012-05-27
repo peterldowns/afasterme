@@ -36,6 +36,10 @@ Currently, I'm storing all of the user data in the database 'Running' in the col
 For the program to be able to authenticate with this 'Running' database, every time the mongoDB
 instance is restarted I need to run the following from the mongo shell:
 
+    # Login to the DB
+    dotcloud run afasterme.data mongo
+   
+    # Authorize
     use admin
     db.auth('root', 'root_password')
     use Running
