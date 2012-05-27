@@ -19,7 +19,7 @@ exports.GET_landing = function(req, res) {
   }
   else {
     res.render('landing', {
-      title: 'Welcome to \'EterTraining',
+      title: 'Welcome to AFaster.Me',
       session: req.session
     });
   }
@@ -32,7 +32,7 @@ exports.GET_signup = function(req, res) {
   }
   else {
     res.render('signup', {
-      title: '\'EterTraining — Sign Up',
+      title: 'AFaster.Me — Sign Up',
       session: req.session,
       email: req.query.email ? req.query.email : null,
       error: req.query.error ? req.query.error : false
@@ -47,7 +47,7 @@ exports.GET_login = function(req, res) {
   }
   else{
     res.render('login', {
-      title: '\'EterTraining — Log In',
+      title: 'AFaster.Me — Log In',
       email: req.query.email ? req.query.email : null,
       newuser: req.query.newuser ? true : false,
       error: req.query.error ? true : false,
@@ -67,7 +67,7 @@ exports.GET_dashboard = function(req, res) {
   if (req.session.loggedIn){
     console.log('rendering dashboard');
     res.render('dashboard', {
-      title: '\'EterTraining — Dashboard',
+      title: 'AFaster.Me — Dashboard',
       session: req.session,
       email : req.query.email ? req.query.email : null
     });
@@ -83,7 +83,7 @@ exports.GET_log = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('log', {
-    title: '\'EterTraining — Log',
+    title: 'AFaster.Me — Log',
     session: req.session
   });
 };
@@ -94,7 +94,7 @@ exports.GET_calendar = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('calendar', {
-    title: '\'EterTraining — Calendar',
+    title: 'AFaster.Me — Calendar',
     session: req.session
   });
 };
@@ -105,7 +105,7 @@ exports.GET_statistics = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('statistics', {
-    title: '\'EterTraining — Statistics',
+    title: 'AFaster.Me — Statistics',
     session: req.session
   });
 };
@@ -116,7 +116,7 @@ exports.GET_preferences = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('preferences', {
-    title: '\'EterTraining — Preferences',
+    title: 'AFaster.Me — Preferences',
     session: req.session
   });
 };
