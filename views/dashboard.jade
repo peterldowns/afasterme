@@ -1,3 +1,28 @@
+style
+  .planText, .planEmph {
+    text-align: center;
+  }
+  .planText {
+  }
+  .planEmph {
+    color: #4183c4;
+    background: white;
+    
+    color: white;
+    background: #4183c4;
+    
+    color: #2ba949;
+    background: white;
+    
+    color: white;
+    background: #2ba949;
+
+    border-radius: 10px;
+    border: 1px solid;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
 include includes/navbar
 div.container-fluid
   div.row-fluid
@@ -5,6 +30,80 @@ div.container-fluid
       include includes/sidebar
       mixin sidebar('Dashboard')
     div.span10
-      div.hero-unit
-        h1
-          a(href='/logout') Please Log Out.
+      div.row-fluid(id='progressRow')
+          div.span9.progress.loading.progress-striped(style='height:30px;')
+            div.bar(style='width: 75%; height:30px;', id='progressPercent')
+              h3 50%
+          div.span3(style='text-align: center')
+            h3 Phase 3 (Week 16)
+        hr
+      div.row-fluid(id='alertsRow', style='display:none')
+        hr
+      div.row-fluid(id='planRow')
+        div.span12.well
+          div.span6
+            div.planText
+              h2 You're running
+            div.planEmph
+              h2 5 Miles
+            div.planText
+              h2 in
+            div.planEmph
+              h2 50-60 minutes.
+            div.planText
+              h2 It's
+            div.planEmph
+              h2 an easy run.
+          div.span6
+            //center(style='font-size:30px;')
+            //  i.icon-question-sign
+            //br
+            h3 More information about easy runs
+            p From this day forward, Flight Control will be known by two words: 'Tough' and
+              | 'Competent.' Tough means we are forever accountable for what we do or what
+              | we fail to do.
+            p We will never again compromise our responsibilities. Every time
+              | we walk into Mission Control we will know what we stand for. Competent means
+              | we will never take anything for granted.
+            p We will never be found short in our
+              | knowledge and in our skills. Mission Control will be perfect. When you leave
+              | this meeting today you will go to your office and the first thing you will do
+              | there is to write 'Tough and Competent' on your blackboards. It will never be
+              | erased.
+            p Each day when you enter the room these words will remind you of the
+              | price paid by Grissom, White, and Chaffee. These words are the price of
+              | admission to the ranks of Mission Control.
+      div.row-fluid(id='logRow')
+        div.span12
+          div.span6.well
+            center
+              h2 Quick Log
+            p logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here
+            p logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here
+          
+          div.span6
+            center
+              h2 Quick History
+            table.table.table-striped
+              thead
+                tr
+                  th Week
+                  th Miles
+                  th Time
+                  th Mile Pace
+                  th On Target?
+              tbody
+                tr
+                  td 16 (Current)
+                  td 15.3
+                  td 2:10:43
+                  td 11:09
+                  td 
+                    i.icon-ok
+                tr
+                  td 15
+                  td 14.2
+                  td 1:50:24
+                  td 12:00
+                  td
+                    i.icon-remove
