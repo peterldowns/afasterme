@@ -7,7 +7,7 @@ mixin FORM(__name, __label, __icon, __type, __placeholder, __help)
         -if (__icon)
           span.add-on
             i(class='#{__icon}')
-        input(type='#{__type}', class='input-xlarge', name='#{__name}', id='#{__name}', placeholder='#{__placeholder}')
+        input.input-xlarge(type='#{__type}', name='#{__name}', id='#{__name}', placeholder='#{__placeholder}')
       div.help-inline
         i.icon-question-sign
       p.help-block !{__help}
@@ -38,7 +38,7 @@ div.container-fluid
           a(href='/login', style='padding-left: 10px;') Already have an account?
       p The only running website that's 100% approved by Peter Downs, Max Norris, Brian Klick, and Jack Huemmler.
 
-      form(class='form-horizontal', id='signupForm', method='POST', action='/login')
+      form.form-horizontal(id='signupForm', method='POST', action='/login')
         input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
         fieldset.well
           
@@ -65,7 +65,7 @@ div.container-fluid
               div.input-prepend
                 span.add-on
                   i.icon-key
-                input(type='password', class='input-xlarge cancel', name='password', id='password', placeholder='(same as above)')
+                input.input-xlarge(type='password', name='password', id='password', placeholder='(same as above)')
               div.help-inline
                 i.icon-question-sign
               p.help-block This is the password you will use to log in to our site. We make you type it twice so that you catch any mistakes!
