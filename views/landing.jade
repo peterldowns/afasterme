@@ -12,6 +12,13 @@ style
     top: 0;
     right: 0;
     margin: 20px;
+    
+    /* Fallback for web browsers that don't support RGBa */
+    background: rgb(255, 255, 255);
+    /* RGBa */
+    background: rgba(255, 255, 255, 0.8);
+    /* For IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ccFFFFFF, endColorstr=#ccFFFFFF)";
   }
 script
   $(document).ready(function(){
@@ -53,7 +60,7 @@ div.container-fluid
           | to kill one another, how fervent their hatreds.
         br
         div(style='text-align: center')
-          a(class='btn btn-info btn-large', href='/signup') Sign Up Now →
+          a(class='btn btn-success btn-large', href='/signup') Sign Up Now →
   
   div(class='row-fluid')
     div(class='span4')
