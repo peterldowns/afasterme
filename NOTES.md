@@ -17,17 +17,71 @@ Add 24 weeks to date:
     Sat, 10 Nov 2012 22:11:19 GMT
 
 # How to find races?
-
-http://www.runningintheusa.com/Race/MapShot.aspx?Rank:Date&StartDate:9-3-2012&EndDate:9-26-2012&Special:5K&Page:1
-
-    http://www.runningintheusa.com/Race/MapShot.aspx
-    {
-      Rank: Date
-      StartDate:  Month-Day-Year
-      EndDate: Month-Day-Year
-      Special: 5k
-      Page: 1
+    
+    "request": {
+      "method": "POST",
+      "url": "http://www.runnersworld.com/cda/racefinderresult/1,7149,s6-239-283-284-0-0-0,00.html",
+      "params": [
+      {
+        "name": "distance",
+        "value": "50"
+      },
+      {
+        "name": "rdCity",
+        "value": ""
+      },
+      {
+        "name": "raceState",
+        "value": ""
+      },
+      {
+        "name": "txtCountry",
+        "value": "0"
+      },
+      {
+        "name": "rdZip",
+        "value": "19072"
+      },
+      {
+        "name": "raceDist",
+        "value": "5K"
+      },
+      {
+        "name": "raceDist",
+        "value": "10K"
+      },
+      {
+        "name": "rdEventSizes",
+        "value": ""
+      },
+      {
+        "name": "raceType",
+        "value": ""
+      },
+      {
+        "name": "racename",
+        "value": ""
+      },
+      {
+        "name": "fromDate",
+        "value": "05%2F27%2F2012"
+      },
+      {
+        "name": "toDate",
+        "value": "05%2F27%2F2013"
+      },
+      {
+        "name": "x",
+        "value": "72"
+      },
+      {
+        "name": "y",
+        "value": "11"
+      }
+      ]
     }
+    },
+      }
 
 # Database Design
 ### Adding a root user to the Running database
