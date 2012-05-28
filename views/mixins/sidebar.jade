@@ -21,7 +21,7 @@ mixin sidebar-nav-item(active, title, link, iconClass)
     mixin nav-item(title, link, iconClass)
 
 mixin sidebar(active)
-  div.sidebar-nav
+  div.sidebar-nav(id='sidebar')
     ul.nav.nav-list
       mixin sidebar-nav-item(active, 'Dashboard', '/dashboard', 'icon-home')
       mixin sidebar-nav-item(active, 'Calendar', '/calendar', 'icon-calendar')
