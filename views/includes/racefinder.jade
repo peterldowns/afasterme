@@ -1,0 +1,83 @@
+include includes/navbar
+div.container-fluid
+  div.row-fluid
+    div.span2
+      include includes/sidebar
+      mixin sidebar('Dashboard')
+    div.span10
+      div
+        form.form-horizontal(id='raceForm')
+          input(name='raceDist', type='hidden', value='5k')
+          input(name='raceDist', type='hidden', value='10k')
+          input(name='rdCity', type='hidden', value='')
+          input(name='raceState', type='hidden', value='')
+          input(name='textCountry', type='hidden', value='0')
+          input(name='rdZip', type='hidden', value='#{session.user.zipcode}')
+          input(name='rdEventSizes', type='hidden', value='')
+          input(name='raceType', type='hidden', value='')
+          input(name='racename', type='hidden', value='')
+          input(name='x', type='hidden', value='72')
+          input(name='y', type='hidden', value='11')
+          input(name='fromDate', id='fromDate', type='hidden')
+          input(name='toDate', id='toDate', type='hidden')
+          script
+            $(document).ready(function(){
+              var today = new Date;
+              var future = new Date;
+              future.setDate(future.getDate()+24*7);
+              
+              var prependZero = function(str){
+                if(str.len === 1){
+                  return '0'+str;
+                }
+                else {
+                  return str;
+                }
+              }
+              // fromDate
+              var fd_month = String(today.getMonth()+1);
+              fd_month = prependZero(fd_month);
+              
+              var fd_day = String(today.getDate()+1);
+              fd_day = prependZero(fd_day);
+              
+              var fd_year = String(today.getFullYear());
+
+              $('#fromDate').val(
+                fd_month + '%2F' + fd_day + '%2F' + fd_year
+              );
+
+              // toDate
+              var to_month = String(future.getMonth()+1);
+              to_month = prependZero(to_month);
+              
+              var to_day = String(future.getDate()+1);
+              to_day = prependZero(to_day);
+              
+              var to_year = String(future.getFullYear());
+
+              $('#toDate').val(
+                to_month + '%2F' + to_day + '%2F' + fd_year
+              );
+            });
+          
+          fieldset.well
+            h3 More training information
+            p You haven't created your schedule yet, so we need to do this.
+            
+            div.control-group
+              label.control-label(for='distance')
+                p At most, how far away from #{session.user.zipcode} would you like to race?
+              div.controls
+                div.input-prepend
+                  br
+                  select(id='distance', name='distance')
+                    option
+                    option(value='0') As close as possible
+                    option(value='25') 25 miles
+                    option(value='50') 50 miles
+                    option(value='100') 100 miles
+                    option(value='200') 200 miles
+
+                  button.btn.btn-primary Submit!
+        div(id='raceResults')
