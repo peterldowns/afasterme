@@ -1,17 +1,3 @@
-mixin FORM(__name, __label, __icon, __type, __placeholder, __help)
-  div.control-group
-    label.control-label(for='#{__name}')
-      p #{__label}
-    div.controls
-      div.input-prepend
-        -if (__icon)
-          span.add-on
-            i(class='#{__icon}')
-        input.input-xlarge(type='#{__type}', name='#{__name}', id='#{__name}', placeholder='#{__placeholder}')
-      div.help-inline
-        i.icon-question-sign
-      p.help-block !{__help}
-
 include includes/blank-navbar
 style
   .help-block {
@@ -46,12 +32,14 @@ div.container-fluid
           
           h3 Your account information
           br
+
+          include mixins/form-field.jade
           
-          mixin FORM('name', 'Your name', '', 'text', 'Peter', "What should we call you? This is the name by which we'll know you.")
+          mixin form-field('name', 'Your name', '', 'text', 'Peter', "What should we call you? This is the name by which we'll know you.")
 
-          mixin FORM('username', 'Desired username', 'icon-user', 'text', 'me123', 'This is the username that other members will see on our forums. Choose something unique!')
+          mixin form-field('username', 'Desired username', 'icon-user', 'text', 'me123', 'This is the username that other members will see on our forums. Choose something unique!')
 
-          mixin FORM('email', 'Your email address', 'icon-envelope', 'text', 'me@gmail.com', 'Your email works like your username, and lets us contact you with important information related to your training or your account. We promise to never give your email to anyone, and to never send you any sort of spam. <br><br> This must be a valid email address.')
+          mixin form-field('email', 'Your email address', 'icon-envelope', 'text', 'me@gmail.com', 'Your email works like your username, and lets us contact you with important information related to your training or your account. We promise to never give your email to anyone, and to never send you any sort of spam. <br><br> This must be a valid email address.')
             
           div.control-group
             label.control-label(for='password2')
@@ -77,7 +65,7 @@ div.container-fluid
           p Tell us about yourself — we'll use your answers here to come up with your training program.
           br
 
-          mixin FORM('age', 'How old are you?', '', 'text', '16', 'How old are you? Anyone can use our service, we just want to know.')
+          mixin form-field('age', 'How old are you?', '', 'text', '16', 'How old are you? Anyone can use our service, we just want to know.')
           
           div.control-group
             label.control-label(for='priorExperience')
@@ -106,7 +94,7 @@ div.container-fluid
                 i.icon-question-sign
               p.help-block No judgement here! As you log your training we'll keep track of your weight.
           
-          mixin FORM('zipcode', "What's your zipcode?", '', 'text', '19604', "We'll help you find races in your area.")
+          mixin form-field('zipcode', "What's your zipcode?", '', 'text', '19604', "We'll help you find races in your area.")
             
           div.control-group
             label.control-label

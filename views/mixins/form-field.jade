@@ -1,0 +1,13 @@
+mixin form-field(__name, __label, __icon, __type, __placeholder, __help)
+  div.control-group
+    label.control-label(for='#{__name}')
+      p #{__label}
+    div.controls
+      div.input-prepend
+        -if (__icon)
+          span.add-on
+            i(class='#{__icon}')
+        input.input-xlarge(type='#{__type}', name='#{__name}', id='#{__name}', placeholder='#{__placeholder}')
+      div.help-inline
+        i.icon-question-sign
+      p.help-block !{__help}
