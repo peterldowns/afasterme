@@ -1,7 +1,7 @@
 $(document).ready(function(){
   $('.help-block').hide();
   $('.help-inline > i').click(function(){
-    $(this).parent().parent().find('p').slideToggle(200);
+    $(this).parent().parent().find('.help-block').slideToggle(200);
   });
   $('#signupForm').submit(function(){}); // disable default submission behavior
   var signupValidator = $('#signupForm').validate({
@@ -23,6 +23,7 @@ $(document).ready(function(){
         max: 100
       },
       priorExperience: "required",
+      scheduleType : "required",
       weight : {
         required: true,
         number: true
@@ -44,7 +45,7 @@ $(document).ready(function(){
           .addClass(errorClass);
       $(label)
         .parent().parent()
-          .find('p')
+          .find('.help-block')
             .slideDown(200);
     },
     unhighlight: function(label, errorClass, validClass){
@@ -54,7 +55,7 @@ $(document).ready(function(){
           .addClass(validClass);
       $(label)
         .parent().parent()
-          .find('p')
+          .find('.help-block')
             .slideUp(200);
     },
     submitHandler: function(form){

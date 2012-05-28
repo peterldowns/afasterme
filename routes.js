@@ -185,6 +185,7 @@ api.POST_login = function(req, res) {
 var parseUD = function(ud){
   delete ud._csrf;
   // things that should be numbers
+  ud.scheduleType = Number(ud.scheduleType);
   ud.age = Number(ud.age);
   ud.priorExperience = Number(ud.priorExperience);
   ud.weight = Number(ud.weight);
@@ -203,9 +204,11 @@ var validateUD = function(ud){
     "age",
     "priorExperience",
     "weight",
-    "dateCreated"
+    "dateCreated",
+    "scheduleType"
   ];
   console.log("Testing new user data:");
+  console.log(ud);
   return necessary.every(function(key){
     console.log("\t%s : %s", key, !(!ud[key]));
     return !(!ud[key]);

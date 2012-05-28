@@ -1,3 +1,4 @@
+include mixins/form-field.jade
 include includes/blank-navbar
 style
   .help-block {
@@ -33,7 +34,6 @@ div.container-fluid
           h3 Your account information
           br
 
-          include mixins/form-field.jade
           
           mixin form-field('name', 'Your name', '', 'text', 'Peter', "What should we call you? This is the name by which we'll know you.")
 
@@ -62,15 +62,51 @@ div.container-fluid
         fieldset.well
           
           h3 Your personal information
-          p Tell us about yourself — we'll use your answers here to come up with your training program.
+          p Tell us about yourself — we'll use your answers here to come up with your training schedule.
           br
 
           mixin form-field('age', 'How old are you?', '', 'text', '16', 'How old are you? Anyone can use our service, we just want to know.')
-          
+          div.control-group
+            label.control-label(for='scheduleType')
+              p What type of training schedule fits you best?
+            div.controls
+              div.input-prepend
+                select(id='scheduleType', name='scheduleType')
+                  option
+                  option(value='16') 16 Week (Klick)
+                  option(value='20') 20 Week (Klick)
+                  option(value='24') 24 Week (Klick / Daniels)
+              div.help-inline
+                i.icon-question-sign
+              div.help-block
+                p We offer three different training schedules. None is any more or
+                  | less difficult than any other, but they're all slightly different.
+                dl.dl-horizontal
+                  dt 24 Weeks
+                  dd This is probably the best choice for a new runner.
+                    | The more you train, the faster you'll become.
+                    | Our 24 week schedule is based off of 
+                    a(href='http://en.wikipedia.org/wiki/Jack_Daniels_(coach)', style='display:inline') Jack Daniel's
+                    |  running formula. This is the same training schedule that the professionals use every day.
+                  br
+                  dt 20 Weeks
+                  dd A great choice for both new and experience runners, or any runner that doesn't have
+                    | the time to commmit to the full 24 week schedule. The science is based on Daniel's formula,
+                    | but has been modified by running expert 
+                    a(href='http://widenermagazine.com/2012/02/23/widener-alumnus-and-hodgkins-survivor-a-candidate-for-ll-society-man-of-the-year-award/', style='display:inline') Brian Klick
+                    | . You'll become faster, faster.
+                  br
+                  dt 16 Weeks
+                  dd Crunched for time? Pick this. Based on Daniel's
+                    | formula but heavily modified by Klick, our 16 week schedule doesn't pull any punches.
+                    | You'll still be in good hands — your safety is our first concern — but you'll only do
+                    | the most essential workouts and runs. 
+                p There are no wrong choices — each schedule is just as good as any other.
+                  | We guarantee that you end up loving the one you pick.
+                
           div.control-group
             label.control-label(for='priorExperience')
               p When was the last time you trained?
-
             div.controls
               div.input-prepend
                 select(id='priorExperience', name='priorExperience')
