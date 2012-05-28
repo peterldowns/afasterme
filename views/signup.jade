@@ -29,13 +29,14 @@ style
   .help-inline > i:hover {
     color: #cc0000;
   }
+
 div.container-fluid
   div.row-fluid
     div.span1
     div.span10
       h1 Sign up with AFaster.Me
-        p(style='display:inline')
-          a(href='/login', style='padding-left: 10px;') Already have an account?
+        p(style='display:inline; padding-left:10px;')
+          a(href='/login') Already have an account?
       p The only running website that's 100% approved by Peter Downs, Max Norris, Brian Klick, and Jack Huemmler.
 
       form.form-horizontal(id='signupForm', method='POST', action='/login')

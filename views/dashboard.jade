@@ -22,6 +22,24 @@ style
     margin-top: 10px;
     margin-bottom: 10px;
   }
+  #progressContainer, #progressPercent {
+    height: 30px;
+  }
+  #progressPercent {
+    width: 75%;
+  }
+  #progressContainer {
+    background: #ccc;
+  }
+  #phaseInfo {
+    text-align: center;
+  }
+  #alertsRow {
+    display: none;
+  }
+  table {
+    width: 100%;
+  }
 
 include includes/navbar
 div.container-fluid
@@ -31,13 +49,13 @@ div.container-fluid
       mixin sidebar('Dashboard')
     div.span10
       div.row-fluid(id='progressRow')
-          div.span9.progress.loading.progress-striped(style='height:30px;')
-            div.bar(style='width: 75%; height:30px;', id='progressPercent')
-              h3 50%
-          div.span3(style='text-align: center')
+          div.span9.progress.loading.progress-striped(id='progressContainer')
+            div.bar(id='progressPercent')
+              h3 75%
+          div.span3(id='phaseInfo')
             h3 Phase 3 (Week 16)
         hr
-      div.row-fluid(id='alertsRow', style='display:none')
+      div.row-fluid(id='alertsRow')
         hr
       div.row-fluid(id='planRow')
         div.span12.well
@@ -55,9 +73,6 @@ div.container-fluid
             div.planEmph
               h2 an easy run.
           div.span6
-            //center(style='font-size:30px;')
-            //  i.icon-question-sign
-            //br
             h3 More information about easy runs
             p From this day forward, Flight Control will be known by two words: 'Tough' and
               | 'Competent.' Tough means we are forever accountable for what we do or what
@@ -81,9 +96,9 @@ div.container-fluid
             p logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here
           
           div.span6.well
-            center
+            div(style='text-align:center')
               h2 History
-            table.table(style='width:100%;')
+            table.table
               thead
                 tr
                   th Week
@@ -113,4 +128,4 @@ div.container-fluid
                   td 10:30
                   td
                     i.icon-ok
-            a(href='statistics', style='display:inline') ... more statistics
+            a(href='statistics') ... more statistics
