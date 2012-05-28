@@ -76,15 +76,14 @@ div.container-fluid
       div.row-fluid(id='logRow')
         div.span12
           div.span6.well
-            center
-              h2 Quick Log
+            h2 Today's Run:
             p logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here
             p logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here logging form will go here
           
-          div.span6
+          div.span6.well
             center
-              h2 Quick History
-            table.table.table-striped
+              h2 History
+            table.table(style='width:100%;')
               thead
                 tr
                   th Week
@@ -103,7 +102,15 @@ div.container-fluid
                 tr
                   td 15
                   td 14.2
-                  td 1:50:24
+                  td 2:50:24
                   td 12:00
                   td
                     i.icon-remove
+                tr
+                  td 14
+                  td 15.8
+                  td 2:45:54
+                  td 10:30
+                  td
+                    i.icon-ok
+            a(href='statistics', style='display:inline') ... more statistics
