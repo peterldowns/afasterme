@@ -242,7 +242,7 @@ var newCalendar = function(ud){
           minutes: Math.floor(time),
           seconds: Math.round((time-Math.floor(time))*60)
         },
-        type: "easy"
+        type: "easy",
         info: "<p> You should never be running so easily that you can look around and enjoy nature, but you shouldn't be tired and your heart should never beat too fast.</p><p>Don't kill yourself — take it *easy*, and relax.</p><p>If you're running with a partner, you should be able to easily carry a conversation.</p><p> This is the most enjoyable run you'll do, so ENJOY IT.</p>"
       },
       log : {
