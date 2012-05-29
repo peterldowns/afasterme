@@ -198,8 +198,20 @@ var makeDateRange = function(startDate, numDays){
   return daterange;
 }
 
-var guessVDOT = function(mile_minutes, mile_seconds, day){
-  return 32.5;
+// Based on Tom Fangrow's VDOT calculator
+// (http://www.tomfangrow.com/jsvdot.html)
+var calculateVDOT = function(miles, minutes, seconds){
+  var d = (miles*1.609344)*1000, // Distance (meters)
+      t = minutes + seconds/60, // Time (minutes)
+      c = -4.6 + .182258*(d/t) + .000104*(d*d)/(t*t), // Oxygen cost c(t)
+      i = .8 + .1894393*Math.exp(-.012778*t) +
+          .2989558*Math.exp(-.1932605*t), // V02 Max i(t)
+      vdot = Math.round(1000*(c/i))/1000;
+  return vdot;
+}
+
+var guessVDOT = function(day, miles, minutes, seconds){
+  return calculateVDOT(miles, minutes, seconds);
 }
 
 var guessPace = function(vdot, distance_val, distance_unit){
@@ -220,7 +232,7 @@ var newCalendar = function(ud){
   for (i in daterange) {
     var date = daterange[i];
     var key = makeKey(date);
-    var VDOT = guessVDOT(ud.mileMinutes, ud.mileSeconds, i);
+    var VDOT = guessVDOT(i, miles, minutes, seconds);
     var distance = {
       value: 5.0,
       unit: 'miles'
