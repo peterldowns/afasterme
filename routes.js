@@ -214,8 +214,12 @@ var guessVDOT = function(day, miles, minutes, seconds){
   return calculateVDOT(miles, minutes, seconds);
 }
 
-var guessPace = function(vdot, distance_val, distance_unit){
+calculatePace = function(vdot, miles){
+  // Not done yet.
   return 7.5;
+}
+var guessPace = function(vdot, distance_val, distance_unit){
+  return calculatePace(vdot, distance_val); // distance_unit is always miles
 }
 
 var newCalendar = function(ud){
@@ -232,7 +236,7 @@ var newCalendar = function(ud){
   for (i in daterange) {
     var date = daterange[i];
     var key = makeKey(date);
-    var VDOT = guessVDOT(i, miles, minutes, seconds);
+    var VDOT = guessVDOT(i, 1, ud.mileMinutes, ud.mileSeconds);
     var distance = {
       value: 5.0,
       unit: 'miles'
@@ -294,6 +298,8 @@ var parseUD = function(ud){
   ud.age = Number(ud.age);
   ud.priorExperience = Number(ud.priorExperience);
   ud.weight = Number(ud.weight);
+  ud.mileMinutes = Number(ud.mileMinutes);
+  ud.mileSeconds = Number(ud.mileSeconds);
   // make sure we have a dateCreated
   ud.dateCreated = ud.dateCreated ? ud.dateCreated : new Date;
   ud.calendar = ud.calendar ? ud.calendar : newCalendar(ud);
@@ -310,13 +316,15 @@ var validateUD = function(ud){
     "priorExperience",
     "weight",
     "dateCreated",
-    "scheduleType"
+    "scheduleType",
+    "mileMinutes",
+    "mileSeconds",
   ];
   console.log("Testing new user data:");
   console.log(ud);
   return necessary.every(function(key){
     console.log("\t%s : %s", key, !(!ud[key]));
-    return !(!ud[key]);
+    return !(!ud[key]) || (typeof ud[key] === 'number');
   });
 }
 
