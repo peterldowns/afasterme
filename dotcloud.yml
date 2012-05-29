@@ -1,4 +1,5 @@
 www:
+    approot: src
     type: nodejs
 
 data:
