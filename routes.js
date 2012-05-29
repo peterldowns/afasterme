@@ -181,6 +181,100 @@ api.POST_login = function(req, res) {
 
 // Create a user
 // TODO: document
+//
+
+var makeKey = function(date){
+  return date.getFullYear()+'-'+date.getUTCMonth()+'-'+date.getUTCDay();
+}
+
+var makeDateRange = function(startDate, numDays){
+  // Include today as an off day
+  var daterange = [startDate];
+  for(i=0;daterange.length < numDays;i++){
+    var d = new Date();
+    d.setDate(d.getDate()+i);
+    daterange.push(d);
+  }
+  return daterange;
+}
+
+var guessVDOT = function(mile_minutes, mile_seconds, day){
+  return 32.5;
+}
+
+var guessPace = function(vdot, distance_val, distance_unit){
+  return 7.5;
+}
+
+var newCalendar = function(ud){
+  console.log("Making new calendar for %s", ud.email);
+  var weeks = ud.scheduleType;
+  var exp = ud.priorExperience;
+  
+  // Create the date range
+  var startDate = new Date();
+  console.log(startDate, weeks*7);
+  var daterange = makeDateRange(startDate, weeks*7);
+
+  // Make the calendar
+  var cal = {};
+  for (i in daterange) {
+    var date = daterange[i];
+    var key = makeKey(date);
+    var VDOT = guessVDOT(ud.mileMinutes, ud.mileSeconds, i);
+    var distance = {
+      value: 5.0,
+      unit: 'miles'
+    };
+    var pace = guessPace(VDOT, distance.value, distance.unit); // {value, units}
+    var time = pace * distance.value; // all times internally will be float minutes
+    cal[key] = {
+      date: date,
+      vdot: VDOT,
+      phase: 0,
+      week: Math.floor(i/7)+1,
+      plan: {
+        distance: {
+          value: 5.0,
+          unit: 'miles'
+        },
+        pace : pace,
+        time : {
+          minutes: Math.floor(time),
+          seconds: Math.round((time-Math.floor(time))*60)
+        },
+        type: "an easy run",
+        info: "<p> You should never be running so easily that you can look around and enjoy nature, but you shouldn't be tired and your heart should never beat too fast.</p><p>Don't kill yourself — take it *easy*, and relax.</p><p>If you're running with a partner, you should be able to easily carry a conversation.</p><p> This is the most enjoyable run you'll do, so ENJOY IT.</p>"
+      },
+      log : {
+        // Show to everyone
+        distance: {
+          value: null,
+          unit: 'miles'
+        },
+        time: {
+          minutes: null,
+          seconds: null
+        },
+        pace : null,
+        comments: null,
+        intensity: null,
+        feeling: null,
+        
+        // Optional
+        heartrate: {
+          upper: null,
+          lower: null,
+        },
+        temperature: null,
+        wind: null,
+        hydration: null,
+        sleep: null
+      }
+    };
+  }
+  return cal;
+}
 
 var parseUD = function(ud){
   delete ud._csrf;
@@ -189,9 +283,9 @@ var parseUD = function(ud){
   ud.age = Number(ud.age);
   ud.priorExperience = Number(ud.priorExperience);
   ud.weight = Number(ud.weight);
-  // make sure we have a dateCreated and a calendar
+  // make sure we have a dateCreated
   ud.dateCreated = ud.dateCreated ? ud.dateCreated : new Date;
-  ud.calendar = ud.calendar ? ud.calendar : {};
+  ud.calendar = ud.calendar ? ud.calendar : newCalendar(ud);
   return ud;
 }
 
@@ -222,6 +316,7 @@ api.POST_user = function(req, res) {
 
   var userData = req.body;
   userData = parseUD(userData);
+  userData.calendar = userData.calendar ? userData.calendar : newCalendar(ud);
 
   if (validateUD(userData)){
     DBC.db('Running', function(DBC){
