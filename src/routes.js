@@ -179,36 +179,6 @@ api.POST_login = function(req, res) {
   }
 }
 
-// Create a user
-// TODO: document
-//
-
-var makeKey = function(date){
-  return date.getFullYear()+'-'+date.getUTCMonth()+'-'+date.getUTCDay();
-}
-
-var makeDateRange = function(startDate, numDays){
-  // Include today as an off day
-  var daterange = [startDate];
-  for(i=0;daterange.length < numDays;i++){
-    var d = new Date();
-    d.setDate(d.getDate()+i);
-    daterange.push(d);
-  }
-  return daterange;
-}
-
-// Based on Tom Fangrow's VDOT calculator
-// (http://www.tomfangrow.com/jsvdot.html)
-var calculateVDOT = function(miles, minutes, seconds){
-  var d = (miles*1.609344)*1000, // Distance (meters)
-      t = minutes + seconds/60, // Time (minutes)
-      c = -4.6 + .182258*(d/t) + .000104*(d*d)/(t*t), // Oxygen cost c(t)
-      i = .8 + .1894393*Math.exp(-.012778*t) +
-          .2989558*Math.exp(-.1932605*t), // V02 Max i(t)
-      vdot = Math.round(1000*(c/i))/1000;
-  return vdot;
-}
 
 var guessVDOT = function(day, miles, minutes, seconds){
   return calculateVDOT(miles, minutes, seconds);
