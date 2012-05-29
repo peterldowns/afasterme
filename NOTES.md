@@ -180,3 +180,26 @@ one to match auth credentials with a user ID.
 http://www.mongodb.org/display/DOCS/Database+References#DatabaseReferences-DBRef
 
 ` stu = { name : 'Joe', classes : [ new DBRef('courses', x._id) ] } `
+
+# Statistics
+
+People want to see consistency more than anything (keep them on target).
+
+Anything that shows consistency and progress.
+
+
+Percentage of workouts on target.
+
+Race progression.
+
+Fitness progression.
+
+Race performance parameter.
+
+2 fitness levels down after 2 weeks off. Climb four during each ?
+
+# Dealing with people who miss races.
+
+- Reset schedule from last non-missed day (adjusting VDOT)
+- Reset from the beginning of this fitness phase
+- Turn off scheduling entirely
