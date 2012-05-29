@@ -26,7 +26,7 @@ style
     height: 30px;
   }
   #progressPercent {
-    width: 75%;
+    width: 0%;
   }
   #progressContainer {
     background: #ccc;
@@ -51,43 +51,56 @@ div.container-fluid
       div.row-fluid(id='progressRow')
           div.span9.progress.loading.progress-striped(id='progressContainer')
             div.bar(id='progressPercent')
-              h3 75%
-          div.span3(id='phaseInfo')
-            h3 Phase 3 (Week 16)
+              h3
+          div.span3
+            h3(id='phaseInfo')
         hr
       div.row-fluid(id='alertsRow')
         hr
+      script
+        var makeKey = function(date){
+          return date.getFullYear()+'-'+date.getUTCMonth()+'-'+date.getUTCDay();
+        }
+        var maketime = function(time){
+          return time.minutes + ' : '+time.seconds;
+        }
+        var key = makeKey(new Date());
+        $.getJSON('/user/calendar', function(calendar){
+          var today = calendar[key];
+          console.log("Today: ", today);
+          $('#distance').text(
+            today.plan.distance.value+
+            ' '+
+            today.plan.distance.unit+
+            ' ('+
+            today.plan.type+
+            ')'
+          );
+          $('#time').text(maketime(today.plan.time));
+          $('#runtype').text(today.plan.type+'.');
+          $('#infohead').text('More information about '+today.plan.type+' runs:');
+          $('#moreinfo').html(today.plan.info);
+
+          $('#progressPercent').width(String(today.week+20)+'%');
+          $('#progressPercent > h3').html(String(today.week)+'%')
+          $('#phaseInfo').text('Phase '+today.phase+' (Week '+today.week+')');
+        });
+
+      div#today
       div.row-fluid(id='planRow')
         div.span12.well
           div.span6
             div.planText
               h2 You're running
             div.planEmph
-              h2 5 Miles
+              h2(id='distance')
             div.planText
               h2 in
             div.planEmph
-              h2 50-60 minutes.
-            div.planText
-              h2 It's
-            div.planEmph
-              h2 an easy run.
+              h2(id='time')
           div.span6
-            h3 More information about easy runs
-            p From this day forward, Flight Control will be known by two words: 'Tough' and
-              | 'Competent.' Tough means we are forever accountable for what we do or what
-              | we fail to do.
-            p We will never again compromise our responsibilities. Every time
-              | we walk into Mission Control we will know what we stand for. Competent means
-              | we will never take anything for granted.
-            p We will never be found short in our
-              | knowledge and in our skills. Mission Control will be perfect. When you leave
-              | this meeting today you will go to your office and the first thing you will do
-              | there is to write 'Tough and Competent' on your blackboards. It will never be
-              | erased.
-            p Each day when you enter the room these words will remind you of the
-              | price paid by Grissom, White, and Chaffee. These words are the price of
-              | admission to the ranks of Mission Control.
+            h3(id='infohead')
+            div(id='moreinfo')
       div.row-fluid(id='logRow')
         div.span12
           div.span6.well
