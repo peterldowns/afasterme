@@ -111,13 +111,35 @@ div.container-fluid
               div.input-prepend
                 select(id='priorExperience', name='priorExperience')
                   option
-                  option(value='1') More than a month ago
-                  option(value='2') More than a week ago
-                  option(value='3') Within the last week
+                  option(value='1') More than a year ago / Never
+                  option(value='2') More than a month ago
+                  option(value='3') Within the last month
               div.help-inline
                 i.icon-question-sign
               p.help-block This will help us figure out how hard to make your training schedule. If you've run recently, you can jump in at a higher level of difficulty.
-          
+
+          div.control-group
+            label.control-label(for='mileMinutes')
+              p How fast can you run a mile right now?
+            div.controls
+              div.input-prepend
+                input.input-small(type='text', name='mileMinutes', id='mileMinutes', placeholder='8')
+                span.add-on
+                  | minutes
+                | &nbsp; : &nbsp;
+                input.input-small(type='text', name='mileSeconds', id='mileSeconds', placeholder='32')
+                span.add-on
+                  | seconds
+              div.help-inline
+                i.icon-question-sign
+              div.help-block
+                p Don't worry if you don't know exactly, this will just help us create 
+                  | a training schedule that is just right for you. Feel free to estimate!
+                p For reference: the fastest man in the world runs a mile in about 
+                  a(href='http://www.youtube.com/watch?v=XvCsj7eJKKA', style='display:inline') 3 minutes 43 seconds
+                  |  while the average person walks a mile in about 15 minutes.
+                p Please round to the nearest second.
+
           div.control-group
             label.control-label(for='weight')
               p How much do you weigh?

@@ -22,6 +22,17 @@ $(document).ready(function(){
         min: 1,
         max: 100
       },
+      mileMinutes: {
+        required: true,
+        digits: true,
+        min: 3
+      },
+      mileSeconds: {
+        required: true,
+        digits: true,
+        min: 0,
+        max: 59,
+      },
       priorExperience: "required",
       scheduleType : "required",
       weight : {
