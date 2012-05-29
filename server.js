@@ -1,7 +1,20 @@
 // Dependencies
 var express = require('express'),
     routes = require('./routes'),
+    MongoStore = require('connect-mongo')(express),
+    db_data = require('./db_wrapper').GetDBData(),
     app = module.exports = express.createServer();
+
+var db_conf = {
+  db: 'Running',
+  host: db_data.host,
+  port: db_data.port,
+  username: db_data.user,
+  password: db_data.password,
+  collection: 'sessions'
+}
+console.log(db_conf);
+
 
 // Configuration
 app.configure(function(){
@@ -12,7 +25,11 @@ app.configure(function(){
   app.use(express.cookieParser());
   app.use(express.static(__dirname + '/public'));
   app.use(express.methodOverride());
-  app.use(express.session({secret: 'super_secret, right?'}));
+  app.use(express.session({
+    secret: 'super_secret, right?',
+    maxAge: new Date(Date.now()+3600000),
+    store: new MongoStore(db_conf)
+  }));
   app.use(express.csrf());
   app.use(app.router);
 
