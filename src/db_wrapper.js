@@ -162,3 +162,22 @@ DBConn.prototype.update = function(query, objNew, options, err_callback) {
 }
 
 exports.DBConn = DBConn;
+
+exports.getUser = function(DBC, email, password) {
+  if (email && password) {
+    DBC.db('Running', function(DBC) {
+      DBC.collection('users', function(DBC) {
+        DBC.findOne({
+          email: email,
+          password: password
+        }, function(result) {
+          console.log(result);
+          return result;
+        });
+      });
+    });
+  }
+  else {
+    return false;
+  }
+}
