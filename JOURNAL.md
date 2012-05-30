@@ -1,13 +1,9 @@
-Identify and list an important person, event, or new skill that you learned
-while at the placement (in left column of journal).  Why do you think it was
-important (in right column journal).
-
 #May 13, 2012
 
 ###Person / Event / Skill
 
 Today I learned about the existence of LESS, which is a type of CSS
-pre-processor. LESS, like all pre-proecessors, is a tool for writing code more
+pre-processor. LESS, like all pre-processors, is a tool for writing code more
 effectively and efficiently. I learned its syntax and its usage.
 
 ###Reason for Importance
@@ -176,20 +172,30 @@ default templating language in Express.JS, the web framework I'm using.
 ### Reason for Importance
 
 Jade makes things simpler. The syntax makes it easier to write HTML faster and
-in a cleaner way, so that everything is more maintanable and I can get more done
+in a cleaner way, so that everything is more maintainable and I can get more done
 in the same amount of time. The other (huge) benefit to Jade is that I can now
 include user data in a web page's HTML. This is the core functionality  of the
 site — showing each user what training schedule to follow, which workout to do,
 and how well they're doing. 
 
+#May 24, 2012
 
+###Person / Event / Skill
 
+Had a great talk with Max Norris and Jack Curtis, two top runners who were
+willing to give me feedback on the website dashboard and ideas for what to
+include in the webapp (along hte lines of what I talked to Jack Huemmler about).
 
+###Reason for Importance
 
-
-
-
-
-
+Marketing rule #1: know thine audience. Ok, that's not really a rule, but it is
+super important to know who you're marketing your product towards. These two
+guys are my teammates, and I know they've used competing websites like
+Athleticore. They walked me through exactly how they used Athleticore, and what
+about it they liked and didn't like. Using this information, I can now target my
+application to improve upon the things they like and drop/delete/ignore the
+functionality they don't. For instance, I learned that they both like to see a
+calendar view of their month and their training schedule, but that the same
+thing in list form is uninteresting / unimportant to them.
 
 
