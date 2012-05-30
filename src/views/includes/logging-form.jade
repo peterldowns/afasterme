@@ -1,0 +1,65 @@
+form.form-horizontal(id='loggingForm')
+  input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
+  fieldset
+    center
+      h2 Today's log
+    br
+    div.control-group
+      label.control-label(for='logDistanceVal')
+        p Distance
+      div.controls
+        div.input-prepend
+          input.input-small(type='text', name='logDistanceVal', id='logDistanceval', placeholder='3.4')
+          | &nbsp;
+        div.input-prepend
+          select.input-small(id='logDistanceUnit', name='logDistanceUnit')
+            option(value='mile', selected=true) miles
+            option(value='meter') meters
+            option(value='km') kilometers
+    
+    div.control-group
+      label.control-label(for='logTimeMinutes')
+        p Time
+      div.controls
+        div.input-prepend
+          input.input-large(type='text', name='logTime', id='logTimeMinutes', placeholder='30:15')
+    
+    div.control-group
+      label.control-label(for='logIntensity')
+        p Intensity
+      div.controls
+        select.input-large(id='logIntensity', name='logIntensity')
+          option
+          option(value='1') Very Easy
+          option(value='2') Easy
+          option(value='3') Comfortable
+          option(value='4') Hard
+          option(value='5') Very Hard
+    
+    div.control-group
+      label.control-label(for='logFeeling')
+        p Overall Feeling
+      div.controls
+        select.input-large(id='logFeeling', name='logFeeling')
+          option
+          option(value='5') Phenomenal
+          option(value='4') Good
+          option(value='3') Average
+          option(value='2') Bad
+          option(value='1') Awful
+
+    div.control-group
+      label.control-label(for='logComments')
+        p Comments
+      div.controls
+        div.input-prepend
+          textarea(id='logComments', name='ogComments', placeholder='Today I ...', rows='10')
+
+script(src=/js/jquery.validate.js');
+
+          
+
+
+
+        
+
