@@ -13,6 +13,10 @@ var m = exports.m = function(min, sec) {
   return min + sec/60.0;
 }
 
+var mtm = exports.mtm = function(meters){
+  return meters*0.000621371192;
+}
+
 /*
  * Turns a date object into a key for use with a user's calendar dict.
  * Args:
@@ -361,21 +365,25 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
           break;
         case 2:   // Q1
           type = {
+            workout: true,
             key: 'R',
             name: '200m repeats',
             info: "<p>5 to 6 x (2x200m R pace with 200m recovery jogs + 1x400m R pace with 400m jog).</p><br>"+descriptions['R']
           };
-          pace = getPace(vdot, type.key, 'mile');
-          kmPace = getPace(vdot, type.key, 'km');
-          time = String(getPace(vdot, type.key, 'km')*3)+" to "+String(pace*3.600);
-          distance = {
-            val: "6000 to 7200",
-            units: "meters",
-            accuracy: 'exact'
+          pace = {
+            200: getPace(vdot, type.key, '200');
+            400: getPace(vdot, type.key, '400');
+            800: getPace(vdot, type.key, '800');
           };
+          distance = {
+            val: mtm(8000),
+            units: 'miles'
+          };
+          time = null,
           break;
         case 3:   // Q2
           type = {
+            workout: true,
             key: 'T',
             name: 'threshold',
             info: "<p>5 to 6 x (1 mile at T pace with 1-min rests)</p><br>"+descriptions['T']
