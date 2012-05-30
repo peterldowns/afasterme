@@ -264,3 +264,14 @@ life work. Finishing the code that does this means that I can now create
 accurate, safe, scientific training schedules and show them to the user with
 confidence that they'll be helpful. This is really the appeal of the site, and
 one of the things that most people are interested in hearing about.
+
+
+Mr. Ferraro asked the following question:
+
+> How could you adapt this program into other sports?
+
+Parts of the site could be easily adapted to other sports, while other parts could not. The basic logging software is really just storing the answers to a bunch of questions — adapting it to other sports would only involve asking different questions. That would be very easy.
+
+The part of the website that would not be easily adapted to other sports is the training schedule generator. It's very specifically targeted to creating safe, scientific, and effective schedules for 5k to 15k running. These schedules don't translate well to other types of running (mile, 800 meter), let alone other sports.
+
+It would be possible to totally rewrite the training schedule code so that it made schedules for a different sport or type of running, but that would be a huge amount of work. Really, it's sort of infeasible — the training schedule is the heart of this website. But, the logging software could be "ripped" out of the website and adapted to almost any sport in a matter of hours.
