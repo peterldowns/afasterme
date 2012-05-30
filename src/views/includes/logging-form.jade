@@ -44,7 +44,7 @@ form.form-horizontal(id='logForm', action='/user/calendar/day/log')
       div.controls
         select.input-large(id='logFeeling', name='logFeeling')
           option
-          option(value='5') Phenomenal
+          option(value='5') Excellent
           option(value='4') Good
           option(value='3') Average
           option(value='2') Bad
@@ -55,7 +55,7 @@ form.form-horizontal(id='logForm', action='/user/calendar/day/log')
         p Comments
       div.controls
         div.input-prepend
-          textarea(id='logComments', name='ogComments', placeholder='Today I ...', rows='10')
+          textarea(id='logComments', name='ogComments', placeholder='Click here to begin typing!', rows='10')
 
     div.control-group
       label.control-label
@@ -65,6 +65,7 @@ form.form-horizontal(id='logForm', action='/user/calendar/day/log')
 
 script(src=/js/jquery.validate.js');
 script
+  alert(test);
   $.validator.addMethod(
     'regex',
     function(value, element, regexp){
