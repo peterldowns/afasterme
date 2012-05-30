@@ -232,3 +232,35 @@ Names are very important, both for marketing and understanding, and I think that
 A Faster Me perfectly sums up this project. Now that I have the domain I can
 easily show the project to other people.
 
+#May 28, 2012
+
+###Person / Event / Skill
+
+The code for calculating a user's VDOT (V O2 Max) is finally complete.
+
+###Reason for Importance
+
+It's pretty easy to come up with a crappy training schedule — just have people
+run the same thing every day. In order to actually make an awesome schedule,
+I've worked with Mr. Klick to modify Jack Daniel's schedules (used by pros and
+amateurs alike) to be perfect for this website. All of Daniel's schedules depend
+on a measure called VDOT, which is a measure of fitness. It's very difficult to
+calculate this, but I figured out how to do it. This lets me start making
+kickass schedules.
+
+#May 29, 2012
+
+###Person / Event / Skill
+
+The code for calculating equivalent paces based on a user's VDOT is now done and
+working correctly.
+
+###Reason for Importance
+
+As importance as VDOT is (see my last post for information), it's really only
+used to calcualte safe, effective paces for different types of training. That
+calculation involves a huge amount of logic, and is essentially Jack Daniel's
+life work. Finishing the code that does this means that I can now create
+accurate, safe, scientific training schedules and show them to the user with
+confidence that they'll be helpful. This is really the appeal of the site, and
+one of the things that most people are interested in hearing about.
