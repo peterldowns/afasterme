@@ -58,8 +58,8 @@ div.container-fluid
       div.row-fluid(id='alertsRow')
         hr
       script
-        var makeKey = function(date){
-          return date.getFullYear()+'-'+date.getUTCMonth()+'-'+date.getUTCDay();
+        var makeKey = exports.makeKey = function(date) {
+          return date.getFullYear()+'-'+(date.getUTCMonth()+1)+'-'+date.getUTCDate();
         }
         var maketime = function(time){
           return time.minutes + ' : '+time.seconds;

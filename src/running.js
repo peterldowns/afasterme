@@ -26,7 +26,7 @@ var mtm = exports.mtm = function(meters){
  * Example: 
  */
 var makeKey = exports.makeKey = function(date) {
-  return date.getFullYear()+'-'+date.getUTCMonth()+'-'+date.getUTCDay();
+  return date.getFullYear()+'-'+(date.getUTCMonth()+1)+'-'+date.getUTCDate();
 }
 
 /*
@@ -92,7 +92,7 @@ var getPace = exports.getPace = function(vdot, type, distance) {
       mile: 1
     },
     L : {
-      km 0,
+      km: 0,
       mile: 1
     },
     MP: {
@@ -193,19 +193,19 @@ var makeSchedule = exports.makeSchedule = function(type, miletime, experience, s
   else {
     start = new Date();
     while (start.getDay() != 0) { // Start on a Sunday
-      start.setDay(start.getDay()+1);
+      start.setDate(start.getDate()+1);
     }
   }
   var cal = {}
   switch (type) {
     case 16:
-      return 16WeekSchedule(miletime, experience, start);
+      return week16Schedule(miletime, experience, start);
       break;
     case 20:
-      return 20WeekSchedule(miletime, experience, start);
+      return week20Schedule(miletime, experience, start);
       break;
     case 24:
-      return 24WeekSchedule(miletime, experience, start);
+      return week24Schedule(miletime, experience, start);
       break;
     default: 
       console.log("Could not create a %d-week schedule", type);
@@ -214,7 +214,7 @@ var makeSchedule = exports.makeSchedule = function(type, miletime, experience, s
 }
 
 var descriptions = exports.descriptions = {
-  O: "Woo! A Day Off!"
+  O: "Woo! A Day Off!",
   E: "\
     The easiest run you'll ever take.",
   MP: "\
@@ -231,18 +231,18 @@ var descriptions = exports.descriptions = {
 }
 
 
-var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, start) {
+var week24Schedule = exports.week24Schedule = function(miletime, experience, start) {
   var cal = {},
       dates = makeDateRange(start, 16*7),
       mileage_initial = 20,
       VDOT_initial = VDOT(1, miletime);
 
-  for (daynum in daterange) {
-    var date = daterange[daynum],
+  for (daynum in dates) {
+    var date = dates[daynum],
         week = Math.floor(daynum / 7) + 1,
-        weekday = date.getDay();, // 0 (Sun) -> 6 (Sat)
+        weekday = date.getDay(), // 0 (Sun) -> 6 (Sat)
         key = makeKey(date),
-        vdot = VDOT_initial + 1*Math.floor(week/6); // increase VDOT every 6 weeks
+        vdot = VDOT_initial + 1*Math.floor(week/6), // increase VDOT every 6 weeks
         type,
         pace,
         time,
@@ -375,13 +375,14 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
             info: "<p>5 to 6 x (2x200m R pace with 200m recovery jogs + 1x400m R pace with 400m jog).</p><br>"+descriptions['R']
           };
           pace = {
-            200: getPace(vdot, type.key, 200);
-            400: getPace(vdot, type.key, 400);
-            800: getPace(vdot, type.key, 800);
+            200: getPace(vdot, type.key, 200),
+            400: getPace(vdot, type.key, 400),
+            800: getPace(vdot, type.key, 800),
           };
           distance = {
             val: mtm(9600),
-            unit: 'mile'
+            unit: 'mile',
+            accuracy: 'exact'
           };
           time = null;
           break;
@@ -393,11 +394,12 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
             info: "<p>5 to 6 x (1 mile at T pace with 1-min rests)</p><br>"+descriptions['T']
           };
           pace = {
-            mile: getPace(vdot, type.key, 'mile');
+            mile: getPace(vdot, type.key, 'mile')
           };
           distance = {
             val: 6,
-            unit: 'mile'
+            unit: 'mile',
+            accuracy: 'about'
           };
           time = null;
           break;
@@ -412,11 +414,12 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
               at I pace or to run equally hard if not a measured distance.</p>"
           };
           pace = {
-            mile: getPace(vdot, type.key, 'mile');
+            mile: getPace(vdot, type.key, 'mile')
           };
           distance = {
             val: mtm(10000),
-            unit: 'mile'
+            unit: 'mile',
+            accuracy: 'about'
           };
           time = null;
           break;
@@ -464,11 +467,12 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
             info: "<p>10 to 12 x (400m R pace with 400m jogs). The sum of R pace should total no more than 5% of the week's mileage.</p>"+descriptions['R']
           };
           pace = {
-            400: getPace(vdot, type.key, 400);
+            400: getPace(vdot, type.key, 400)
           };
           distance = {
             val: mtm(9600),
-            unit: 'mile'
+            unit: 'mile',
+            accuracy: 'exact'
           };
           time = null;
           break;
@@ -476,15 +480,16 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
           type = {
             workout: true,
             key: 'T',
-            name: 'threshold'
+            name: 'threshold',
             info: "<p> 5 to 6 x (1 mile T pace with 10min rests).</p>"+descriptions['T']
           };
           pace = {
-            mile: getPace(vdot, type.key, 'mile');
+            mile: getPace(vdot, type.key, 'mile')
           };
           distance = {
             val: 6,
-            unit: 'mile'
+            unit: 'mile',
+            accuracy: 'about'
           };
           time = null;
           break;
@@ -535,7 +540,7 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
           distance = {
             val: Math.round(10* (time/pace) )/10,
             unit: 'mile',
-            accuracy: 'about'
+            accuracy: 'about',
           };
           break;
  
@@ -558,7 +563,8 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
           };
           distance = {
             val: mtm(8000),
-            unit: 'mile'
+            unit: 'mile',
+            accuracy: 'about'
           };
           time = null;
           break;
@@ -570,257 +576,50 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
             info: "<p>3 x (2-mile or 10 to 12 min at T pace with 2-min rests)</p>"+descriptions['T']
           };
           pace = {
-            mile: getPace(vdot, type.key, 'mile');
+            mile: getPace(vdot, type.key, 'mile'),
           };
           distance = {
             val: 6,
-            unit: 'mile'
+            unit: 'mile',
+            accuracy: 'about'
           };
           time = null;
           break;
         case 6:   // Q3 or Race
+          type = {
+            workout: true,
+            key: 'I',
+            name: 'intervals',
+            info: "<p>5 to 6 x (3-min hard or 800, 1,000, or 1,200m I pace with 3-min recovery jogs) Stay under 8% of the week's total mileage at I pace.</p>"+descriptions['I']
+          };
+          pace = {
+            800: getPace(vdot, type.key, 800),
+            1000: getPace(vdot, type.key, 1000),
+            1200: getPace(vdot, type.key, 1200)
+          };
+          distance = {
+            val: mtm(7200),
+            unit: 'mile'
+          };
+          time = null;
           break;
         default:
           break;
       }
     }
-    else if (week == 10) {
-      switch (weekday) {
-        case 0:
-        case 1:
-        case 4:
-        case 5:   // Easy
-          break;
-        case 2:   // Q1
-          break;
-        case 3:   // Q2
-          break;
-        case 6:   // Q3 or Race
-          break;
-        default:
-          break;
-      }
-    }
-    else if (week == 11) {
-      switch (weekday) {
-        case 0:
-        case 1:
-        case 4:
-        case 5:   // Easy
-          break;
-        case 2:   // Q1
-          break;
-        case 3:   // Q2
-          break;
-        case 6:   // Q3 or Race
-          break;
-        default:
-          break;
-      }
-    }
-    else if (week == 12) {
-      switch (weekday) {
-        case 0:
-        case 1:
-        case 4:
-        case 5:   // Easy
-          break;
-        case 2:   // Q1
-          break;
-        case 3:   // Q2
-          break;
-        case 6:   // Q3 or Race
-          break;
-        default:
-          break;
-      }
-    }
-    else if (week == 13) {
-      switch (weekday) {
-        case 0:
-        case 1:
-        case 4:
-        case 5:   // Easy
-          break;
-        case 2:   // Q1
-          break;
-        case 3:   // Q2
-          break;
-        case 6:   // Q3 or Race
-          break;
-        default:
-          break;
-      }
-    }
-    else if (week == 14) {
-      switch (weekday) {
-        case 0:
-        case 1:
-        case 4:
-        case 5:   // Easy
-          break;
-        case 2:   // Q1
-          break;
-        case 3:   // Q2
-          break;
-        case 6:   // Q3 or Race
-          break;
-        default:
-          break;
-      }
-    }
-    else if (week == 15) {
-      switch (weekday) {
-        case 0:
-        case 1:
-        case 4:
-        case 5:   // Easy
-          break;
-        case 2:   // Q1
-          break;
-        case 3:   // Q2
-          break;
-        case 6:   // Q3 or Race
-          break;
-        default:
-          break;
-      }
-    }
-    else if (week == 16) {
-      switch (weekday) {
-        case 0:
-        case 1:
-        case 4:
-        case 5:   // Easy
-          break;
-        case 2:   // Q1
-          break;
-        case 3:   // Q2
-          break;
-        case 6:   // Q3 or Race
-          break;
-        default:
-          break;
-      }
-    }
-    else if (week == 18) {
-      switch (weekday) {
-        case 0:
-        case 1:
-        case 4:
-        case 5:   // Easy
-          break;
-        case 2:   // Q1
-          break;
-        case 3:   // Q2
-          break;
-        case 6:   // Q3 or Race
-          break;
-        default:
-          break;
-      }
-    }
-    else if (week == 19) {
-      switch (weekday) {
-        case 0:
-        case 1:
-        case 4:
-        case 5:   // Easy
-          break;
-        case 2:   // Q1
-          break;
-        case 3:   // Q2
-          break;
-        case 6:   // Q3 or Race
-          break;
-        default:
-          break;
-      }
-    }
-    else if (week == 20) {
-      switch (weekday) {
-        case 0:
-        case 1:
-        case 4:
-        case 5:   // Easy
-          break;
-        case 2:   // Q1
-          break;
-        case 3:   // Q2
-          break;
-        case 6:   // Q3 or Race
-          break;
-        default:
-          break;
-      }
-    }
-    else if (week == 21) {
-      switch (weekday) {
-        case 0:
-        case 1:
-        case 4:
-        case 5:   // Easy
-          break;
-        case 2:   // Q1
-          break;
-        case 3:   // Q2
-          break;
-        case 6:   // Q3 or Race
-          break;
-        default:
-          break;
-      }
-    }
-    else if (week == 22) {
-      switch (weekday) {
-        case 0:
-        case 1:
-        case 4:
-        case 5:   // Easy
-          break;
-        case 2:   // Q1
-          break;
-        case 3:   // Q2
-          break;
-        case 6:   // Q3 or Race
-          break;
-        default:
-          break;
-      }
-    }
-    else if (week == 23) {
-      switch (weekday) {
-        case 0:
-        case 1:
-        case 4:
-        case 5:   // Easy
-          break;
-        case 2:   // Q1
-          break;
-        case 3:   // Q2
-          break;
-        case 6:   // Q3 or Race
-          break;
-        default:
-          break;
-      }
-    }
-    else if (week == 24) {
-      switch (weekday) {
-        case 0:
-        case 1:
-        case 4:
-        case 5:   // Easy
-          break;
-        case 2:   // Q1
-          break;
-        case 3:   // Q2
-          break;
-        case 6:   // Q3 or Race
-          break;
-        default:
-          break;
-      }
+    else {
+      type = {
+        key: 'E',
+        name: 'easy',
+        info: descriptions['E']
+      };
+      pace = getPace(vdot, type.key, 'mile');
+      time = m(30, 0);
+      distance = {
+        val: Math.round(10* (time/pace) )/10,
+        unit: 'mile',
+        accuracy: 'about'
+      };
     }
     _day['plan'] = {
       vdot: vdot, // increase VDOT by 1 every 5th week
@@ -832,4 +631,4 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
     cal[key] = _day;
   }
   return cal;
-
+}
