@@ -376,10 +376,10 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
             800: getPace(vdot, type.key, '800');
           };
           distance = {
-            val: mtm(8000),
+            val: mtm(9600),
             units: 'miles'
           };
-          time = null,
+          time = null;
           break;
         case 3:   // Q2
           type = {
@@ -388,8 +388,14 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
             name: 'threshold',
             info: "<p>5 to 6 x (1 mile at T pace with 1-min rests)</p><br>"+descriptions['T']
           };
-          pace = getPace(vdot, type.key, 'mile');
-          time = String(pace*
+          pace = {
+            'mile': getPace(vdot, type.key, 'mile');
+          };
+          distance = {
+            val: 6,
+            units: 'miles'
+          };
+          time = null;
           break;
         case 6:   // Q3 or Race
           break;
