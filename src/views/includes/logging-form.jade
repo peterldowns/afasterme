@@ -1,4 +1,6 @@
-form.form-horizontal(id='loggingForm')
+form.form-horizontal(id='logForm', action='/user/calendar/day/log')
+  - var today = new Date();
+  input(type='hidden', name='logDayKey', id='logDayKey', value='#{today}')
   input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
   fieldset
     center
@@ -18,11 +20,11 @@ form.form-horizontal(id='loggingForm')
             option(value='km') kilometers
     
     div.control-group
-      label.control-label(for='logTimeMinutes')
+      label.control-label(for='logTime')
         p Time
       div.controls
         div.input-prepend
-          input.input-large(type='text', name='logTime', id='logTimeMinutes', placeholder='30:15')
+          input.input-large(type='text', name='logTime', id='logTime', placeholder='30:15')
     
     div.control-group
       label.control-label(for='logIntensity')
@@ -55,8 +57,94 @@ form.form-horizontal(id='loggingForm')
         div.input-prepend
           textarea(id='logComments', name='ogComments', placeholder='Today I ...', rows='10')
 
-script(src=/js/jquery.validate.js');
+    div.control-group
+      label.control-label
+      div.controls
+        button.btn.btn-large.btn-info(id='logSave', type='submit', data-loading-text='Saving ...')
+          | Save
 
+script(src=/js/jquery.validate.js');
+script
+  $.validator.addMethod(
+    'regex',
+    function(value, element, regexp){
+      var re = new RegExp(regexp);
+      
+      console.log("Regexp:", re);
+      console.log(" Value:", value);
+      console.log("Match?:", re.test(value));
+      return this.optional(element) || re.test(value);
+    },
+    'Please check your input — failed regex test.'
+  );
+  $(document).ready(function(){
+    $('#logForm').submit(function(){}); // disable default submission behavior
+    var logValidator = $('#logForm').validate({
+      rules: {
+        logDistanceVal: {
+          number: true,
+        },
+        logTime: {
+          regex: '^\\\\d+:\\\\d{2}$'
+        },
+      },
+      messages: {
+      },
+      errorClass: 'error',
+      validClass: 'success',
+      highlight: function(label, errorClass, validClass){
+        $(label)
+          .closest('.control-group')
+            .removeClass(validClass)
+            .addClass(errorClass);
+        $(label)
+          .parent().parent()
+            .find('.help-block')
+              .slideDown(200);
+      },
+      unhighlight: function(label, errorClass, validClass){
+        $(label)
+          .closest('.control-group')
+            .removeClass(errorClass)
+            .addClass(validClass);
+        $(label)
+          .parent().parent()
+            .find('.help-block')
+              .slideUp(200);
+      },
+      submitHandler: function(form){
+        console.log('Submitted logging form.');
+        $('#logSave').button('loading');
+        $.ajax({
+          url: '/user/calendar/day/log',
+          type: 'PUT',
+          dataType: 'json',
+          data: $('#logForm').serialize(),
+          success: function(data, textStatus, jqXHR){
+            alert("Saved successfully!");
+          },
+          error: function(jqXHR, textStatus, errorThrown){
+            alert("Did not save. Please try again.");
+            console.log(jqXHR, textStatus, errorThrown);
+          },
+          complete: function(jqXHR, textStatus){
+            $('#logSave').button('reset');
+          }
+        });
+        return false;
+      },
+      errorPlacement: function(error, element){
+        // Do nothing
+      }
+    });
+  });
+
+
+
+      
+
+
+      
           
 
 
