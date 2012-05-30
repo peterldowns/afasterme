@@ -179,8 +179,16 @@ api.POST_login = function(req, res) {
   }
 }
 
-var makeCalendar = function(ud){
-  return {};
+var running = require('./running.js'),
+    m = running.m,
+    mtm = running.mtm,
+    makeSchedule = running.makeSchedule;
+
+var makeCalendar = function(ud) {
+  var miletime = m(ud.mileMinutes, ud.mileSeconds),
+      experience = ud.priorExperience,
+      type = ud.scheduleType;
+  return makeSchedule(type, miletime, experience);
 }
 
 var parseUD = function(ud){
