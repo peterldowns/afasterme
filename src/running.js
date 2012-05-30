@@ -563,6 +563,20 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
           time = null;
           break;
         case 3:   // Q2
+          type = {
+            workout: true,
+            key: 'T',
+            name: 'threshold',
+            info: "<p>3 x (2-mile or 10 to 12 min at T pace with 2-min rests)</p>"+descriptions['T']
+          };
+          pace = {
+            mile: getPace(vdot, type.key, 'mile');
+          };
+          distance = {
+            val: 6,
+            unit: 'mile'
+          };
+          time = null;
           break;
         case 6:   // Q3 or Race
           break;
