@@ -58,28 +58,40 @@ div.container-fluid
       div.row-fluid(id='alertsRow')
         hr
       script
-        var makeKey = exports.makeKey = function(date) {
+        var makeKey = function(date) {
           return date.getFullYear()+'-'+(date.getUTCMonth()+1)+'-'+date.getUTCDate();
         }
         var maketime = function(time){
-          return time.minutes + ' : '+time.seconds;
+          var minutes = Math.round(time),
+              seconds = Math.round((time - minutes)*60*10)/10;
+          
+          minutes = String(minutes);
+          if (String(seconds).length == 1){
+            seconds = '0'+String(seconds);
+          }
+          else {
+            seconds = String(seconds);
+          }
+
+
+          return minutes+':'+seconds;
         }
         var key = makeKey(new Date());
         $.getJSON('/user/calendar', function(calendar){
           var today = calendar[key];
           console.log("Today: ", today);
           $('#distance').text(
-            today.plan.distance.value+
+            today.plan.distance.val+
             ' '+
-            today.plan.distance.unit+
+            today.plan.distance.unit+'s'+
             ' ('+
-            today.plan.type+
+            today.plan.type.name+
             ')'
           );
           $('#time').text(maketime(today.plan.time));
           $('#runtype').text(today.plan.type+'.');
-          $('#infohead').text('More information about '+today.plan.type+' runs:');
-          $('#moreinfo').html(today.plan.info);
+          $('#infohead').text('More information about '+today.plan.type.name+' runs:');
+          $('#moreinfo').html(today.plan.type.info);
 
           $('#progressPercent').width(String(today.week+20)+'%');
           $('#progressPercent > h3').html(String(today.week)+'%')
