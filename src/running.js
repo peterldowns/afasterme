@@ -231,6 +231,7 @@ var descriptions = exports.descriptions = {
 var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, start) {
   var cal = {},
       dates = makeDateRange(start, 16*7),
+      mileage_initial = 20,
       VDOT_initial = VDOT(1, miletime);
 
   for (daynum in daterange) {
@@ -377,7 +378,7 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
           };
           distance = {
             val: mtm(9600),
-            units: 'miles'
+            unit: 'miles'
           };
           time = null;
           break;
@@ -389,15 +390,32 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
             info: "<p>5 to 6 x (1 mile at T pace with 1-min rests)</p><br>"+descriptions['T']
           };
           pace = {
-            'mile': getPace(vdot, type.key, 'mile');
+            mile: getPace(vdot, type.key, 'mile');
           };
           distance = {
             val: 6,
-            units: 'miles'
+            unit: 'miles'
           };
           time = null;
           break;
-        case 6:   // Q3 or Race
+        case 6:   // Q3
+          type = {
+            workout: true,
+            key: 'I',
+            name: 'Interval',
+            info: "<p>Sets of (2min hard [I] pace, 1-min jog + 1 min hard [I] pace, \
+              30-sec jog + 30 sec hard [I] pace, 30-sec jog). The sum of I pace should be 8% \
+              of the week's total mileage or 10K, whichever is less. Hard [I] pace means to run \
+              at I pace or to run equally hard if not a measured distance.</p>"
+          };
+          pace = {
+            mile: getPace(vdot, type.key, 'mile');
+          };
+          distance = {
+            val: mtm(10000),
+            unit: 'miles'
+          };
+          time = null;
           break;
         default:
           break;
