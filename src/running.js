@@ -87,6 +87,10 @@ var getPace = exports.getPace = function(vdot, type, distance) {
       km : 0,
       mile: 1
     },
+    L : {
+      km 0,
+      mile: 1
+    },
     MP: {
       mile: 2
     },
@@ -191,12 +195,10 @@ var makeSchedule = exports.makeSchedule = function(type, miletime, experience, s
   var cal = {}
   switch (type) {
     case 16:
-      //return 16WeekSchedule(miletime, experience, start);
-      return 24WeekSchedule(miletime, experience, start);
+      return 16WeekSchedule(miletime, experience, start);
       break;
     case 20:
-      //return 20WeekSchedule(miletime, experience, start);
-      return 24WeekSchedule(miletime, experience, start);
+      return 20WeekSchedule(miletime, experience, start);
       break;
     case 24:
       return 24WeekSchedule(miletime, experience, start);
@@ -218,7 +220,7 @@ var descriptions = exports.descriptions = {
     Yeah, this is quite difficult indeed.",
   R:"\
     Mm, throw a bit of chicken in that pot and you've got a stew..\
-    I mean a RACE going!"
+    I mean a RACE going!",
 }
 
 
@@ -232,9 +234,15 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
         week = Math.floor(daynum / 7) + 1,
         weekday = date.getDay();, // 0 (Sun) -> 6 (Sat)
         key = makeKey(date),
+        vdot = VDOT_initial + 1*Math.floor(week/6); // increase VDOT every 6 weeks
+        type,
+        pace,
+        time,
+        distance,
         _day = {
           date: date,
           week: week,
+          weekday: weekday,
           log: {
             distance: {
               value: null,
@@ -244,66 +252,422 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
             pace: null,
             comments: null,
             intensity: null,
-            feeling: null,
-            // Optional
-            heartrate: {
-              upper: null,
-              lower: null
-            },
-            temperature: null,
-            wind: null,
-            hydration: null,
-            sleep: null,
-            stretched: null
+            feeling: null
           }
         };
-    // Must add: plan, phase
-    switch (week) {
-      case week <= 6:   // Phase I
-        var vdot = VDOT_initial + 1*Math.floor(week/6),
+    
+    // Phase
+    if (week <= 6) {
+      _day['phase'] = 1;
+    }
+    else if (week <= 12) {
+      _day['phase'] = 2;
+    }
+    else if (week <= 18) {
+      _day['phase'] = 3;
+    }
+    else if (week <= 24) {
+      _day['phase'] = 4;
+    }
+    else {
+      _day['phase'] = 0;
+    }
+    
+    // Plans
+    if (week <= 6) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+          type = {
+            key: 'E',
+            name: 'easy',
+            info: descriptions['E']
+          };
+          pace = getPace(vdot, type.key, 'mile');
+          time = m(30, 0);
+          distance = {
+            val: Math.round(10* (time/pace) )/10,
+            unit: 'miles',
+            accuracy: 'about'
+          };
+          break;
+        case 6:
+          if (week <= 3) {
             type = {
-              key: 'E',
-              name: 'easy',
-              info: descriptions['E']
-            }
-            pace = getPace(vdot, type.key, 'mile'),
-            time = m(30, 0),
+              key: 'O',
+              name: 'day off',
+              info: descriptions['O']
+            };
+            pace = 0.0;
+            time = m(0, 0);
+            distance = {
+              val: 0,
+              unit: 'miles',
+              accuracy: 'exact'
+            };
+          }
+          else {
+            type = {
+              key: 'L',
+              name: 'long',
+              info: descriptions['L']
+            };
+            pace = getPace(vdot, type.key, 'mile');
+            time = m(85, 0);
             distance = {
               val: Math.round(10* (time/pace) )/10,
               unit: 'miles',
               accuracy: 'about'
             };
-        _day['phase'] = 1;
-        _day['plan'] = {
-          vdot: vdot, // increase VDOT by 1 every 5th week
-          type: type,
-          pace: pace,
-          time: time,
-          distance: distance,
-        };
-        break;
-      case week <= 12:  // Phase II
-        _day.phase = 2;
-        _day['plan'] = {
-          vdot: VDOT_initial + 1*Math.floor(week/6), // increase VDOT by 1 every 5th week
-        };
-        break;
-      case week <= 18:  // Phase III
-        _day.phase = 3;
-        _day['plan'] = {
-          vdot: VDOT_initial + 1*Math.floor(week/6), // increase VDOT by 1 every 5th week
-        };
-        break;
-      case week <= 24:  // Phase IV
-        _day.phase = 4;
-        _day['plan'] = {
-          vdot: VDOT_initial + 1*Math.floor(week/6), // increase VDOT by 1 every 5th week
-        };
-        break;
-      default:
-        console.log("DO NOT TREAD HERE, MORTAL.");
-        break;
+          }
+          break;
+      }
     }
+    else if (week == 7) {
+      switch (weekday) {
+        case 0:   // Long Run
+          type = {
+            key: 'L',
+            name: 'long',
+            info: descriptions['L']
+          };
+          pace = getPace(vdot, type.key, 'mile');
+          time = m(85, 0);
+          distance = {
+            val: Math.round(10*(time/pace))/10,
+            unit: 'miles',
+            accuracy: 'about'
+          };
+          break;
+        case 1:
+        case 4:
+        case 5:   // Easy
+          type = {
+            key: 'E',
+            name: 'easy',
+            info: descriptions['E']
+          };
+          pace = getPace(vdot, type.key, 'mile');
+          time = m(30, 0);
+          distance = {
+            val: Math.round(10* (time/pace) )/10,
+            unit: 'miles',
+            accuracy: 'about'
+          };
+          break;
+        case 2:   // Q1
+          type = {
+            key: 'R',
+            name: '200m repeats',
+            info: "<p>5 to 6 x (2x200m R pace with 200m recovery jogs + 1x400m R pace with 400m jog).</p><br>"+descriptions['R']
+          };
+          pace = getPace(vdot, type.key, 'mile');
+          kmPace = getPace(vdot, type.key, 'km');
+          time = String(getPace(vdot, type.key, 'km')*3)+" to "+String(pace*3.600);
+          distance = {
+            val: "6000 to 7200",
+            units: "meters",
+            accuracy: 'exact'
+          };
+          break;
+        case 3:   // Q2
+          type = {
+            key: 'T',
+            name: 'threshold',
+            info: "<p>5 to 6 x (1 mile at T pace with 1-min rests)</p><br>"+descriptions['T']
+          };
+          pace = getPace(vdot, type.key, 'mile');
+          time = String(pace*
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 8) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 9) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 10) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 11) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 12) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 13) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 14) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 15) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 16) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 18) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 19) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 20) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 21) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 22) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 23) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    else if (week == 24) {
+      switch (weekday) {
+        case 0:
+        case 1:
+        case 4:
+        case 5:   // Easy
+          break;
+        case 2:   // Q1
+          break;
+        case 3:   // Q2
+          break;
+        case 6:   // Q3 or Race
+          break;
+        default:
+          break;
+      }
+    }
+    _day['plan'] = {
+      vdot: vdot, // increase VDOT by 1 every 5th week
+      type: type,
+      pace: pace,
+      time: time,
+      distance: distance,
+    };
     cal[key] = _day;
   }
   return cal;
