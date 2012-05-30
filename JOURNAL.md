@@ -38,3 +38,38 @@ rest of my life, especially as the world becomes more and more dominated by
 internet technologies and data mining. It's also important that I understand how
 to use this database because it's how I plan on storing data for my website
 — every user has a training schedule that needs to be kept track of. 
+
+##May 16, 2012
+
+#####Person / Event / Skill
+
+The new skill I learned today was how to create a REST-ful API (Application
+Programming Interface). I used the [Parse][1] API as a reference and did other
+research to determine the best way to expose the workings of my application.
+
+#####Reason for Importance
+
+API design is one of the hardest problems in computer science. A well-designed
+API allows quick iteration improvement to the program/website's functionality,
+while working with a poor API feels like actively fighting your code to get
+anything done. I've learned a lot about good API design (Parse's API is often
+pointed to as an example of how to design one) and come up with a plan for how
+to apply those to my site. This will make future development faster, and any
+code that's written easier to maintain. What's more, the design I've come up
+with will let me interact with my users' data in many different ways, so I'm not
+restricted to just one possible way of creating my website.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
