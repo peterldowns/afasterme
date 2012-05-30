@@ -227,7 +227,11 @@ var descriptions = exports.descriptions = {
     Mm, throw a bit of chicken in that pot and you've got a stew..\
     I mean a RACE going!",
   repeats:"\
-    These pretty much blow."
+    These pretty much blow.",
+  threshold:"\
+    Kinda suck.",
+  intervals:"\
+    Intervals stink.",
 }
 
 
