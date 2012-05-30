@@ -87,13 +87,84 @@ now sort of understand it. Also, there's no way I could write this website
 without talking to the database, so it's really important (and awesome) that I
 have this working now.
 
+##May 18, 2012
+
+#####Person / Event / Skill
+
+I figured out how to mirror my development environment locally and on a remote
+server. Any changes I make locally will be reflected remotely, and I can test in
+either setting.
+
+#####Reason for Importance
+
+No one runs a website from their laptop. That would be ridiculous. What people
+do is host their code on remote servers. I'm using a service called
+[Dotcloud](https://www.dotcloud.com/) to do this. For testing purposes, it's
+important that the website works the same way both locally and on the server.
+Until today, that wasn't true for me, but I've figured out how to get the
+database working the same in both places. This is important because now I can
+quickly work on and improve my code without fiddling around and trying to make
+it work the same everywhere — it just will. I may stand a chance of actually
+getting this site working by the end of Senior Project.
+
+## May 19, 2012
+
+#####Person / Event / Skill
+
+I learned how to do client-side form validation with JQuery and the JQuery
+Validate plugin.
+
+#####Reason for Importance
+
+When users are signing up for a website, any sort of 'friction' in the process
+will make them decide to not sign up after all. Cryptic errors, ugly forms, or
+bad questions will make them frustrated with the website — all before they've
+even signed up. A website's login form should be as simple and explanatory as
+possible, and give good feedback to the user if they enter a wrong value or
+something that should be changed slightly. My newfound skills with client-side
+validation allow me to show at exactly what spot the user messed up, and
+describe how they should fix it. A big part of my senior project is "will users
+actually use this website" — yes, but only if they aren't immediately pissed off
+by the signup form. 
+
+## May 21, 2012
+
+#####Person / Event / Skill
+
+I talked at length with Jack Huemmler, the fastest Junior-year miler in
+Pennsylvania, about what he would want from a running website. 
+
+#####Reason for Importance
+
+Jack Huemmler is my target audience: a runner who's dissatisfied with current
+tools for logging his training. I could create this website entirely for me, but
+if it is to ever take off with other people, it has to be built for a larger
+audience. Huemmler is one of the people I would love to have using my site, and
+he and I talked about what he wants and doesn't want in logging software. It's
+important that I listen to his advice if I want him to use it. Also, he's good
+publicity for my site — he travels all over Pennsylvania, and (if he likes my
+site) would be willing to recommend it to others. 
 
 
+## May 22, 2012
 
+#####Person / Event / Skill
 
+I talked with Mr. Klick today, and he taught me about the science behind coming
+up with different running schedules. We came up with three training plans of
+different lengths: 16 weeks, 20 weeks, and 24 weeks.
 
+#####Reason for Importance
 
-
+More than just being my advisor, Mr. Klick is an extremely high-class runner. We
+talked about what he and his running buddies were looking for in a website (as I
+did yesterday with Jack Huemmler). We also talked a lot about the science that
+will go into the website. The three training plans that we came up with are the
+heart of the site — they are what differentiates this site (unnamed) from
+[Athleticore](http://athleticore.com/) and other similar sites. The training
+plans are all designed to get a runner as fit as possible while still keeping
+safe. These are what will draw users to the site, so it's important that they
+exist.
 
 
 
