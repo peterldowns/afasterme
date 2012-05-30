@@ -488,6 +488,18 @@ var 24WeekSchedule = exports.24WeekSchedule = function(miletime, experience, sta
           time = null;
           break;
         case 6:   // Q3 or Race
+          type = {
+            key: 'O',
+            name: 'day off',
+            info: descriptions['O']
+          };
+          pace = 0.0;
+          time = m(0, 0);
+          distance = {
+            val: 0,
+            unit: 'mile',
+            accuracy: 'exact'
+          };
           break;
         default:
           break;
