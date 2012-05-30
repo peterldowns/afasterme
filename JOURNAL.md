@@ -198,4 +198,37 @@ functionality they don't. For instance, I learned that they both like to see a
 calendar view of their month and their training schedule, but that the same
 thing in list form is uninteresting / unimportant to them.
 
+#May 26, 2012
+
+###Person / Event / Skill
+
+Javascript Dates finally started to make sense to me, and I figured out how to
+use them as keys to hashmaps / dicts / objects.
+
+###Reason for Importance
+
+This website revolves around different dates — every user has their own calendar
+(really, a list of dates) with different training to perform on each day. I was
+having a hard time figuring out how to associate these schedule with each day
+until I really understood Date objects in Javascript (for reference: writing
+code in Node.js is the same as writing it in Javascript). I've decided that
+every user should have a "Calendar" object, and within it there are different
+days. So user.calend.(date) will give the training schedule for that date. This
+is really cool, and works well, and is a logical way to structure the
+application that will let me progress moving forward.
+
+#May 27, 2012
+
+###Person / Event / Skill
+
+I bought the domain afaster.me and have decided on a name for the website:
+"A Faster Me".
+
+###Reason for Importance
+
+I've been struggling with coming up with a good name for this project. A Faster
+Me fits perfectly — it's what every user should be wanting when they sign up.
+Names are very important, both for marketing and understanding, and I think that
+A Faster Me perfectly sums up this project. Now that I have the domain I can
+easily show the project to other people.
 
