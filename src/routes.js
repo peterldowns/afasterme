@@ -338,8 +338,8 @@ api.GET_plan = function(req, res) {
   }
 };
 
-// Get user feedback / response for a day (if it exists)
-api.GET_feedback = function(req, res) {
+// Get user log / response for a day (if it exists)
+api.GET_log = function(req, res) {
   if (req.session.loggedIn){
     res.json({
       status: 'Not yet implemented',
@@ -354,8 +354,8 @@ api.GET_feedback = function(req, res) {
   }
 };
 
-// Update/Create user feedback for a day
-api.PUT_feedback = function(req, res) {
+// Update/Create user log for a day
+api.PUT_log = function(req, res) {
   if (req.session.loggedIn){
     res.json({
       status: 'Not yet implemented',
