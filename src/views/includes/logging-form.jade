@@ -64,19 +64,29 @@ form.form-vertical(id='logForm', action='/user/calendar/day/log')
 script
   // Inserts saved values into the log.
   var timeString = function(timef){
-    var minutes = Math.round(timef);
-    var seconds = Math.round((timef - minutes)*60);
-    var secstr = String(seconds);
-    if (secstr.length == 1){
-      secstr = "0"+secstr;
+    console.log("timef =", timef);
+    if (timef) {
+      var minutes = Math.round(timef);
+      var seconds = Math.round((timef - minutes)*60);
+      var secstr = String(seconds);
+      if (secstr.length == 1){
+        secstr = "0"+secstr;
+      }
+      console.log("Calculated time.");
+      console.log("Input:", timef);
+      console.log("Output:", String(minutes)+":"+secstr);
+      return String(minutes)+":"+secstr;
     }
-    return String(minutes)+":"+secstr;
+    else {
+      return "";
+    }
   }
-  
+  var stuff = "#{today.log.time}";
+  console.log("STUFF=", stuff);
   var updateLogValues = function(distance, unit, time, intensity, feeling, comments){
     $('#logDistanceVal').val(String(#{today.log.distance.value ? today.log.distance.value : ""}));
     $('#logDistanceUnit option[value="#{today.log.distance.unit}"]').attr('selected', 'selected');
-    $('#logTime').val(String("#{today.log.time ? timeString(today.log.time) : ""}"));
+    $('#logTime').val(timeString(#{today.log.time ? today.log.time : null}));
     $('#logIntensity option[value="#{today.log.intensity}"]').attr('selected', 'selected');
     $('#logFeeling option[value="#{today.log.feeling}"]').attr('selected', 'selected');
     $('#logComments').val(String("#{today.log.comments ? today.log.comments : ""}"));
