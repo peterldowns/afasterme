@@ -35,7 +35,7 @@ style
     text-align: center;
   }
   #alertsRow {
-    display: none;
+    
   }
   table {
     width: 100%;
@@ -57,6 +57,17 @@ div.container-fluid
               | Phase #{today.phase} (Week #{today.week}/24)
         hr
       div.row-fluid(id='alertsRow')
+        div.alert.alert-error
+          button.close(data-dismiss='alert') ×
+          h2 Warning!
+          p
+            strong This site is still under construction. 
+            | Feel free to look around — I'm really proud of the calendar in particular — but do not use this to start training. The schedules are incomplete and probably innacurate. 
+            br
+            | I'm flattered that you're here! Have any comments, questions, or suggestions? Email me at peterldowns@gmail.com. 
+            br
+            | Seriously, do not use this for real, but do check it out.
+
         hr
       div#today
       div.row-fluid(id='planRow')
