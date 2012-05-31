@@ -1,0 +1,20 @@
+include includes/navbar
+
+div.container-fluid
+  div.row-fluid
+    div.span2
+      include mixins/sidebar
+      mixin sidebar('Calendar')
+    div.span10(id='calendarContainer')
+      h1.year
+      h2.month
+      h3.time
+      table.calendar(id='calendar')
+        thead
+        tbody
+      button.btn(name='last', id='last', value='Previous Month')
+      button.btn(name='current', id='current', 'value='This Month')
+      button.btn(name='next', id='next', value='Next Month')
+
+link(rel='stylesheet', href='/css/calendar.css')
+script(src='/js/calendar.js')
