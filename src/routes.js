@@ -8,6 +8,12 @@ var db_wrapper = require('./db_wrapper'),
     DB_DATA = db_wrapper.GetDBData(),
     DBC = new DBConn(DB_DATA.host, DB_DATA.port, DB_DATA.user, DB_DATA.password);
 
+// Running tools
+var running = require('./running.js'),
+    m = running.m,
+    mtm = running.mtm,
+    makeSchedule = running.makeSchedule;
+
 /*
  * Public Views — things that non-logged in users can see.
  */
@@ -69,6 +75,7 @@ exports.GET_dashboard = function(req, res) {
     res.render('dashboard', {
       title: 'AFaster.Me — Dashboard',
       session: req.session,
+      dayKey: running.makeKey(new Date()),
       email : req.query.email ? req.query.email : null
     });
   }
@@ -179,10 +186,6 @@ api.POST_login = function(req, res) {
   }
 }
 
-var running = require('./running.js'),
-    m = running.m,
-    mtm = running.mtm,
-    makeSchedule = running.makeSchedule;
 
 var makeCalendar = function(ud) {
   var miletime = m(ud.mileMinutes, ud.mileSeconds),
