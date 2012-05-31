@@ -1,5 +1,5 @@
 form.form-vertical(id='logForm', action='/user/calendar/day/log')
-  input(type='hidden', name='logDayKey', id='logDayKey', value='#{session.dayKey}')
+  input(type='hidden', name='logDayKey', id='logDayKey', value='#{dayKey}')
   input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
   fieldset
     center
@@ -162,7 +162,7 @@ script
     $('#logTime').val(timeString(time));
     $('#logIntensity option[value="'+intensity+'"]').attr('selected', 'selected');
     $('#logFeeling option[value="'+feeling+'"]').attr('selected', 'selected');
-    $('#logComments')val(comments);
+    $('#logComments').val(comments);
   }
 
 

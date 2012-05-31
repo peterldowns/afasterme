@@ -72,11 +72,13 @@ exports.GET_login = function(req, res) {
 exports.GET_dashboard = function(req, res) {
   if (req.session.loggedIn){
     console.log('rendering dashboard');
+    var dayKey = running.makeKey(new Date());
+    console.log("Made new key:", dayKey);
     res.render('dashboard', {
       title: 'A Faster Me — Dashboard',
       session: req.session,
-      today: req.session.user.calendar[running.makeKey(new Date())],
-      dayKey: running.makeKey(new Date()),
+      today: req.session.user.calendar[dayKey],
+      dayKey: dayKey,
       email : req.query.email ? req.query.email : null
     });
   }
@@ -378,7 +380,7 @@ api.PUT_log = function(req, res) {
       time = m(mins, secs);
       pace = time/distance.value;
     }
-
+    console.log("time type:", typeof time);
     req.session.user.calendar[daykey].log = {
       distance: distance,
       time: time,
