@@ -53,7 +53,7 @@ form.form-vertical(id='logForm', action='/user/calendar/day/log')
         h5 Comments
       div.controls
         div.input-prepend
-          textarea(id='logComments', name='ogComments', placeholder='Click here to begin typing!', rows='10', style='width:80%;')
+          textarea(id='logComments', name='logComments', placeholder='Click here to begin typing!', rows='10', style='width:80%;')
 
     div.control-group
       label.control-label
@@ -61,6 +61,16 @@ form.form-vertical(id='logForm', action='/user/calendar/day/log')
         button.btn.btn-large.btn-info(id='logSave', type='submit', data-loading-text='Saving ...')
           | Save
 
+script
+  // Inserts saved values into the log.
+  $(document).ready(function(){
+    $('#logDistanceVal').val(#{today.log.distance.value ? today.log.distance.value : ""})
+    $('#logDistanceUnit option[value="#{today.log.distance.unit}"]').attr('selected', 'selected');
+    $('#logTime').val(#{today.log.time ? today.log.time : ""});
+    $('#logIntensity option[value="#{today.log.intensity}"]').attr('selected', 'selected');
+    $('#logFeeling option[value="#{today.log.feeling}"]').attr('selected', 'selected');
+    $('#logComments').val(#{today.log.comments ? today.log.comments : ""});
+  });
 script(src=/js/jquery.validate.js');
 script
   $.validator.addMethod(
