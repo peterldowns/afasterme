@@ -169,7 +169,7 @@ var renderCalendar = function(mm, yyyy){
       console.log(cal);
       for (key in cal){
         console.log(key);
-        makeLoggable($('#'+key), cal[key], key);
+        makeModal($('#'+key), cal[key], key);
       }
     },
     error: function(jqXHR, textStatus, errorThrown){

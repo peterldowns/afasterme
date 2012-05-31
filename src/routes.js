@@ -312,7 +312,7 @@ api.GET_calendar = function(req, res) {
 
 // Get calendar information for a specific day
 api.GET_day = function(req, res) {
-  var key = req.query.key;
+  var key = req.query.logDayKey;
   if (req.session.loggedIn){
     res.json(req.session.user.calendar[key], 200);
   }
@@ -326,7 +326,7 @@ api.GET_day = function(req, res) {
 
 // Get a day's training plan
 api.GET_plan = function(req, res) {
-  var key = req.query.key;
+  var key = req.query.logDayKey;
   if (req.session.loggedIn){
     res.json(req.session.user.calendar[key].plan, 200);
   }
@@ -340,8 +340,9 @@ api.GET_plan = function(req, res) {
 
 // Get user log / response for a day (if it exists)
 api.GET_log = function(req, res) {
-  var key = req.query.key;
+  var key = req.query.logDayKey;
   if (req.session.loggedIn){
+    console.log(req.session.user);
     res.json(req.session.user.calendar[key].log, 200);
   }
   else {
