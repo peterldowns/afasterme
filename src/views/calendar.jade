@@ -5,12 +5,27 @@ style
     border:1px solid #ccc;
     padding: 20px;
   }
-
-  .calendar td{
+  .calDate {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 2px;
+  }
+  .calInfo {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 2px;
+  }
+  .calIcon {
+    text-align: center;
+  }
+  .calendar td {
     height:80px;
     font-size:18px;
-    padding: 10px;
+    padding: 5px;
     border: 1px solid #ccc;
+    position: relative;
   }
 
   .calendar td.today{
@@ -18,6 +33,16 @@ style
   }
 
   .content{
+  }
+
+  .easy {
+    background-color: #79FF4D;
+  }
+  .threshold, .intervals, .repeats {
+    background-color: #FF4D79;
+  }
+  .long {
+    background-color: #4DFFD2;
   }
 
 include includes/navbar
@@ -28,6 +53,9 @@ div.container-fluid
       include mixins/sidebar
       mixin sidebar('Calendar')
     div.span10(id='calendarContainer')
+      div(style='display:none')
+        form(id='calendarForm')
+          input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
       table.calendar(id='calendar')
         thead
           tr
@@ -40,6 +68,6 @@ div.container-fluid
       button.btn(name='lastMonth', id='lastMonth') Previous Month
       button.btn(name='currentMonth', id='currentMonth') This Month
       button.btn(name='nextMonth', id='nextMonth') Next Month
+    div(id='modals');
 
 script(src='/js/cal.js')
-//script(src='/js/calendar.js')

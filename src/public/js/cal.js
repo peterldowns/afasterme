@@ -133,11 +133,11 @@ var renderCalendar = function(mm, yyyy){
       _body += "'";
     }
     _body += ">\n";
-    _body += "\t\t<p>"+info.date.getDate()+"</p>\n";
+    _body += "\t\t<span class='calDate'>"+info.date.getDate()+"</p>\n";
     _body += "\t</td>\n";
 
     if (weekday === 6){
-      _body += "<th></th>";
+      _body += "<th class='summary'></th>";
       _body += "</tr>\n";
     }
   }
@@ -156,11 +156,43 @@ var renderCalendar = function(mm, yyyy){
   $('#nextMonth').unbind('click').bind('click', function(){
     renderCalendar(nextMonth.getMonth(), nextMonth.getFullYear());
   });
-    
 
-
+  $.ajax({
+    url: '/user/calendar',
+    type: 'GET',
+    dataType: 'json',
+    data: {
+      _csrf: $('#_csrf').val()
+    },
+    success: function(cal, textStatus, jqXHR){
+      $('#modals').empty();
+      console.log(cal);
+      for (key in cal){
+        console.log(key);
+        makeLoggable($('#'+key), cal[key], key);
+      }
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+      alert("Error loading data.");
+      console.log(jqXHR);
+    }
+  });
 }
 
+var makeLoggable = function(elem, data, key){
+  console.log(elem);
+  if (elem.length) {
+    elem.addClass(data.plan.type.name);
+    elem.append("<div class='calInfo'>"+data.plan.type.name+"</span>");
+    $('#modals').append( '<div class="modal fade" id="'+key+'Modal"><h1>Hello</h1></div' );
+    elem.click(function(){
+      console.log('#'+key+'Modal');
+      console.log($('#'+key+'Modal'));
+      $('#'+key+'Modal').modal();
+    });
+
+  }
+}
 $(document).ready(function(){
   renderCalendar();
 });
