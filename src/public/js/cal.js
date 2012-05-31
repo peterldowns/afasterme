@@ -178,21 +178,3 @@ var renderCalendar = function(mm, yyyy){
     }
   });
 }
-
-var makeLoggable = function(elem, data, key){
-  console.log(elem);
-  if (elem.length) {
-    elem.addClass(data.plan.type.name);
-    elem.append("<div class='calInfo'>"+data.plan.type.name+"</span>");
-    $('#modals').append( '<div class="modal fade" id="'+key+'Modal"><h1>Hello</h1></div' );
-    elem.click(function(){
-      console.log('#'+key+'Modal');
-      console.log($('#'+key+'Modal'));
-      $('#'+key+'Modal').modal();
-    });
-
-  }
-}
-$(document).ready(function(){
-  renderCalendar();
-});
