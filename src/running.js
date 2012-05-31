@@ -26,7 +26,7 @@ var mtm = exports.mtm = function(meters){
  * Example: 
  */
 var makeKey = exports.makeKey = function(date) {
-  return date.getFullYear()+'-'+(date.getUTCMonth()+1)+'-'+date.getUTCDate();
+  return date.getFullYear()+'-'+(date.getUTCMonth())+'-'+date.getUTCDate();
 }
 
 /*
