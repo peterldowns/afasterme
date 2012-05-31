@@ -1,6 +1,5 @@
-form.form-horizontal(id='logForm', action='/user/calendar/day/log')
-  - var today = new Date();
-  input(type='hidden', name='logDayKey', id='logDayKey', value='#{today}')
+form.form-vertical(id='logForm', action='/user/calendar/day/log')
+  input(type='hidden', name='logDayKey', id='logDayKey', value='#{dayKey}')
   input(type='hidden', name='_csrf', id='_csrf', value='#{session._csrf}')
   fieldset
     center
@@ -8,12 +7,11 @@ form.form-horizontal(id='logForm', action='/user/calendar/day/log')
     br
     div.control-group
       label.control-label(for='logDistanceVal')
-        p Distance
+        h5 Distance
       div.controls
         div.input-prepend
           input.input-small(type='text', name='logDistanceVal', id='logDistanceval', placeholder='3.4')
           | &nbsp;
-        div.input-prepend
           select.input-small(id='logDistanceUnit', name='logDistanceUnit')
             option(value='mile', selected=true) miles
             option(value='meter') meters
@@ -21,16 +19,16 @@ form.form-horizontal(id='logForm', action='/user/calendar/day/log')
     
     div.control-group
       label.control-label(for='logTime')
-        p Time
+        h5 Time
       div.controls
         div.input-prepend
-          input.input-large(type='text', name='logTime', id='logTime', placeholder='30:15')
+          input.input-medium(type='text', name='logTime', id='logTime', placeholder='30:15')
     
     div.control-group
       label.control-label(for='logIntensity')
-        p Intensity
+        h5 Intensity
       div.controls
-        select.input-large(id='logIntensity', name='logIntensity')
+        select.input-medium(id='logIntensity', name='logIntensity')
           option
           option(value='1') Very Easy
           option(value='2') Easy
@@ -40,9 +38,9 @@ form.form-horizontal(id='logForm', action='/user/calendar/day/log')
     
     div.control-group
       label.control-label(for='logFeeling')
-        p Overall Feeling
+        h5 Overall Feeling
       div.controls
-        select.input-large(id='logFeeling', name='logFeeling')
+        select.input-medium(id='logFeeling', name='logFeeling')
           option
           option(value='5') Excellent
           option(value='4') Good
@@ -52,10 +50,10 @@ form.form-horizontal(id='logForm', action='/user/calendar/day/log')
 
     div.control-group
       label.control-label(for='logComments')
-        p Comments
+        h5 Comments
       div.controls
         div.input-prepend
-          textarea(id='logComments', name='ogComments', placeholder='Click here to begin typing!', rows='10')
+          textarea(id='logComments', name='ogComments', placeholder='Click here to begin typing!', rows='10', style='width:80%;')
 
     div.control-group
       label.control-label
@@ -65,12 +63,6 @@ form.form-horizontal(id='logForm', action='/user/calendar/day/log')
 
 script(src=/js/jquery.validate.js');
 script
-  try { 
-    alert(test);
-  }
-  catch (e) {
-    // do nothing
-  }
   $.validator.addMethod(
     'regex',
     function(value, element, regexp){
