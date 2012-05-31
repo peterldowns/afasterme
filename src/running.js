@@ -69,7 +69,14 @@ var VDOT = exports.VDOT = function(mile, milepace) {
       i = .8 + .1894393*Math.exp(-.012778*t) +
           .2989558*Math.exp(-.1932605*t), // V02 Max i(t)
       vdot = Math.round(1000*(c/i))/1000;
-  return Math.round(vdot);
+  vdot = Math.round(vdot);
+    if (vdot < 30) {
+    vdot = 30;
+  }
+  if (vdot > 85) {
+    vdot = 85;
+  }
+  return vdot;
 }
 
 /*
