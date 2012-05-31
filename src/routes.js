@@ -312,11 +312,9 @@ api.GET_calendar = function(req, res) {
 
 // Get calendar information for a specific day
 api.GET_day = function(req, res) {
+  var key = req.query.key;
   if (req.session.loggedIn){
-    res.json({
-      status: 'Not yet implemented',
-      redirect: '/'
-    }, 501);
+    res.json(req.session.user.calendar[key], 200);
   }
   else {
     res.json({
@@ -328,11 +326,9 @@ api.GET_day = function(req, res) {
 
 // Get a day's training plan
 api.GET_plan = function(req, res) {
+  var key = req.query.key;
   if (req.session.loggedIn){
-    res.json({
-      status: 'Not yet implemented',
-      redirect: '/'
-    }, 501);
+    res.json(req.session.user.calendar[key].plan, 200);
   }
   else {
     res.json({
@@ -344,11 +340,9 @@ api.GET_plan = function(req, res) {
 
 // Get user log / response for a day (if it exists)
 api.GET_log = function(req, res) {
+  var key = req.query.key;
   if (req.session.loggedIn){
-    res.json({
-      status: 'Not yet implemented',
-      redirect: '/'
-    }, 501);
+    res.json(req.session.user.calendar[key].log, 200);
   }
   else {
     res.json({
