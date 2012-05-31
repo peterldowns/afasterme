@@ -194,6 +194,9 @@ var makeCalendar = function(ud) {
   var miletime = m(ud.mileMinutes, ud.mileSeconds),
       experience = ud.priorExperience,
       type = ud.scheduleType;
+  console.log("makeCalendar type:", type, typeof type);
+  console.log("makeCalendar miletime:", miletime, typeof miletime);
+  console.log("makeCalendar experience:", experience, typeof experience);
   return makeSchedule(type, miletime, experience);
 }
 

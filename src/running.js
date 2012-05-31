@@ -174,11 +174,11 @@ var getPace = exports.getPace = function(vdot, type, distance) {
     84:[m(3,29),m(5,36),m(4,40),m(01,07),m(02,14),m(02,48),m(03,04),m(04,30),m(01,01),m(02,35),m(02,49),m(03,05),m(4,08),m(0,27),m(0,55),m(1,52),null],
     85:[m(3,27),m(5,33),m(4,37),m(01,06),m(02,13),m(02,46),m(03,02),m(04,27),m(01,01),m(02,33),m(02,47),m(03,03),m(4,05),m(0,27),m(0,55),m(1,51),null]
       }
-  //console.log("Type:", type);
-  //console.log("Distance:", distance);
-  //console.log("Key[%s]: %s", type, key[type]);
-  //console.log("Key[%s][%s]: %s", type, distance, key[type][distance]);
-  //console.log("paces[%d]:", vdot, paces[vdot]);
+  console.log("Type:", type);
+  console.log("Distance:", distance);
+  console.log("Key[%s]: %s", type, key[type]);
+  console.log("Key[%s][%s]: %s", type, distance, key[type][distance]);
+  console.log("paces[%d]:", vdot, paces[vdot]);
   return paces[vdot][key[type][distance]];
 }
 
@@ -299,6 +299,9 @@ var week24Schedule = exports.week24Schedule = function(miletime, experience, sta
             name: 'easy',
             info: descriptions['E']
           };
+          console.log(vdot, typeof vdot);
+          console.log(type.key, typeof type.key);
+          console.log('mile', typeof 'mile');
           pace = getPace(vdot, type.key, 'mile');
           time = m(30, 0);
           distance = {
