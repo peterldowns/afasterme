@@ -119,4 +119,12 @@ script
   $(document).ready(function(){
     $('#progressPercent').width(String(#{today.week}+20)+'%');
     $('#progressPercent > h3').html(String(#{today.week})+'%');
+    updateLogValues(
+      String(#{today.log.distance.value ? today.log.distance.value : ""}),
+      "#{today.log.distance.unit}",
+      timeString(#{today.log.time? today.log.time : null}),
+      "#{today.log.intensity}",
+      "#{today.log.feeling}",
+      "#{today.log.comments ? today.log.comments : ""}"
+    );
   });
