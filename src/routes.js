@@ -360,11 +360,59 @@ api.GET_log = function(req, res) {
 
 // Update/Create user log for a day
 api.PUT_log = function(req, res) {
+  console.log(req.body);
   if (req.session.loggedIn){
-    res.json({
-      status: 'Not yet implemented',
-      redirect: '/'
-    }, 501);
+    var time_regex = new RegExp('^\\d+:\\d{2}$'),
+        time,
+
+        daykey = String(req.body.logDayKey),
+        distance = {
+          value: Number(req.body.logDistanceVal),
+          unit: String(req.body.logDistanceUnit),
+        },
+        intensity = Number(req.body.logIntensity),
+        feeling = Number(req.body.logFeeling),
+        comments = String(req.body.logComments),
+        pace;
+    
+    if (time_regex.test(req.body.time)){
+      console.log("valid time.");
+      var time_array = req.body.time.split(':'),
+          mins = Number(time_array[0]),
+          secs = Number(time_array[1]);
+      time = m(mins, secs);
+      pace = time/distance.value;
+    }
+
+    req.session.user.calendar[daykey].log = {
+      distance: distance,
+      time: time,
+      pace: pace,
+      comments: comments,
+      intensity: intensity,
+      feeling: feeling,
+    };
+    
+    console.log("Updated log data:");
+    console.log(req.session.user.calendar[daykey].log);
+    DBC.db('Running', function(DBC){
+      console.log("Into Running");
+      DBC.collection('users', function(DBC){
+        console.log("... into users");
+        DBC.update({ email: req.session.user.email}, {$set: {calendar: req.session.user.calendar}}, {safe:true}, function(err){
+          console.log("Error?", err);
+          if (err) {
+            res.json({
+              status: "Could not save data.",
+            }, 500);
+          }
+          else {
+            console.log("Done update.");
+            res.json(req.session.user.calendar[daykey].log, 200);
+          }
+        });
+      });
+    });
   }
   else {
     res.json({
