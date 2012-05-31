@@ -68,6 +68,17 @@ var Calendar = {
 			,31
 		];
 		
+		// Events
+		var evnt = {"event" : [
+			 {"date":"12/25","title":"Christmas"}
+			,{"date":"1/01","title":"New Year's Day"}
+			,{"date":"11/22","title":"Thanksgiving"}
+			,{"date":"9/03","title":"Labor Day"}
+			,{"date":"7/04","title":"Independence Day"}
+			,{"date":"5/28","title":"Memorial Day"}
+			,{"date":"2/28","title":"President's Day"}
+		]};
+	
 		// Leap year
 		if(now.getYear()%4 == 0){
 			n[1] = 29;
@@ -92,6 +103,7 @@ var Calendar = {
 		for(var j=0;j<d.length;j++){
 			_html += "<th>" +d[j]+ "</th>";
 		}
+    _html += "<th>"+"Summary"+"</th>";
 		_html = "<tr>" +_html+ "</tr>";
 		h.append(_html);
 		
@@ -103,7 +115,7 @@ var Calendar = {
 			
 			_html = "";
 			
-			for(var j=0;j<d.length-1;j++){
+			for(var j=0;j<d.length;j++){
 				
 				cls = "";
 				msg = "";
@@ -125,7 +137,16 @@ var Calendar = {
 					last = n[mon.getDate()];
 				}
 				
-							
+				
+				// Check Event schedule
+				$.each(evnt.event,function(){	
+					if(this.date == mon.getMonth()+1 + "/" + dow.substr(-2)){
+						cls = "holiday";
+						msg = this.title;
+					}
+				});
+				
+				
 				// Set class
 				if(cls.length == 0){
 					if(
@@ -140,14 +161,9 @@ var Calendar = {
 						cls = "";
 					}
 				}
-
 				
 				// Set ID
 				id = "cell_" + i + "" + j + "" + dow;
-        var current = new Date();
-        //console.log('last:', last);
-        console.log('i:', i, 'j:', j);
-        //current.setDate(current.getDate()+last);
 				
 				// Render HTML
 				if(dow == 0){
@@ -159,7 +175,6 @@ var Calendar = {
 				}
 				
 			}
-      _html += '<td class="summary"></td>';
 			
 			_html = "<tr>" +_html+ "</tr>";
 			b.append(_html);
@@ -180,6 +195,32 @@ var Calendar = {
 		
 	},
 	
+	
+	// Render Clock
+	"renderTime" : function(){
+		var now = new Date();
+		
+		var tt = "AM";
+		var hh = now.getHours();
+		var nn = "0" + now.getMinutes();
+		
+		if(now.getHours()>12){
+			hh = now.getHours()-12;
+			tt = "PM";
+		}
+		
+		$('.time').html(
+			hh + ":" + nn.substr(-2) + " " + tt
+		);
+		
+		var doit = function(){
+			Calendar.renderTime();
+		}
+		
+		setTimeout(doit,500);
+	},
+	
+	
 	// Initialization
 	"init" : function(){
 	}
@@ -196,4 +237,7 @@ $(document).ready(function(){
 		
 	// Render the calendar
 	Calendar.renderCalendar();
+	
+	Calendar.renderTime();
+	
 });
