@@ -15,8 +15,6 @@ mixin nav-item-active(title, link, iconClass)
 mixin sidebar-nav-item(active, title, link, iconClass)
   -if (active.toUpperCase() === title.toUpperCase())
     mixin nav-item-active(title, link, iconClass)
-    script
-      console.log("ACTIVE = #{title}")
   -else
     mixin nav-item(title, link, iconClass)
 
@@ -28,4 +26,16 @@ mixin sidebar(active)
       mixin sidebar-nav-item(active, 'Statistics', '/statistics', 'icon-bar-chart')
     hr
     div.well
-      p Randomized advice will go here!
+      - var item = Math.floor((Math.random()*6)+1);
+      - if (item == 1)
+        p The trick to improving your race times is simple: for some amount of distance, take less time to cover it!
+      - if (item == 2)
+        p Run fewer vertical miles!
+      - if (item == 3)
+        p Think speed.
+      - if (item == 4)
+        p Always remember to stretch before you run.
+      - if (item == 5)
+        p If you want to finish first, just be faster than all of your opponents.
+      - if (item == 6)
+        p You may have noticed that this advice isn't all that helpful. Good on you.
