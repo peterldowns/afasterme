@@ -75,6 +75,7 @@ exports.GET_dashboard = function(req, res) {
     res.render('dashboard', {
       title: 'AFaster.Me — Dashboard',
       session: req.session,
+      today: req.session.user.calendar[running.makeKey(new Date())],
       dayKey: running.makeKey(new Date()),
       email : req.query.email ? req.query.email : null
     });
