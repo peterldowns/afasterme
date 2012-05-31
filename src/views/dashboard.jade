@@ -1,3 +1,4 @@
+- var today = session.user.calendar[dayKey];
 style
   .planText, .planEmph {
     text-align: center;
@@ -54,49 +55,10 @@ div.container-fluid
               h3
           div.span3
             h3(id='phaseInfo')
+              | Phase #{today.phase} (Week #{today.week}/24)
         hr
       div.row-fluid(id='alertsRow')
         hr
-      script
-        var makeKey = function(date) {
-          return date.getFullYear()+'-'+(date.getUTCMonth()+1)+'-'+date.getUTCDate();
-        }
-        var maketime = function(time){
-          var minutes = Math.round(time),
-              seconds = Math.round((time - minutes)*60*10)/10;
-          
-          minutes = String(minutes);
-          if (String(seconds).length == 1){
-            seconds = '0'+String(seconds);
-          }
-          else {
-            seconds = String(seconds);
-          }
-
-
-          return minutes+':'+seconds;
-        }
-        var key = makeKey(new Date());
-        $.getJSON('/user/calendar', function(calendar){
-          var today = calendar[key];
-          console.log("Today: ", today);
-          $('#distance').text(
-            today.plan.distance.val+
-            ' '+
-            today.plan.distance.unit+'s'+
-            ' ('+
-            today.plan.type.name+
-            ')'
-          );
-          $('#time').text(maketime(today.plan.time));
-          $('#runtype').text(today.plan.type+'.');
-          $('#infohead').text('More information about '+today.plan.type.name+' runs:');
-          $('#moreinfo').html(today.plan.type.info);
-
-          $('#progressPercent').width(String(today.week+20)+'%');
-          $('#progressPercent > h3').html(String(today.week)+'%')
-          $('#phaseInfo').text('Phase '+today.phase+' (Week '+today.week+')');
-        });
 
       div#today
       div.row-fluid(id='planRow')
@@ -106,16 +68,20 @@ div.container-fluid
               h2 Your run today is
             div.planEmph
               h2(id='distance')
+                | #{today.plan.distance.val} #{today.plan.distance.unit}s (#{today.plan.type.name})
             div.planText
               h2 in
             div.planEmph
               h2(id='time')
+                | #{today.plan.time.str.min}:#{today.plan.time.str.sec}
           div.span6
             h3(id='infohead')
+              | More information about #{today.plan.type.name} runs:
             div(id='moreinfo')
+              #{today.plan.type.info}
       div.row-fluid(id='logRow')
         div.span12
-          div.span6.well
+          div.span6.well(style='text-align:center')
             include includes/logging-form
           div.span6.well
             div(style='text-align:center')
@@ -151,3 +117,8 @@ div.container-fluid
                   td
                     i.icon-ok
             a(href='statistics') ... more statistics
+script
+  $(document).ready(function(){
+    $('#progressPercent').width(String(#{today.week}+20)+'%');
+    $('#progressPercent > h3').html(String(#{today.week})+'%');
+  });
