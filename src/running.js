@@ -116,6 +116,11 @@ var getPace = exports.getPace = function(vdot, type, distance) {
       800: 15
     }
   };
+  console.log("Type:", type);
+  console.log("Distance:", distance);
+  console.log("Key[%s]: %s", type, key[type]);
+  console.log("Key[%s][%s]: %d", type, distance, key[type][distance]);
+  //console.log("paces[%d]:", vdot, paces[vdot]);
   var paces = {
     30:[m(7,52),m(12,40),m(11,01),m(02,33),m(05,07),m(06,24),m(10,00),m(10,18),m(02,22),null,null,null,null,m(0,67),m(2,16),null,null],
     31:[m(7,41),m(12,22),m(10,45),m(02,30),m(04,59),m(06,14),m(06,49),m(10,02),m(02,18),null,null,null,null,m(0,65),m(2,12),null,null],
@@ -174,11 +179,6 @@ var getPace = exports.getPace = function(vdot, type, distance) {
     84:[m(3,29),m(5,36),m(4,40),m(01,07),m(02,14),m(02,48),m(03,04),m(04,30),m(01,01),m(02,35),m(02,49),m(03,05),m(4,08),m(0,27),m(0,55),m(1,52),null],
     85:[m(3,27),m(5,33),m(4,37),m(01,06),m(02,13),m(02,46),m(03,02),m(04,27),m(01,01),m(02,33),m(02,47),m(03,03),m(4,05),m(0,27),m(0,55),m(1,51),null]
       }
-  console.log("Type:", type);
-  console.log("Distance:", distance);
-  console.log("Key[%s]: %s", type, key[type]);
-  console.log("Key[%s][%s]: %s", type, distance, key[type][distance]);
-  console.log("paces[%d]:", vdot, paces[vdot]);
   return paces[vdot][key[type][distance]];
 }
 
