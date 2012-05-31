@@ -10,7 +10,7 @@ form.form-vertical(id='logForm', action='/user/calendar/day/log')
         h5 Distance
       div.controls
         div.input-prepend
-          input.input-small(type='text', name='logDistanceVal', id='logDistanceval', placeholder='3.4')
+          input.input-small(type='text', name='logDistanceVal', id='logDistanceVal', placeholder='3.4')
           | &nbsp;
           select.input-small(id='logDistanceUnit', name='logDistanceUnit')
             option(value='mile', selected=true) miles
@@ -63,13 +63,27 @@ form.form-vertical(id='logForm', action='/user/calendar/day/log')
 
 script
   // Inserts saved values into the log.
-  $(document).ready(function(){
-    $('#logDistanceVal').val(#{today.log.distance.value ? today.log.distance.value : ""})
+  var timeString = function(timef){
+    var minutes = Math.round(timef);
+    var seconds = Math.round((timef - minutes)*60);
+    var secstr = String(seconds);
+    if (secstr.length == 1){
+      secstr = "0"+secstr;
+    }
+    return String(minutes)+":"+secstr;
+  }
+  
+  var updateLogValues = function(distance, unit, time, intensity, feeling, comments){
+    $('#logDistanceVal').val(String(#{today.log.distance.value ? today.log.distance.value : ""}));
     $('#logDistanceUnit option[value="#{today.log.distance.unit}"]').attr('selected', 'selected');
-    $('#logTime').val(#{today.log.time ? today.log.time : ""});
+    $('#logTime').val(String("#{today.log.time ? timeString(today.log.time) : ""}"));
     $('#logIntensity option[value="#{today.log.intensity}"]').attr('selected', 'selected');
     $('#logFeeling option[value="#{today.log.feeling}"]').attr('selected', 'selected');
-    $('#logComments').val(#{today.log.comments ? today.log.comments : ""});
+    $('#logComments').val(String("#{today.log.comments ? today.log.comments : ""}"));
+  }
+  
+  $(document).ready(function(){
+    updateLogValues();
   });
 script(src=/js/jquery.validate.js');
 script
