@@ -101,12 +101,18 @@ var renderCalendar = function(mm, yyyy){
       _body = "";
   
   // Start with the headers
+  _head += "<tr><th style='text-align:center' colspan='8'><h1>"
+          + MONTHS[curMonth.getMonth()]
+          + " "
+          + curMonth.getFullYear()
+          + "</h1></th></tr>";
   _head += "<tr>";
   HEADINGS.forEach(function(day){
     _head += (
         "<th>" + day + "</th>"
     );
   });
+  _head += "<th>Summary</th>"
   _head += "</tr>";
 
   // Render the body
@@ -119,18 +125,40 @@ var renderCalendar = function(mm, yyyy){
       _body += "<tr>\n";
     }
 
-    _body += "\t<th id='"+info.key+"' class='"+info.class+" day'>\n";
-    _body += "\t\t<h2>"+info.date.getDate()+"</h2>\n";
-    _body += "\t</th>\n";
+    _body += "\t<td id='"+info.key+"' class='"+info.class+" day";
+    if (info.date.toDateString() === now.toDateString()) {
+      _body += " today'";
+    }
+    else {
+      _body += "'";
+    }
+    _body += ">\n";
+    _body += "\t\t<p>"+info.date.getDate()+"</p>\n";
+    _body += "\t</td>\n";
 
     if (weekday === 6){
+      _body += "<th></th>";
       _body += "</tr>\n";
     }
   }
 
+  // Actually do the rendering
   $('#calendar > thead').append(_head);
   $('#calendar > tbody').append(_body);
-  alert("Done.");
+
+  // Make prev/cur/next month buttons work.
+  $('#lastMonth').unbind('click').bind('click', function() {
+    renderCalendar(prevMonth.getMonth(), prevMonth.getFullYear());
+  });
+  $('#currentMonth').unbind('click').bind('click', function(){
+    renderCalendar(now.getMonth(), now.getFullYear());
+  });
+  $('#nextMonth').unbind('click').bind('click', function(){
+    renderCalendar(nextMonth.getMonth(), nextMonth.getFullYear());
+  });
+    
+
+
 }
 
 $(document).ready(function(){

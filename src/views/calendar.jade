@@ -1,3 +1,25 @@
+style
+  .calendar th{
+    font-size:14px;
+    font-weight:bold;
+    border:1px solid #ccc;
+    padding: 20px;
+  }
+
+  .calendar td{
+    height:80px;
+    font-size:18px;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+
+  .calendar td.today{
+    border: 2px solid #000;
+  }
+
+  .content{
+  }
+
 include includes/navbar
 
 div.container-fluid
@@ -6,15 +28,18 @@ div.container-fluid
       include mixins/sidebar
       mixin sidebar('Calendar')
     div.span10(id='calendarContainer')
-      h1#calYear
-      h2#calMonth
       table.calendar(id='calendar')
         thead
+          tr
+            th(colspan='8', style='text-align:center')
+              h1(id='calYear') Hi
+            
         tbody
-      button.btn(name='last', id='last') Previous Month
-      button.btn(name='current', id='current') This Month
-      button.btn(name='next', id='next') Next Month
+      br
+      br
+      button.btn(name='lastMonth', id='lastMonth') Previous Month
+      button.btn(name='currentMonth', id='currentMonth') This Month
+      button.btn(name='nextMonth', id='nextMonth') Next Month
 
-link(rel='stylesheet', href='/css/calendar.css')
 script(src='/js/cal.js')
 //script(src='/js/calendar.js')
