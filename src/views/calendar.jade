@@ -6,15 +6,15 @@ div.container-fluid
       include mixins/sidebar
       mixin sidebar('Calendar')
     div.span10(id='calendarContainer')
-      h1.year
-      h2.month
-      h3.time
+      h1#calYear
+      h2#calMonth
       table.calendar(id='calendar')
         thead
         tbody
-      button.btn(name='last', id='last', value='Previous Month')
-      button.btn(name='current', id='current', 'value='This Month')
-      button.btn(name='next', id='next', value='Next Month')
+      button.btn(name='last', id='last') Previous Month
+      button.btn(name='current', id='current') This Month
+      button.btn(name='next', id='next') Next Month
 
 link(rel='stylesheet', href='/css/calendar.css')
-script(src='/js/calendar.js')
+script(src='/js/cal.js')
+//script(src='/js/calendar.js')

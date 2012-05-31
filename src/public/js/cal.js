@@ -58,8 +58,8 @@ var renderCalendar = function(mm, yyyy){
   var fdom = curMonth.getDay(); // First day of month (day of week)
 
   // Clear the view
-  //$('#calendar > thead:last').empty();
-  //$('#calendar > tbody:last').empty();
+  $('#calendar > thead:last').empty();
+  $('#calendar > tbody:last').empty();
 
   var days_to_render = [];
   var _d = new Date(curMonth);
@@ -96,9 +96,43 @@ var renderCalendar = function(mm, yyyy){
     _d.setDate(_d.getDate()+1);
   }
 
-  console.log(days_to_render);
-  console.log(days_to_render.length);
+  // Render the table
+  var _head = "",
+      _body = "";
+  
+  // Start with the headers
+  _head += "<tr>";
+  HEADINGS.forEach(function(day){
+    _head += (
+        "<th>" + day + "</th>"
+    );
+  });
+  _head += "</tr>";
 
+  // Render the body
+  for (i in days_to_render){
+    console.log(weekday);
+    var weekday = i % 7,
+        info = days_to_render[i];
+    
+    if (weekday === 0){
+      _body += "<tr>\n";
+    }
 
+    _body += "\t<th id='"+info.key+"' class='"+info.class+" day'>\n";
+    _body += "\t\t<h2>"+info.date.getDate()+"</h2>\n";
+    _body += "\t</th>\n";
+
+    if (weekday === 6){
+      _body += "</tr>\n";
+    }
+  }
+
+  $('#calendar > thead').append(_head);
+  $('#calendar > tbody').append(_body);
+  alert("Done.");
 }
-renderCalendar();
+
+$(document).ready(function(){
+  renderCalendar();
+});
