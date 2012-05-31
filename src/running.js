@@ -625,11 +625,22 @@ var week24Schedule = exports.week24Schedule = function(miletime, experience, sta
         accuracy: 'about'
       };
     }
+    var minstr = String( Math.round(time) );
+    var secstr = String( Math.round((time-Math.round(time))*60*10)/10);
+    if (secstr.length == 1){
+      secstr = "0"+secstr;
+    }
     _day['plan'] = {
       vdot: vdot, // increase VDOT by 1 every 5th week
       type: type,
       pace: pace,
-      time: time,
+      time: {
+        val: time,
+        str: {
+          min: minstr,
+          sec: secstr,
+        }
+      },
       distance: distance,
     };
     cal[key] = _day;
