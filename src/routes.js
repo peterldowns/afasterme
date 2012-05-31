@@ -375,9 +375,9 @@ api.PUT_log = function(req, res) {
         comments = String(req.body.logComments),
         pace;
     
-    if (time_regex.test(req.body.time)){
+    if (time_regex.test(req.body.logTime)){
       console.log("valid time.");
-      var time_array = req.body.time.split(':'),
+      var time_array = req.body.logTime.split(':'),
           mins = Number(time_array[0]),
           secs = Number(time_array[1]);
       time = m(mins, secs);
