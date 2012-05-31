@@ -65,7 +65,12 @@ form.form-horizontal(id='logForm', action='/user/calendar/day/log')
 
 script(src=/js/jquery.validate.js');
 script
-  alert(test);
+  try { 
+    alert(test);
+  }
+  catch (e) {
+    // do nothing
+  }
   $.validator.addMethod(
     'regex',
     function(value, element, regexp){
