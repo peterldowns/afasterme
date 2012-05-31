@@ -25,7 +25,7 @@ exports.GET_landing = function(req, res) {
   }
   else {
     res.render('landing', {
-      title: 'Welcome to AFaster.Me',
+      title: 'Welcome to A Faster Me',
       session: req.session
     });
   }
@@ -38,7 +38,7 @@ exports.GET_signup = function(req, res) {
   }
   else {
     res.render('signup', {
-      title: 'AFaster.Me — Sign Up',
+      title: 'A Faster Me — Sign Up',
       session: req.session,
       email: req.query.email ? req.query.email : null,
       error: req.query.error ? req.query.error : false
@@ -53,7 +53,7 @@ exports.GET_login = function(req, res) {
   }
   else{
     res.render('login', {
-      title: 'AFaster.Me — Log In',
+      title: 'A Faster Me — Log In',
       email: req.query.email ? req.query.email : null,
       newuser: req.query.newuser ? true : false,
       error: req.query.error ? true : false,
@@ -73,7 +73,7 @@ exports.GET_dashboard = function(req, res) {
   if (req.session.loggedIn){
     console.log('rendering dashboard');
     res.render('dashboard', {
-      title: 'AFaster.Me — Dashboard',
+      title: 'A Faster Me — Dashboard',
       session: req.session,
       today: req.session.user.calendar[running.makeKey(new Date())],
       dayKey: running.makeKey(new Date()),
@@ -91,7 +91,7 @@ exports.GET_log = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('log', {
-    title: 'AFaster.Me — Log',
+    title: 'A Faster Me — Log',
     session: req.session
   });
 };
@@ -102,7 +102,7 @@ exports.GET_calendar = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('calendar', {
-    title: 'AFaster.Me — Calendar',
+    title: 'A Faster Me — Calendar',
     session: req.session
   });
 };
@@ -113,7 +113,7 @@ exports.GET_statistics = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('statistics', {
-    title: 'AFaster.Me — Statistics',
+    title: 'A Faster Me — Statistics',
     session: req.session
   });
 };
@@ -124,7 +124,7 @@ exports.GET_preferences = function(req, res) {
     res.redirect('/dashboard');
   }
   res.render('preferences', {
-    title: 'AFaster.Me — Preferences',
+    title: 'A Faster Me — Preferences',
     session: req.session
   });
 };
