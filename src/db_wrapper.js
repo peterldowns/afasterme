@@ -149,11 +149,11 @@ DBConn.prototype.insert = function(items, options, callback) {
   });
 }
 
-DBConn.prototype.update = function(query, objNew, options, err_callback) {
+DBConn.prototype.update = function(query, objNew, options, callback){
   conn = this;
   this.coll.update(query, objNew, options, function(err) {
     if (callback) {
-      err_callback(err);
+      callback(err);
     }
     else {
       conn.errcb(err);
