@@ -23,3 +23,21 @@ var routes = {
 		'DELETE' : "delete all information on a specific day",
 	},
 }
+
+url_base = '/api/v1'
+app.post(url_base+'/key', function(req, res){
+	var email = req.param('email', null),
+			password = req.param('password', null);
+	if (email && password) {
+		user = db.get_user(email, password);
+		if (user) {
+			api_key = db.get_api_key(user) || db.make_api_key(user);
+			res.json(api_key, 200);
+		}
+		else {
+			res.json('Username must match password', 400);
+		}
+	}
+	else {
+		res.json('Must supply username and password', 400);
+	}
