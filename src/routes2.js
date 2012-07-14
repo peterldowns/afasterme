@@ -25,13 +25,15 @@ var routes = {
 }
 
 url_base = '/api/v1'
+
 app.post(url_base+'/key', function(req, res){
 	var email = req.param('email', null),
-			password = req.param('password', null);
-	if (email && password) {
-		user = db.get_user(email, password);
+			password = req.param('password', null),
+			api_key = req.param('api_key', null);
+	if ((email && password) || api_key) {
+		user = db.get_user(email, password, api_key);
 		if (user) {
-			api_key = db.get_api_key(user) || db.make_api_key(user);
+			api_key = db.make_api_key(user);
 			res.json(api_key, 200);
 		}
 		else {
@@ -41,3 +43,26 @@ app.post(url_base+'/key', function(req, res){
 	else {
 		res.json('Must supply username and password', 400);
 	}
+});
+
+app.get(url_base+'/key', function(req, res){
+	var email = req.param('email', null),
+			password = req.param('password', null);
+	if (email && password) {
+		user = db.get_user(email, password);
+		if (user) {
+			api_key = db.get_api_key(user) || null;
+			status_code = api_key ? 200 : 404;
+			res.json(api_key, status_code);
+		}
+		else {
+			res.json('Username must match password', 400);
+		}
+	}
+	else {
+		res.json('Must supply username and password', 400);
+	}
+});
+
+app.get(url_base+'/key', function(req, res){
+	var email = req.param('email
