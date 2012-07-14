@@ -1,5 +1,5 @@
 www:
-    type: nodejs
+    type: python
 
-data:
+db:
     type: mongodb
