@@ -1,8 +1,6 @@
 # coding: utf-8
-from bottle import (Bottle, request)
+from src import app
 
-app = Bottle()
-
-@app.get('/')
+@app.route('/', methods=['GET'])
 def index():
 	return "Hello, world!"

@@ -1,11 +1,18 @@
 # coding: utf-8
 import json
-from bottle import (Bottle, request)
+from src import app
 
-app = Bottle()
+def make_json(func):
+	""" Wrap output from a function and make it JSON. """
+	def json_wrapper(*args, **kwargs):
+		result = func(*args, **kwargs)
+		return json.dumps(result)
+	return json_wrapper
 
-@app.get('/')
+@app.route('/api/', methods=['GET'])
+@make_json
 def api_overview():
-	return {
+	data = {
 		'/' : 'A list of all available apis',
 	}
+	return data

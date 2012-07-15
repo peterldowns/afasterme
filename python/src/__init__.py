@@ -1,16 +1,9 @@
 # coding: utf-8
-from bottle import (route, request, view, static_file, default_app, debug)
+from flask import (Flask)
 
-import api
-import index
-import static
+app = Flask(__name__)
 
-debug(True)
+import src.api
+import src.index
 
-app = index.app
-app.mount(api.app, '/api')
-app.mount(static.app, '/static')
-
-if __name__=="__main__":
-	from bottle import run
-	run(app=app, server='wsgiref', host='127.0.0.1', port='8080', reloader=True)
+app.debug = True
