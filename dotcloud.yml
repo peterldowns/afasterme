@@ -1,6 +1,6 @@
 www:
     type: python
-    approot: src/python
+    approot: python
 
 db:
     type: mongodb
