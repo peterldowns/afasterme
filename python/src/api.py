@@ -69,5 +69,5 @@ def delete_log(year, month, day):
 	return json_response({'error': 'Not Implemented'}, 501)
 
 @app.route('/api/<path:path>/', methods=['GET', 'DELETE', 'PUT', 'HEAD', 'POST'])
-def error_handler(path):
+def api_bad_path(path):
 	return redirect('/api/')
