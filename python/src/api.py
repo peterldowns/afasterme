@@ -1,7 +1,7 @@
 # coding: utf-8
 import json
-from flask import (request, redirect, make_response)
-from src import app
+from flask import (redirect, make_response)
+from src import (app)
 
 def json_response(data, http_code=200):
 	jdata = json.dumps(data)
@@ -71,4 +71,3 @@ def delete_log(year, month, day):
 @app.route('/api/<path:path>/', methods=['GET', 'DELETE', 'PUT', 'HEAD', 'POST'])
 def error_handler(path):
 	return redirect('/api/')
-	return json_response("Method/Path not found: {} /api/{}".format(request.method.upper(), path), 400)
