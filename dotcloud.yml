@@ -1,6 +1,9 @@
 www:
     type: python
     approot: python
+    environment:
+        MODE: dev
+        ON_DOTCLOUD: True
 
 db:
     type: mongodb
