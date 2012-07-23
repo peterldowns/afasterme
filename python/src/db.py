@@ -63,3 +63,5 @@ class DBConn(object):
 			return self._coll.find_one(params)
 		else:
 			return self._coll.find_one()
+
+dbc = DBConn(**db_creds())
