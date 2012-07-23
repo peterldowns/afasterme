@@ -1,11 +1,8 @@
 # coding: utf-8
 import json
 from flask import (redirect, make_response)
+from util import (json_response)
 from src import (app)
-
-def json_response(data, http_code=200):
-	jdata = json.dumps(data)
-	return make_response(jdata, http_code)
 
 @app.route('/api/', methods=['GET'])
 def api_overview():
