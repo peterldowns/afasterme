@@ -1,4 +1,4 @@
 # Custom ignores
-
+python/src/conf.py
 *.DS_Store
 *.pyc
