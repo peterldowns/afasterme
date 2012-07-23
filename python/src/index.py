@@ -4,9 +4,9 @@ from pystache import (template)
 from src import (app)
 
 @app.route('/', methods=['GET'])
-@app.route('static/templates/index.html')
+@template('static/templates/index.html')
 def index():
-	return Template('index', {'name':'World'})
+	return ({'name':'Peter'},{})
 
 @app.route('/<path:path>/', methods=['GET', 'PUT', 'POST', 'DELETE', 'HEAD'])
 def error_handler(path):
