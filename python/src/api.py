@@ -27,11 +27,15 @@ def api_overview():
 			'GET' : 'Get logged information for a specific day',
 			'DELETE' : 'Clear all logged information on a specific day',
 		},
-	})
+        '/api/key' : {
+            'POST' : 'Creates a new key',
 
-@app.route('/api/user/', methods=['POST'])
-def create_user():
-	return json_response({'error': 'Not Implemented'}, 501)
+        },
+        '/api/key/:key' : {
+            'GET' : 'Return information on a specific API key',
+            'DELETE' : 'Delete this API key',
+        },
+	})
 
 @app.route('/api/user/<username>/', methods=['GET'])
 def get_user(username):
@@ -71,3 +75,20 @@ def delete_log(year, month, day):
 @app.route('/api/<path:path>/', methods=['GET', 'DELETE', 'PUT', 'HEAD', 'POST'])
 def api_bad_path(path):
 	return redirect('/api/')
+
+@app.route('/api/key/', methods=['POST'])
+def create_api_key():
+    return json_resonse({'error': 'Not Implemented'}, 501)
+
+@app.route('/api/key/<key>/', methods=['GET'])
+def get_key_info(key):
+    return json_resonse({'error': 'Not Implemented'}, 501)
+
+@app.route('/api/key/<key>/', methods=['DELETE'])
+def delete_api_key(key):
+    return json_response({'error' : 'Not Implemented'}, 501)
+
+@app.route('/api/user/', methods=['POST'])
+def create_user():
+	return json_response({'error': 'Not Implemented'}, 501)
+
