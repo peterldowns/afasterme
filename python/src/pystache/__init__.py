@@ -1,11 +1,14 @@
 # coding: utf-8
 import os.path
+from copy import (copy)
 
 from state import (State)
 from context import (Context)
 from rendering import (render)
 from loading import (load_file, load_template)
 from utils import (make_unicode, html_escape)
+
+template_globals = {}
 
 def template(relative_path, *args, **kwargs):
     """
@@ -43,7 +46,9 @@ def template(relative_path, *args, **kwargs):
 
     def wrapper(fn):
         def render_template(*args, **kwargs):
-            context, partials = fn(*args, **kwargs)
+            new_context, partials = fn(*args, **kwargs)
+            context = copy(template_globals)
+            context.update(new_context)
             return render(template, context, partials, state)
         return render_template
     return wrapper
