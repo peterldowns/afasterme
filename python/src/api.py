@@ -100,3 +100,4 @@ def api_bad_path(path):
     print path
     print "Could not find {}".format(path)
     return redirect(ROOT_URL)
+
