@@ -1,38 +1,44 @@
 # coding: utf-8
-from flask import (Flask, abort, request, make_response, session)
-from pystache import (template_globals, template)
 import conf
 import util
 
-# Create the Flask app
-app = Flask(__name__)
+from bottle import (Bottle, run, debug, static_file)
+from pystache import (template_globals, template)
 
-# Lets every template use csrf_token
+from api import (app as api_app)
+
+# Create the bottle app
+app = Bottle()
+app.run = run
+debug(conf.debug)
+
+# Mount subapps
+subapps = {
+    '/api'  : api_app,
+}
+for route, subapp in subapps.iteritems():
+    app.mount(subapp, route)
+
+# Set variables available to every template
 template_globals.update({
     'csrf_token' : lambda: util.gen_csrf_token(session),
+    'name' : 'World',
 })
 
+@app.get('/')
+@template('static/templates/index.html')
+def index():
+    return {}, {}
 
-# Add the routes defined in other files
-import src.index
-import src.api
-import src.auth
+@app.get('/static/<filepath:path>')
+@app.get('/static/<filepath:path>')
+def static(filepath):
+    return static_file(filepath, root='static')
 
-# Enable sessions
-app.secret_key = conf.secret_key
+@app.get('/download/<filepath:path>')
+def download(filepath):
+    return static_file(filename, root='static', download=True)
 
-# Debugging
-app.debug = conf.debug
-
-# CSRF Protection
-@app.before_request
-def csrf_protect():
-    if request.method == "POST":
-        token = session.pop('_csrf', None)
-        if not token or token != request.form.get('_csrf'):
-            abort(400)
-
-# Generic error handler
-@app.route('/<path:path>/', methods=['GET', 'PUT', 'POST', 'DELETE', 'HEAD'])
-def error_handler(path):
-    return make_response("Page not found", 404)
+@app.error(404)
+def err_404(error):
+    return "CAN'T LET YOU DO THAT STARFOX."

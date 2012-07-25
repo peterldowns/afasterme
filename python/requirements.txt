@@ -1,2 +1,2 @@
-Flask==0.8
-pymongo
+bottle==0.10.11
+pymongo==2.1
