@@ -1,7 +1,6 @@
 # coding: utf-8
 import conf
 import util
-
 from bottle import (Bottle, run, debug, static_file)
 from pystache import (template_globals, template)
 
@@ -12,7 +11,10 @@ app = Bottle()
 app.run = run
 debug(conf.debug)
 
-# Mount subapps
+# Import circular-dependency subapps
+import auth
+
+# Add subapps
 subapps = {
     '/api'  : api_app,
 }
@@ -25,11 +27,13 @@ template_globals.update({
     'name' : 'World',
 })
 
+# Homepage
 @app.get('/')
 @template('static/templates/index.html')
 def index():
     return {}, {}
 
+# Static files
 @app.get('/static/<filepath:path>')
 @app.get('/static/<filepath:path>')
 def static(filepath):
@@ -39,6 +43,8 @@ def static(filepath):
 def download(filepath):
     return static_file(filename, root='static', download=True)
 
+# 404
 @app.error(404)
 def err_404(error):
     return "CAN'T LET YOU DO THAT STARFOX."
+

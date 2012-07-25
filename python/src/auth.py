@@ -1,17 +1,19 @@
 # coding: utf-8
-from flask import (session, request, redirect)
-from src import (app)
-
+from src import app # circular as fuck
+from bottle import (redirect, abort)
 from pystache import (template)
-from util import (json_response)
 from db import (dbc)
 
-@app.route('/login/', methods=['GET'])
+ROOT_URL = '/'
+
+@app.get('/login')
+@app.get('/login/')
 @template('static/templates/login.html')
 def login_page():
     return {}, {}
 
-@app.route('/login/', methods=['POST'])
+@app.post('/login')
+@app.post('/login/')
 def login():
     email = request.form['email']
     password = request.form['password']
@@ -21,23 +23,23 @@ def login():
         if user:
             session['user'] = user
             session['logged_in'] = True
-            print user
-            return json_response({
+            return {
                 'user' : user,
                 'error' : None,
-            }, 200)
-        return json_response({
+            }
+        return abort(400, {
             'user' : None,
             'error' : 'Authentication failure',
-        }, 400)
-    return json_response({
+        })
+    return abort(400, {
         'user' : None, 
         'error': 'Must supply username and password',
-    }, 400)
+    })
 
-
-@app.route('/logout/', methods=['GET', 'POST'])
-def logout_page():
+@app.route('/logout', method=['GET', 'POST'])
+@app.route('/logout/', method=['GET', 'POST'])
+def logout():
     del session['user']
     session['logged_in'] = False
-    return redirect('/login/')
+    return redirect(ROOT_URL)
+
