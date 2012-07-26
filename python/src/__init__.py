@@ -17,7 +17,7 @@ app = SessionMiddleware(bottle_app, {
 })
 for attr in dir(bottle_app): # fucking black magic up in this bitch
     if not '__' in attr:
-        print "Setting {}.{} = {}.{} = ".format(app, attr, bottle_app, attr, getattr(bottle_app, attr))
+        print "Setting {}.{} = {}.{} = {}".format(app, attr, bottle_app, attr, getattr(bottle_app, attr))
         setattr(app, attr, getattr(bottle_app, attr))
 
 app.run = run
