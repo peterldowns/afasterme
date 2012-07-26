@@ -6,6 +6,7 @@ from beaker.middleware import (SessionMiddleware)
 from pystache import (template_globals, template)
 
 from api import (app as api_app)
+from fb import (app as fb_app)
 
 # Create the bottle app
 bottle_app = Bottle()
@@ -29,6 +30,7 @@ import auth
 # Add subapps
 subapps = {
     '/api'  : api_app,
+    '/fb'   : fb_app, # TODO: make the url the ROOT_URL of the application
 }
 for route, subapp in subapps.iteritems():
     app.mount(subapp, route)
