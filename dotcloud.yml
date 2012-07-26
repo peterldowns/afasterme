@@ -3,7 +3,7 @@ www:
     approot: python
     environment:
         MODE: dev
-        ON_DOTCLOUD: True
+        DOTCLOUD: True
 
 db:
     type: mongodb
