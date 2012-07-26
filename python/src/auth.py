@@ -1,5 +1,6 @@
 # coding: utf-8
 import requests
+from urlparse import (parse_qs)
 from bottle import (redirect, abort, request)
 from pystache import (template)
 
@@ -19,7 +20,6 @@ def fblogin():
 @app.post('/fblogin')
 @app.post('/fblogin/')
 def fblogin_handler():
-    s = session()
     fburl = (
         'https://www.facebook.com/dialog/oauth?client_id={0}'.format(fb_app_id)+
         '&redirect_uri={0}'.format(domainstr+'/fbredirect')+
@@ -41,41 +41,18 @@ def fblogin_redirect():
     resp = requests.post(url)
     print resp.status_code
     if resp.status_code == 200:
-        return resp.content
-    else:
+        data = parse_qs(resp.content)
+        print data
+        s = session()
+        s['access_token'] = data['access_token']
+        s['expires'] = data['expires']
+        s.save()
         redirect('/')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    else:
+        abort(500, {
+            'error':'things broke, yo',
+            'qstring' : resp.content,
+        })
 
 
 @app.get('/login')
