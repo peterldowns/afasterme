@@ -98,6 +98,6 @@ def delete_api_key(key):
 @app.route('/<path:path>', method=['GET', 'DELETE', 'PUT', 'HEAD', 'POST'])
 def api_bad_path(path):
     print path
-    print "Could not find {}".format(path)
+    print "Could not find {0}".format(path)
     return redirect(ROOT_URL)
 

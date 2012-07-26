@@ -21,10 +21,10 @@ def fblogin():
 def fblogin_handler():
     s = session()
     fburl = (
-        'https://www.facebook.com/dialog/oauth?client_id={}'.format(fb_app_id)+
-        '&redirect_uri={}'.format('http://localhost:8080/fbredirect')+
-        '&scope={}'.format(','.join(fb_perms))+
-        '&state={}'.format(s['_csrf'])
+        'https://www.facebook.com/dialog/oauth?client_id={0}'.format(fb_app_id)+
+        '&redirect_uri={0}'.format('http://localhost:8080/fbredirect')+
+        '&scope={0}'.format(','.join(fb_perms))+
+        '&state={0}'.format(s['_csrf'])
     )
     print "Redirect URL =", fburl
     redirect(fburl)
@@ -33,10 +33,10 @@ def fblogin_handler():
 @app.get('/fbredirect/')
 def fblogin_redirect():
     url = (
-        'https://graph.facebook.com/oauth/access_token?client_id={}'.format(fb_app_id)+
-        '&redirect_uri={}'.format('http://localhost:8080/fbredirect')+
-        '&client_secret={}'.format(fb_app_secret)+
-        '&code={}'.format(request.query.code)
+        'https://graph.facebook.com/oauth/access_token?client_id={0}'.format(fb_app_id)+
+        '&redirect_uri={0}'.format('http://localhost:8080/fbredirect')+
+        '&client_secret={0}'.format(fb_app_secret)+
+        '&code={0}'.format(request.query.code)
     )
     resp = requests.post(url)
     print resp.status_code
