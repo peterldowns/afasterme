@@ -20,11 +20,12 @@ def fblogin():
 @app.post('/fblogin')
 @app.post('/fblogin/')
 def fblogin_handler():
+    s = session()
     fburl = (
         'https://www.facebook.com/dialog/oauth?client_id={0}'.format(fb_app_id)+
         '&redirect_uri={0}'.format(domainstr+'/fbredirect')+
         '&scope={0}'.format(','.join(fb_perms))+
-        '&state={0}'.format(s['_csrf'])
+        '&state={0}'.format(s.get('_csrf'))
     )
     print "Redirect URL =", fburl
     redirect(fburl)
@@ -53,6 +54,26 @@ def fblogin_redirect():
             'error':'things broke, yo',
             'qstring' : resp.content,
         })
+
+@app.get('/fblogout')
+@app.get('/fblogout/')
+def fblogout():
+    # Update session vars
+    s = session()
+    access_token = s.get('access_token')
+    expires = s.get('expires')
+    if access_token: del s['access_token']
+    if expires: del s['expires']
+    s.save()
+
+    # Redirect to FB logout if the user had a token
+    if access_token:
+        url = 'https://facebook.com/logout.php?next={0}&access_token={1}'
+        url = url.format(domainstr, access_token)
+        redirect(url)
+    # Go home, Lassie
+    else:
+        redirect(ROOT_URL)
 
 
 @app.get('/login')
