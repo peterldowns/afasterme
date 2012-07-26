@@ -1,8 +1,9 @@
 # coding: utf-8
 from src import app # circular as fuck
-from bottle import (redirect, abort)
+from bottle import (redirect, abort, request)
 from pystache import (template)
 from db import (dbc)
+from util import (session)
 
 ROOT_URL = '/'
 
@@ -15,16 +16,18 @@ def login_page():
 @app.post('/login')
 @app.post('/login/')
 def login():
-    email = request.form['email']
-    password = request.form['password']
+    email = request.forms['email']
+    password = request.forms['password']
     if email and password:
         dbc.db('Running').collection('users')
         user = dbc.find_one({'email' : email, 'password' : password})
         if user:
-            session['user'] = user
-            session['logged_in'] = True
+            s = session()
+            s['user'] = user
+            s['logged_in'] = True
+            s.save()
             return {
-                'user' : user,
+                'user' : user['email'],
                 'error' : None,
             }
         return abort(400, {
@@ -39,7 +42,11 @@ def login():
 @app.route('/logout', method=['GET', 'POST'])
 @app.route('/logout/', method=['GET', 'POST'])
 def logout():
-    del session['user']
-    session['logged_in'] = False
+    s = session()
+    try:
+        s['logged_in'] = False
+        del s['user']
+    except KeyError: pass
+    s.save()
     return redirect(ROOT_URL)
 

@@ -2,12 +2,24 @@
 import conf
 import util
 from bottle import (Bottle, run, debug, static_file)
+from beaker.middleware import (SessionMiddleware)
 from pystache import (template_globals, template)
 
 from api import (app as api_app)
 
 # Create the bottle app
-app = Bottle()
+bottle_app = Bottle()
+app = SessionMiddleware(bottle_app, {
+    'session.type' : 'file',
+    'session.cookie_expires' : 300,
+    'session.data_dir' : '.session',
+    'session.auto' : True,
+})
+for attr in dir(bottle_app): # fucking black magic up in this bitch
+    if not '__' in attr:
+        print "Setting {}.{} = {}.{} = ".format(app, attr, bottle_app, attr, getattr(bottle_app, attr))
+        setattr(app, attr, getattr(bottle_app, attr))
+
 app.run = run
 debug(conf.debug)
 
@@ -23,7 +35,7 @@ for route, subapp in subapps.iteritems():
 
 # Set variables available to every template
 template_globals.update({
-    'csrf_token' : lambda: util.gen_csrf_token(session),
+    'csrf_token' : lambda: util.gen_csrf_token(),
     'name' : 'World',
 })
 
@@ -31,7 +43,11 @@ template_globals.update({
 @app.get('/')
 @template('static/templates/index.html')
 def index():
-    return {}, {}
+    user = util.session().get('user', {})
+    if user:
+        return {'name': user['email']}, {}
+    else:
+        return {}, {}
 
 # Static files
 @app.get('/static/<filepath:path>')

@@ -1,7 +1,10 @@
 # coding: utf-8
+import bottle
 from uuid import (uuid4)
 
-def gen_csrf_token(session):
-    if '_csrf' not in session:
-        session['_csrf'] = str(uuid4())
-    return session['_csrf']
+session = lambda: bottle.request.environ.get('beaker.session')
+
+def gen_csrf_token():
+    s = session()
+    s.setdefault('_csrf', str(uuid4()))
+    return s['_csrf']
