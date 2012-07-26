@@ -6,7 +6,7 @@ from pystache import (template)
 from src import app # circular as fuck
 from db import (dbc)
 from util import (session)
-from conf import (fb_perms, fb_app_id)
+from conf import (fb_perms, fb_app_id, fb_app_secret, domainstr)
 
 ROOT_URL = '/'
 
@@ -22,7 +22,7 @@ def fblogin_handler():
     s = session()
     fburl = (
         'https://www.facebook.com/dialog/oauth?client_id={0}'.format(fb_app_id)+
-        '&redirect_uri={0}'.format('http://localhost:8080/fbredirect')+
+        '&redirect_uri={0}'.format(domainstr+'/fbredirect')+
         '&scope={0}'.format(','.join(fb_perms))+
         '&state={0}'.format(s['_csrf'])
     )
@@ -34,14 +34,14 @@ def fblogin_handler():
 def fblogin_redirect():
     url = (
         'https://graph.facebook.com/oauth/access_token?client_id={0}'.format(fb_app_id)+
-        '&redirect_uri={0}'.format('http://localhost:8080/fbredirect')+
+        '&redirect_uri={0}'.format(domainstr+'/fbredirect')+
         '&client_secret={0}'.format(fb_app_secret)+
         '&code={0}'.format(request.query.code)
     )
     resp = requests.post(url)
     print resp.status_code
     if resp.status_code == 200:
-        print resp.content
+        return resp.content
     else:
         redirect('/')
 
