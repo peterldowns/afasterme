@@ -5,17 +5,6 @@ var express = require('express'),
     db_data = require('./db_wrapper').GetDBData(),
     app = module.exports = express.createServer();
 
-var db_conf = {
-  db: 'Running',
-  host: db_data.host,
-  port: db_data.port,
-  username: db_data.user,
-  password: db_data.password,
-  collection: 'sessions'
-}
-console.log(db_conf);
-
-
 // Configuration
 app.configure(function(){
   app.set('views', __dirname + '/views');
@@ -28,7 +17,14 @@ app.configure(function(){
   app.use(express.session({
     secret: 'super_secret, right?',
     maxAge: new Date(Date.now()+3600000),
-    store: new MongoStore(db_conf)
+    store: new MongoStore({
+      db: 'Running',
+      collection: 'sessions',
+      host: db_data.host,
+      port: db_data.port,
+      username: db_data.user,
+      password: db_data.password,
+    }),
   }));
   app.use(express.csrf());
   app.use(app.router);
