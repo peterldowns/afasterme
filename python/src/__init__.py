@@ -53,7 +53,6 @@ def index():
 
 # Static files
 @app.get('/static/<filepath:path>')
-@app.get('/static/<filepath:path>')
 def static(filepath):
     return static_file(filepath, root='static')
 
