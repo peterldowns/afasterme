@@ -35,63 +35,52 @@ def api_overview():
     }
 
 @app.post('/user')
-@app.post('/user/')
 def create_user():
     return abort(501, {'error': 'Not Implemented'})
 
 @app.get('/user/<username>')
-@app.get('/user/<username>/')
 def get_user(username):
     print username, type(username)
     return abort(501, {'error': 'Not Implemented'})
 
 @app.put('/user/<username>')
-@app.put('/user/<username>/')
 def update_user(username):
     print username, type(username)
     return abort(501, {'error': 'Not Implemented'})
 
 @app.delete('/user/<username>')
-@app.delete('/user/<username>/')
 def delete_user(username):
     print username, type(username)
     return abort(501, {'error': 'Not Implemented'})
 
 @app.post('/log')
-@app.post('/log/')
 def create_log():
     return abort(501, {'error': 'Not Implemented'})
 
 @app.get('/log/<year>/<month>/<day>')
-@app.get('/log/<year>/<month>/<day>/')
 def get_log(year, month, day):
     print year, month, day
 
 @app.put('/log/<year>/<month>/<day>')
-@app.put('/log/<year>/<month>/<day>/')
 def update_log(year, month, day):
     print year, month, day
     print "Got a put!"
     return abort(501, {'error': 'Not Implemented'})
 
 @app.delete('/log/<year>/<month>/<day>')
-@app.delete('/log/<year>/<month>/<day>/')
 def delete_log(year, month, day):
     print year, month, day
     return abort(501, {'error': 'Not Implemented'})
 
 @app.post('/key')
-@app.post('/key/')
 def create_api_key():
     return abort(501, {'error': 'Not Implemented'})
 
 @app.get('/key/<key>')
-@app.get('/key/<key>/')
 def get_key_info(key):
     return abort(501, {'error': 'Not Implemented'})
 
 @app.delete('/key/<key>')
-@app.delete('/key/<key>/')
 def delete_api_key(key):
     return abort(501, {'error' : 'Not Implemented'})
 
