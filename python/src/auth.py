@@ -12,13 +12,11 @@ from conf import (fb_perms, fb_app_id, fb_app_secret, domainstr)
 ROOT_URL = '/'
 
 @app.get('/fblogin')
-@app.get('/fblogin/')
 @template('static/templates/fblogin.html')
 def fblogin():
     return {}, {}
 
 @app.post('/fblogin')
-@app.post('/fblogin/')
 def fblogin_handler():
     s = session()
     fburl = (
@@ -31,7 +29,6 @@ def fblogin_handler():
     redirect(fburl)
 
 @app.get('/fbredirect')
-@app.get('/fbredirect/')
 def fblogin_redirect():
     url = (
         'https://graph.facebook.com/oauth/access_token?client_id={0}'.format(fb_app_id)+
@@ -56,7 +53,6 @@ def fblogin_redirect():
         })
 
 @app.get('/fblogout')
-@app.get('/fblogout/')
 def fblogout():
     # Update session vars
     s = session()
@@ -77,13 +73,11 @@ def fblogout():
 
 
 @app.get('/login')
-@app.get('/login/')
 @template('static/templates/login.html')
 def login_page():
     return {}, {}
 
 @app.post('/login')
-@app.post('/login/')
 def login():
     email = request.forms['email']
     password = request.forms['password']
@@ -109,7 +103,6 @@ def login():
     })
 
 @app.route('/logout', method=['GET', 'POST'])
-@app.route('/logout/', method=['GET', 'POST'])
 def logout():
     s = session()
     try:
