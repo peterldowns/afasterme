@@ -1,6 +1,6 @@
 www:
-    type: python
-    approot: python
+    type: nodejs
+    approot: node
     environment:
         MODE: dev
         DOTCLOUD: True
