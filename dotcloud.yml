@@ -6,5 +6,5 @@ www:
         NODE_ENV: live
         DOTCLOUD: True
 
-db:
+data:
     type: mongodb
