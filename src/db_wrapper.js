@@ -10,7 +10,7 @@ exports.GetDBData = function() {
       DB_PWD,
       DB_HOST,
       DB_PORT;
-  if (process.env.NODE_ENV === 'dev') {
+  if (process.env.NODE_ENV !== 'live') {
     DB_USER = 'peterldowns';
     DB_PWD = 'localpass';
     DB_HOST = 'localhost';

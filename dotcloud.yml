@@ -2,7 +2,8 @@ www:
     type: nodejs
     approot: src
     environment:
-        MODE: dev
+        MODE: live
+        NODE_ENV: live
         DOTCLOUD: True
 
 db:
