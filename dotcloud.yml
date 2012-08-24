@@ -1,6 +1,6 @@
 www:
     type: nodejs
-    approot: node
+    approot: src
     environment:
         MODE: dev
         DOTCLOUD: True
