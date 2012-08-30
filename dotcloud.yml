@@ -1,6 +1,5 @@
 www:
     type: nodejs
-    approot: src
     environment:
         MODE: live
         NODE_ENV: live
