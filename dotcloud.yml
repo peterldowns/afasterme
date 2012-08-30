@@ -1,9 +1,0 @@
-www:
-    type: nodejs
-    environment:
-        MODE: live
-        NODE_ENV: live
-        DOTCLOUD: True
-
-data:
-    type: mongodb
