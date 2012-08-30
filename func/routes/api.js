@@ -1,6 +1,6 @@
-var db_wrapper = require('../db_wrapper'),
-    DBConn = db_wrapper.DBConn,
-    DB_DATA = db_wrapper.GetDBData(),
+var db = require('../db'),
+    DBConn = db.DBConn,
+    DB_DATA = db.GetDBData(),
     DBC = new DBConn(DB_DATA.host, DB_DATA.port, DB_DATA.user, DB_DATA.password),
    
     running = require('../running'),

@@ -1,14 +1,15 @@
 module.exports = function(app, express){
-  var db_data = require('./db_wrapper').GetDBData(),
-      MongoStore = require('connect-mongo')(express);
+  var db_data = require('./db').GetDBData(),
+      MongoStore = require('connect-mongo')(express),
+      approot = __dirname + '/';
 
   app.configure(function(){
-    app.set('views', __dirname + '/views');
+    app.set('views', approot + '../views');
     app.set('view engine', 'jade');
     app.use(express.logger({format: ':method :url'}));
     app.use(express.bodyParser());
     app.use(express.cookieParser());
-    app.use(express.static(__dirname + '/public'));
+    app.use(express.static(approot + '../public'));
     app.use(express.methodOverride());
     app.use(express.session({
       secret: 'super_secret, right?',
