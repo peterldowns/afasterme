@@ -1,4 +1,4 @@
-var db = require('../db'),
+var db = require('../db/db'),
     DBConn = db.DBConn,
     DB_DATA = db.GetDBData(),
     DBC = new DBConn(DB_DATA.host, DB_DATA.port, DB_DATA.user, DB_DATA.password),
