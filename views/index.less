@@ -1,0 +1,68 @@
+/* Variables */
+
+@blue: #0040FF;
+@blue-light: lighten(@blue, 20%);
+@blue-xlight: lighten(@blue, 40%);
+@blue-dark: darken(@blue, 20%);
+@blue-xdark: darken(@blue, 40%);
+
+@red: #FF0040;
+@red-light: lighten(@red, 20%);
+@red-xlight: lighten(@red, 40%);
+@red-dark: darken(@red, 20%);
+@red-xdark: darken(@red, 40%);
+
+@white: #FFF;
+@grey: #888;
+@black: #000;
+@grey-light: lighten(@grey, 40%);
+@grey-dark: darken(@grey, 40%);
+
+/* Fonts */
+
+@import url('http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic');
+
+/* Mixins */
+
+.top-bar (@width: 100%, @height: 30px) {
+    box-sizing: border-box;
+    width: @width;
+    height: @height;
+    padding: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    
+    color: @grey-light;
+    font-size: 16px;
+}
+
+/* Styling */
+
+html {
+    background: url('lightmesh.png') repeat;
+    font-family: 'Helvetica', 'Lato', 'Georgia', sans-serif;
+}
+#header {
+    .top-bar;
+    background: @blue;
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        li {
+            display: inline-block;
+            padding-left: 5px;
+            text-align: center;
+            padding: 5px;
+        }
+        li:hover {
+            background: @red;
+        }
+    }
+}
+
+#nav {
+    .top-bar;
+    background: @grey-dark;
+    margin-bottom: 2px solid @black;
+}
