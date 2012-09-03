@@ -32,7 +32,7 @@
     padding-top: 7px;
     padding-bottom: 7px;
     
-    color: @grey-light;
+    color: @black;
     font-size: 16px;
 }
 
@@ -42,9 +42,11 @@ html {
     background: url('lightmesh.png') repeat;
     font-family: 'Helvetica', 'Lato', 'Georgia', sans-serif;
 }
+
 #header {
     .top-bar;
-    background: @blue;
+    background: @blue-xlight;
+    color: @black;
     ul {
         list-style-type: none;
         padding: 0;
@@ -52,11 +54,14 @@ html {
         li {
             display: inline-block;
             padding-left: 5px;
+            padding-right: 5px;
             text-align: center;
-            padding: 5px;
         }
-        li:hover {
-            background: @red;
+    }
+    form {
+        color: @red;
+        input {
+            margin-top: -5px;
         }
     }
 }
@@ -64,5 +69,6 @@ html {
 #nav {
     .top-bar;
     background: @grey-dark;
+    color: @grey-light;
     margin-bottom: 2px solid @black;
 }

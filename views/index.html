@@ -6,8 +6,21 @@
   <meta charset='utf-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
 
-  <!--<link rel='stylesheet' href='1140.css' type='text/css' media='screen'/>-->
+  <link rel='stylesheet' href='1140.css' type='text/css' media='screen'/>
   <link rel='stylesheet' href='index.css' type='text/css' media='screen'/>
+  <style>
+    .btn-group .pull-right {
+      padding-bottom: 0;
+      padding: 0;
+      margin: 0;
+    }
+    .btn-group form {
+      padding: 0;
+      margin: 0;
+    }
+    .btn-group form .control-group {
+      display: inline;
+  </style>
 </head>
 
 <body>
@@ -18,10 +31,13 @@
   </div>
   <div style='float: right'>
     <ul>
-      <li> A </li>
-      <li> B </li>
-      <li> C </li>
-      <li> D </li>
+      <li>
+        <form id='loginForm' class='inline-form'>
+          <input class='input-medium' type='text' name='email' id='email' placeholder='email' />
+          <input class='input-small' type='password' name='password' id='password' placeholder='password' />
+          <input class='btn primary search' type='submit' value='Log In →' />
+        </form>
+      </li>
     </ul>
   </div>
 </div>
