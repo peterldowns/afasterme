@@ -18,57 +18,102 @@
 @grey-light: lighten(@grey, 40%);
 @grey-dark: darken(@grey, 40%);
 
+@topbar-width: 100%;
+@topbar-height: 30px;
+@topbar-fontsize: 16px;
+@topbar-vpadding: (@topbar-height - @topbar-fontsize)/2;
+@topbar-hpadding: 10px;
+
 /* Fonts */
 
 @import url('http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic');
 
 /* Mixins */
 
-.top-bar (@width: 100%, @height: 30px) {
-    box-sizing: border-box;
-    width: @width;
-    height: @height;
-    padding: 10px;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    
-    color: @black;
-    font-size: 16px;
-}
-
 /* Styling */
 
 html {
+    /*min-width: 760px;*/
     background: url('lightmesh.png') repeat;
     font-family: 'Helvetica', 'Lato', 'Georgia', sans-serif;
 }
 
-#header {
-    .top-bar;
-    background: @blue-xlight;
+body {
+    margin: 0;
+    padding: 0;
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.top-bar {
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    width: @topbar-width;
+    height: @topbar-height;
+    
     color: @black;
+    font-size: @topbar-fontsize;
     ul {
         list-style-type: none;
         padding: 0;
         margin: 0;
         li {
+            margin: 0;
+            padding: 0;
             display: inline-block;
-            padding-left: 5px;
-            padding-right: 5px;
             text-align: center;
+            width: 100% auto;
         }
     }
     form {
-        color: @red;
-        input {
-            margin-top: -5px;
+        height: 20px;
+        * {
+            margin-top: (@topbar-height - 24px)/2;
+            margin-bottom: (@topbar-height - 24px)/2;
+            padding: 2px;
+            margin-left: 5px;
+        }
+        &:last-child {
+            margin-right: 10px;
+        }
+        .btn {
+            padding-left: 5px;
+            padding-right: 5px;
         }
     }
 }
 
-#nav {
-    .top-bar;
-    background: @grey-dark;
-    color: @grey-light;
-    margin-bottom: 2px solid @black;
+#header {
+    background: @blue-xlight;
+    color: @blue-xdark; 
+    #logo {
+        padding-left: 10px;
+        padding-top: @topbar-vpadding;
+        padding-bottom: @topbar-vpadding;
+        font-weight: bold;
+    }
 }
+
+#nav {
+    width: @topbar-width;
+    height: @topbar-height;
+    margin-left: auto;
+    margin-right: auto;
+    
+    background: @blue-xdark;
+    color: @blue-xlight;
+}
+
+#main {
+    max-width: 100%;
+    height: 800px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+* {
+    border-radius: 0 !important;
+}
+
