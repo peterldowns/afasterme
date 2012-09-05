@@ -1,12 +1,12 @@
-var db = require('../db/db'),
+var db = require('../util/db'),
     DBConn = db.DBConn,
     DB_DATA = db.GetDBData(),
     DBC = new DBConn(DB_DATA.host, DB_DATA.port, DB_DATA.user, DB_DATA.password),
    
-    running = require('../running'),
-    m = running.m,
-    mtm = running.mtm,
-    makeSchedule = running.makeSchedule;
+    run = require('../util/run'),
+    m = run.m,
+    mtm = run.mtm,
+    makeSchedule = run.makeSchedule;
 
 module.exports = function(app){
   app.post('/login', function(req, res) {
@@ -15,7 +15,7 @@ module.exports = function(app){
     console.log("POST /login:\n\temail: %s\n\tpassword: %s", email, password);
     if (email && password) {
       DBC.db('Running', function(DBC){
-        console.log("Into Running");
+        console.log("Into run");
         DBC.collection('users', function(DBC){
           console.log("... into users");
           DBC.findOne({email: email, password: password}, function(result){
@@ -245,7 +245,7 @@ module.exports = function(app){
       console.log("Updated log data:");
       console.log(req.session.user.calendar[daykey].log);
       DBC.db('Running', function(DBC){
-        console.log("Into Running");
+        console.log("Into run");
         DBC.collection('users', function(DBC){
           console.log("... into users");
           DBC.update({ email: req.session.user.email}, {$set: {calendar: req.session.user.calendar}}, {safe:true}, function(err){

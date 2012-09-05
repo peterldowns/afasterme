@@ -1,7 +1,7 @@
 // Dependencies
 var express = require('express'),
     app = module.exports = express.createServer(),
-    db_data = require('./db/db').GetDBData(),
+    db_data = require('./util/db').GetDBData(),
     MongoStore = require('connect-mongo')(express),
     approot = __dirname + '/';
 

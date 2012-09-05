@@ -1,13 +1,13 @@
-var running = require('../running'),
-    m = running.m,
-    mtm = running.mtm,
-    makeSchedule = running.makeSchedule;
+var run = require('../util/run'),
+    m = run.m,
+    mtm = run.mtm,
+    makeSchedule = run.makeSchedule;
 
 module.exports = function(app){
   app.get('/dashboard', function(req, res) {
     if (req.session.loggedIn){
       console.log('rendering dashboard');
-      var dayKey = running.makeKey(new Date());
+      var dayKey = run.makeKey(new Date());
       console.log("Made new key:", dayKey);
       res.render('dashboard', {
         title: 'A Faster Me — Dashboard',
