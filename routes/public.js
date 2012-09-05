@@ -4,7 +4,7 @@ module.exports = function(app){
       res.redirect('/dashboard');
     }
     else {
-      res.render('landing', {
+      res.render('index.html', {
         title: 'Welcome to A Faster Me',
         session: req.session
       });

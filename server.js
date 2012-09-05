@@ -7,8 +7,9 @@ var express = require('express'),
 
 // Configuration
 app.configure(function(){
-  app.set('views', approot + '/views');
-  app.set('view engine', 'jade');
+  app.set('views', approot + 'views');
+  app.set("view options", {layout: false});
+  app.register(".html", require('./util/template'));
   app.use(express.logger({format: ':method :url'}));
   app.use(express.bodyParser());
   app.use(express.cookieParser());

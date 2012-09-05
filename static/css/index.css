@@ -29,7 +29,7 @@ body {
   height: 40px;
   clear: left;
   background: #ffffff;
-  color: #992600;
+  color: #004466;
 }
 .header .left {
   float: left;
@@ -48,7 +48,7 @@ body {
 .header:last-child {
   height: 40px;
   padding: 0;
-  background: #992600;
+  background: #004466;
   color: #ffffff;
 }
 .header:last-child div {
@@ -61,7 +61,7 @@ body {
 }
 .header:last-child div:hover {
   background: #ffffff;
-  color: #992600;
+  color: #004466;
 }
 .content {
   z-index: 10;
