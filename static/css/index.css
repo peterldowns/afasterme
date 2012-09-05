@@ -29,7 +29,7 @@ body {
   height: 40px;
   clear: left;
   background: #ffffff;
-  color: #004466;
+  color: #0044cc;
 }
 .header .left {
   float: left;
@@ -48,20 +48,20 @@ body {
 .header:last-child {
   height: 40px;
   padding: 0;
-  background: #004466;
+  background: #0044cc;
   color: #ffffff;
 }
 .header:last-child div {
-  box-sizing: border-box;
   float: left;
   display: inline;
-  width: 33.33%;
+  width: 33.334%;
   text-align: center;
   height: 40px;
+  border-bottom: 2px solid #0044cc;
 }
 .header:last-child div:hover {
   background: #ffffff;
-  color: #004466;
+  color: #0044cc;
 }
 .content {
   z-index: 10;

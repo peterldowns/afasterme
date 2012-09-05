@@ -7,12 +7,13 @@
 @green-dark: darken(@green, 20%);
 @green-xdark: darken(@green, 40%);
 
-//@red: #FF4000;
-@red: #08C;
-@red-light: lighten(@red, 20%);
-@red-xlight: lighten(@red, 40%);
-@red-dark: darken(@red, 20%);
-@red-xdark: darken(@red, 40%);
+//@blue: #FF4000;
+//@blue: #08C;
+@blue: #04C;
+@blue-light: lighten(@blue, 20%);
+@blue-xlight: lighten(@blue, 40%);
+@blue-dark: darken(@blue, 20%);
+@blue-xdark: darken(@blue, 40%);
 
 @white: #FFF;
 @grey: #888;
@@ -56,7 +57,7 @@ body {
     clear: left;
     
     background: @white;
-    color: @red-dark;
+    color: @blue;
 
     .left {
         float: left;
@@ -77,19 +78,19 @@ body {
     &:last-child { // Navigation bar
         height: 40px;
         padding: 0;
-        background: @red-dark;
+        background: @blue;
         color: @white;
         div {
-            box-sizing: border-box;
             float: left;
             display: inline;
-            width: 33.33%;
+            width: 33.334%;
             text-align: center;
             height: 40px;
             &:hover {
                 background: @white;
-                color: @red-dark;
+                color: @blue;
             }
+            border-bottom: 2px solid @blue;
         }
     }
 }
