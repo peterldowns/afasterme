@@ -1,6 +1,7 @@
 /* Variables */
 
-@green: #00FF40;
+//@green: #00FF40;
+@green: #FF0040;
 @green-light: lighten(@green, 20%);
 @green-xlight: lighten(@green, 40%);
 @green-dark: darken(@green, 20%);
@@ -31,7 +32,6 @@ html {
     font-family: 'Helvetica', 'Lato', 'Georgia', sans-serif;
 }
 
-
 body {
     margin: 0;
     padding: 0;
@@ -54,8 +54,8 @@ body {
     height: 40px;
     clear: left;
     
-    background: @green-xlight;
-    color: @grey-dark;
+    background: @white;
+    color: @red-dark;
 
     .left {
         float: left;
@@ -76,8 +76,8 @@ body {
     &:last-child { // Navigation bar
         height: 40px;
         padding: 0;
-        background: @grey-dark;
-        color: @green-xlight;
+        background: @red-dark;
+        color: @white;
         div {
             box-sizing: border-box;
             float: left;
@@ -86,8 +86,8 @@ body {
             text-align: center;
             height: 40px;
             &:hover {
-                background: @green-xlight;
-                color: @grey-dark;
+                background: @white;
+                color: @red-dark;
             }
         }
     }
