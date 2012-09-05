@@ -4263,10 +4263,12 @@ button.close {
   }
 }
 @media (max-width: 767px) {
+  /*
   body {
     padding-left: 20px;
     padding-right: 20px;
   }
+  */
   .navbar-fixed-top,
   .navbar-fixed-bottom {
     margin-left: -20px;

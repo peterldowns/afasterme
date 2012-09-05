@@ -7,9 +7,10 @@
 @green-dark: darken(@green, 20%);
 @green-xdark: darken(@green, 40%);
 
-//@blue: #FF4000;
 //@blue: #08C;
-@blue: #04C;
+//@blue: #04C;
+//@blue: #FF4000;
+@blue: #000;
 @blue-light: lighten(@blue, 20%);
 @blue-xlight: lighten(@blue, 40%);
 @blue-dark: darken(@blue, 20%);
@@ -30,7 +31,7 @@
 /* Styling */
 
 html {
-    background: url('lightmesh.png') repeat;
+    background: url('/img/lightmesh.png') repeat;
     font-family: 'Helvetica', 'Lato', 'Georgia', sans-serif;
 }
 
@@ -42,12 +43,14 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
 .topbar {
     height: 80px;
     margin: 0;
     padding: 0;
     z-index: 20;    
 }
+
 .header {
     box-sizing: border-box;
     margin: 0;
@@ -73,10 +76,10 @@ body {
         background: inherit;
         text-decoration: none;
     }
-    #top { // Logo & login / user information
+    &:first-child{ // Logo & login / user information
     }
-    #bottom { // Navigation bar
-        height: 40px;
+    &:last-child { // Navigation bar
+        height: 30px;
         padding: 0;
         background: @blue;
         color: @white;
@@ -85,24 +88,20 @@ body {
             display: inline;
             width: 33.334%;
             text-align: center;
-            height: 40px;
+            height: 30px;
+            line-height: 30px;
             &:hover {
                 background: @white;
                 color: @blue;
+                text-decoration: underline;
             }
-            border-bottom: 2px solid @blue;
         }
     }
 }
-
 .content {
     z-index: 10;
     margin-top: 90px;
     height: 800px; // just for testing
-    margin-left: 80px;
-    margin-right: 80px;
-}
-
-* {
-    border-radius: 0;
+    padding-left: 20px;
+    padding-right: 20px;
 }

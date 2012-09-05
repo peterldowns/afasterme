@@ -4,7 +4,7 @@
 /* Mixins */
 /* Styling */
 html {
-  background: url('lightmesh.png') repeat;
+  background: url('/img/lightmesh.png') repeat;
   font-family: 'Helvetica', 'Lato', 'Georgia', sans-serif;
 }
 body {
@@ -29,7 +29,7 @@ body {
   height: 40px;
   clear: left;
   background: #ffffff;
-  color: #0044cc;
+  color: #000000;
 }
 .header .left {
   float: left;
@@ -45,31 +45,29 @@ body {
   background: inherit;
   text-decoration: none;
 }
-.header #bottom {
-  height: 40px;
+.header:last-child {
+  height: 30px;
   padding: 0;
-  background: #0044cc;
+  background: #000000;
   color: #ffffff;
 }
-.header #bottom div {
+.header:last-child div {
   float: left;
   display: inline;
   width: 33.334%;
   text-align: center;
-  height: 40px;
-  border-bottom: 2px solid #0044cc;
+  height: 30px;
+  line-height: 30px;
 }
-.header #bottom div:hover {
+.header:last-child div:hover {
   background: #ffffff;
-  color: #0044cc;
+  color: #000000;
+  text-decoration: underline;
 }
 .content {
   z-index: 10;
   margin-top: 90px;
   height: 800px;
-  margin-left: 80px;
-  margin-right: 80px;
-}
-* {
-  border-radius: 0;
+  padding-left: 20px;
+  padding-right: 20px;
 }
