@@ -1,26 +1,17 @@
 /* Variables */
 
-//@green: #00FF40;
-@green: #FF0040;
-@green-light: lighten(@green, 20%);
-@green-xlight: lighten(@green, 40%);
-@green-dark: darken(@green, 20%);
-@green-xdark: darken(@green, 40%);
-
-//@blue: #08C;
-//@blue: #04C;
-//@blue: #FF4000;
-@blue: #000;
-@blue-light: lighten(@blue, 20%);
-@blue-xlight: lighten(@blue, 40%);
-@blue-dark: darken(@blue, 20%);
-@blue-xdark: darken(@blue, 40%);
+//@base: #00FF40; // green
+//@base: #FF0040; // red
+//@base: #04C; // blue
+@base: #000;
+@base-light: lighten(@base, 20%);
+@base-xlight: lighten(@base, 40%);
+@base-dark: darken(@base, 20%);
+@base-xdark: darken(@base, 40%);
 
 @white: #FFF;
 @grey: #888;
 @black: #000;
-@grey-light: lighten(@grey, 40%);
-@grey-dark: darken(@grey, 40%);
 
 /* Fonts */
 
@@ -45,7 +36,7 @@ body {
 }
 
 .topbar {
-    height: 80px;
+    height: 70px;
     margin: 0;
     padding: 0;
     z-index: 20;    
@@ -60,7 +51,7 @@ body {
     clear: left;
     
     background: @white;
-    color: @blue;
+    color: @base;
 
     .left {
         float: left;
@@ -81,7 +72,7 @@ body {
     &:last-child { // Navigation bar
         height: 30px;
         padding: 0;
-        background: @blue;
+        background: @base;
         color: @white;
         div {
             float: left;
@@ -89,10 +80,10 @@ body {
             width: 33.334%;
             text-align: center;
             height: 30px;
-            line-height: 30px;
+            padding-top: 2px;
             &:hover {
                 background: @white;
-                color: @blue;
+                color: @base;
                 text-decoration: underline;
             }
         }
