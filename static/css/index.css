@@ -45,13 +45,13 @@ body {
   background: inherit;
   text-decoration: none;
 }
-.header:last-child {
+.header #bottom {
   height: 40px;
   padding: 0;
   background: #0044cc;
   color: #ffffff;
 }
-.header:last-child div {
+.header #bottom div {
   float: left;
   display: inline;
   width: 33.334%;
@@ -59,7 +59,7 @@ body {
   height: 40px;
   border-bottom: 2px solid #0044cc;
 }
-.header:last-child div:hover {
+.header #bottom div:hover {
   background: #ffffff;
   color: #0044cc;
 }
