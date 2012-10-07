@@ -1,0 +1,73 @@
+@import url('http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic');
+/* Variables */
+/* Fonts */
+/* Mixins */
+/* Styling */
+html {
+  background: url('/img/lightmesh.png') repeat;
+  font-family: 'Helvetica', 'Lato', 'Georgia', sans-serif;
+}
+body {
+  margin: 0;
+  padding: 0;
+  max-width: 1140px;
+  min-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.topbar {
+  height: 70px;
+  margin: 0;
+  padding: 0;
+  z-index: 20;
+}
+.header {
+  box-sizing: border-box;
+  margin: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 40px;
+  clear: left;
+  background: #ffffff;
+  color: #000000;
+}
+.header .left {
+  float: left;
+}
+.header .right {
+  float: right;
+}
+.header > * {
+  box-sizing: border-box;
+}
+.header a {
+  color: inherit;
+  background: inherit;
+  text-decoration: none;
+}
+.header:last-child {
+  height: 30px;
+  padding: 0;
+  background: #000000;
+  color: #ffffff;
+}
+.header:last-child div {
+  float: left;
+  display: inline;
+  width: 33.334%;
+  text-align: center;
+  height: 30px;
+  padding-top: 2px;
+}
+.header:last-child div:hover {
+  background: #ffffff;
+  color: #000000;
+  text-decoration: underline;
+}
+.content {
+  z-index: 10;
+  margin-top: 90px;
+  height: 800px;
+  padding-left: 20px;
+  padding-right: 20px;
+}

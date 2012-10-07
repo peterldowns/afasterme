@@ -1,0 +1,44 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: url('/img/asfalt.png') repeat;
+}
+
+@width: 400px;
+@height: 360px;
+#main {
+    background: url('/img/lightmesh.png') repeat;
+    background: #EEE;
+    border-radius: 10px;
+    border: 2px solid #999;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: @width;
+    height: @height;
+    margin-left: -(@width/2);
+    margin-top:  -(@height/2);
+
+    text-align: center;
+    h1 {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+.form {
+    width: @width/2;
+    display: inline block;
+    float: left;
+    padding: 0;
+    margin: 0;
+    form {
+        font-size: 200%;
+        line-height: 200%;
+        input, button {
+            margin-top: 20px;
+        }
+    }
+}

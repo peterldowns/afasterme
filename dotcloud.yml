@@ -1,9 +1,0 @@
-www:
-    type: python
-    approot: python
-    environment:
-        MODE: dev
-        DOTCLOUD: True
-
-db:
-    type: mongodb

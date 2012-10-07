@@ -1,0 +1,98 @@
+/* Variables */
+
+//@base: #00FF40; // green
+//@base: #FF0040; // red
+//@base: #04C; // blue
+@base: #000;
+@base-light: lighten(@base, 20%);
+@base-xlight: lighten(@base, 40%);
+@base-dark: darken(@base, 20%);
+@base-xdark: darken(@base, 40%);
+
+@white: #FFF;
+@grey: #888;
+@black: #000;
+
+/* Fonts */
+
+@import url('http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic');
+
+/* Mixins */
+
+/* Styling */
+
+html {
+    background: url('/img/lightmesh.png') repeat;
+    font-family: 'Helvetica', 'Lato', 'Georgia', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    max-width: 1140px;
+    min-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.topbar {
+    height: 70px;
+    margin: 0;
+    padding: 0;
+    z-index: 20;    
+}
+
+.header {
+    box-sizing: border-box;
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 40px;
+    clear: left;
+    
+    background: @white;
+    color: @base;
+
+    .left {
+        float: left;
+    }
+    .right {
+        float: right;
+    }
+    > * {
+        box-sizing: border-box;
+    }
+    a {
+        color: inherit;
+        background: inherit;
+        text-decoration: none;
+    }
+    &:first-child{ // Logo & login / user information
+    }
+    &:last-child { // Navigation bar
+        height: 30px;
+        padding: 0;
+        background: @base;
+        color: @white;
+        div {
+            float: left;
+            display: inline;
+            width: 33.334%;
+            text-align: center;
+            height: 30px;
+            padding-top: 2px;
+            &:hover {
+                background: @white;
+                color: @base;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+.content {
+    z-index: 10;
+    margin-top: 90px;
+    height: 800px; // just for testing
+    padding-left: 20px;
+    padding-right: 20px;
+}
